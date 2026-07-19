@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2주간의 클로드 코드, 그리고 S 사분면 워크숍 · 26여름 AI부사수 3회차 (주말)</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root {
+    --bg: #F8F7F4;
+    --text: #2C2C2C;
+    --text-sub: #6B6B6B;
+    --text-dim: #9A9A9A;
+    --accent: #8B5E3C;
+    --accent2: #3D5A80;
+    --accent3: #5B7B5E;
+    --accent4: #7B6B8A;
+    --accent5: #8A5E5E;
+    --accent6: #5A7B7B;
+    --card-bg: #F1EFEA;
+    --r-background-color: var(--bg);
+    --r-main-font: 'Pretendard', -apple-system, sans-serif;
+    --r-heading-font: 'Pretendard', -apple-system, sans-serif;
+    --r-main-color: var(--text);
+    --r-heading-color: var(--text);
+    --r-main-font-size: 30px;
+  }
+  .reveal { font-weight: 400; }
+  .reveal h1 { font-size: 2.4em; font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; }
+  .reveal h2 { font-size: 1.3em; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.5em; }
+  .reveal h3 { font-size: 0.7em; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 6px; word-break: keep-all; overflow-wrap: break-word; }
+  .reveal p { font-size: 0.6em; line-height: 1.6; color: var(--text-sub); }
+  .reveal li { font-size: 0.6em; line-height: 1.6; color: var(--text-sub); }
+  .reveal ul { list-style: none; padding-left: 0; margin: 0; }
+  .reveal ul li { padding-left: 14px; position: relative; }
+  .reveal ul li::before { content: ""; position: absolute; left: 0; top: 11px; width: 4px; height: 4px; border-radius: 50%; background: var(--text-dim); }
+  .reveal ol { padding-left: 18px; }
+  .reveal ol li { padding-left: 4px; }
+  .reveal ol li::before { display: none; }
+  .reveal section { text-align: left; padding: 36px 60px 56px !important; box-sizing: border-box; overflow: hidden; }
+  .reveal .slides section:not(.present) { opacity: 0 !important; visibility: hidden !important; }
+  .reveal code { font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; font-size: 0.88em; }
+  .reveal .slides { text-align: left; }
+  .reveal .slide-number { font-family: 'Pretendard'; font-size: 11px; color: var(--text-dim); }
+  .reveal .controls { color: var(--accent); }
+  .reveal .progress { display: none; }
+
+  .sub { color: var(--text-sub); }
+  .dim { color: var(--text-dim); }
+  .accent { color: var(--accent); }
+  .accent2 { color: var(--accent2); }
+  .accent3 { color: var(--accent3); }
+  .accent4 { color: var(--accent4); }
+  .accent5 { color: var(--accent5); }
+  .accent6 { color: var(--accent6); }
+  .bold { font-weight: 600; }
+  .small { font-size: 0.6em !important; }
+  .tiny { font-size: 0.52em !important; }
+  .tiny li, .tiny p { font-size: 1em !important; }
+  .small li, .small p { font-size: 1em !important; }
+
+  .label { font-size: 0.42em; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+
+  .grid { display: grid; gap: 24px; }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .grid-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+  .card { background: var(--card-bg); border-radius: 8px; padding: 22px 24px; overflow: hidden; }
+  .card h3 { margin: 0; }
+  .card p { margin: 0; }
+  .card ul, .card ol { margin: 0; }
+  .card > * + * { margin-top: 12px !important; }
+  .card li + li { margin-top: 3px; }
+
+  .code-block { background: #2C2C2C; border-radius: 8px; padding: 18px 22px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.52em; line-height: 1.85; color: #D4D0C8; text-align: left; }
+  .code-block .prompt { color: var(--accent3); }
+  .code-block .cmd { color: #D4A574; }
+  .code-block .comment { color: #6B6B6B; }
+
+  .skill-tag { display: inline-block; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.5em; font-weight: 500; padding: 3px 10px; border-radius: 4px; background: rgba(139,94,60,0.08); color: var(--accent); margin-bottom: 8px; }
+
+  .summary-card { background: var(--card-bg); border-radius: 8px; padding: 14px 24px; text-align: center; }
+  .qblock { background: rgba(139,94,60,0.06); border-radius: 8px; padding: 14px 20px; }
+
+  .placeholder { border: 1.5px dashed rgba(139,94,60,0.4); background: rgba(139,94,60,0.03); }
+  .fillnote { font-size: 0.46em; color: var(--accent); background: rgba(139,94,60,0.07); border-radius: 6px; padding: 8px 14px; }
+
+  .stat-num { font-size: 1.4em; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; }
+  .stat-label { font-size: 0.46em; color: var(--text-sub); margin-top: 4px; }
+
+  .step-number { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #F8F7F4; font-size: 0.48em; font-weight: 700; margin-right: 8px; flex-shrink: 0; }
+
+  /* Custom progress bar */
+  #custom-progress { position: fixed; bottom: 0; left: 0; right: 0; height: 28px; background: #ECEAE5; display: flex; z-index: 100; font-family: 'Pretendard', sans-serif; }
+  #custom-progress .seg { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; color: var(--text-dim); letter-spacing: 0.02em; position: relative; transition: background 0.3s, color 0.3s; cursor: pointer; }
+  #custom-progress .seg.active { background: var(--accent); color: #F8F7F4; }
+  #custom-progress .seg.done { background: rgba(139,94,60,0.2); color: var(--accent); }
+  #custom-progress .seg + .seg { border-left: 1px solid rgba(0,0,0,0.06); }
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ===== 0: TITLE ===== -->
+<section>
+  <div style="display:flex; flex-direction:column; justify-content:center; height:100%; text-align:center;">
+    <h1>2주간의 클로드 코드,<br><span class="accent">그리고 S 사분면 워크숍</span></h1>
+    <p style="font-size:0.78em; color:var(--text-sub); font-weight:400; margin-top:16px;">AI 업데이트 · 지난 2주 작업 공유 · 미뤄둔 일을 시작하는 시간</p>
+    <p class="dim" style="font-size:0.46em; margin-top:40px;">26여름 AI부사수 3회차 &middot; 7월 19일 (일) &middot; @Seulki.log</p>
+  </div>
+</section>
+
+<!-- ===== 1: 2회차 리캡 ===== -->
+<section>
+  <div class="label">Recap &mdash; 2회차</div>
+  <h2>지난 시간에 다룬 것</h2>
+  <div class="grid grid-3" style="gap:16px; margin-bottom:14px;">
+    <div class="card" style="padding:16px 20px;">
+      <h3 class="accent">STAR 프레임워크</h3>
+      <p style="color:var(--text); margin-top:6px;">AI에게 뭘 시킬지 정리하는 4가지 관점.</p>
+      <p class="dim" style="margin-top:6px;"><span class="bold">S</span>tart &middot; <span class="bold">T</span>ry &middot; <span class="bold">A</span>mplify &middot; <span class="bold">R</span>ecover</p>
+    </div>
+    <div class="card" style="padding:16px 20px;">
+      <h3 class="accent2">설치 단계</h3>
+      <p style="color:var(--text); margin-top:6px;">Claude Code 구독 &rarr; VS Code 설치 &rarr; 확장 연결.</p>
+      <p class="dim" style="margin-top:6px;">모든 일의 시작과 끝이 되어야 기록이 축적되고 더 정교한 결과가 나옴.</p>
+    </div>
+    <div class="card" style="padding:16px 20px;">
+      <h3 class="accent3">데일리 노트 스킬 제작</h3>
+      <p style="color:var(--text); margin-top:6px;">자연어로 말해서 하루를 정리하는 <span class="bold">데일리 노트 스킬</span>을 직접 만들어봤습니다.</p>
+      <p class="dim" style="margin-top:6px;">여러 스킬을 연결해 트리거로 만들 수도 있음.</p>
+    </div>
+  </div>
+  <div class="summary-card" style="padding:12px 20px;">
+    <p style="font-size:0.54em; color:var(--text); margin:0;">
+      <span class="accent bold">오늘의 흐름</span> &mdash;
+      <span class="sub">AI 업데이트 &rarr; 지난 2주 작업 공유 &rarr; S 사분면 자세히 &rarr; 연결 준비 &rarr; 워크숍 실습 &rarr; 멤버 Q&amp;A</span>
+    </p>
+  </div>
+</section>
+
+<!-- ===== 2: PART 1 HEADER (AI 업데이트) ===== -->
+<section>
+  <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
+    <div class="label">Part 1 &middot; What's New</div>
+    <h1 style="font-size:1.8em;">지난 몇 주,<br><span class="accent">무슨 일이 있었나</span></h1>
+    <p style="font-size:0.66em; color:var(--text); margin-top:24px; line-height:1.8;">
+      무료로 열린 도구가 늘고, 모델이 또 한 칸 좋아지고,<br>
+      요청하는 법까지 바뀌고 있습니다.
+    </p>
+    <p class="dim" style="font-size:0.5em; margin-top:20px;">오프닝 트렌드 브리핑: "추적 피로" 대신 "내 일과의 접점"만 봅니다.</p>
+  </div>
+</section>
+
+<!-- ===== 3: 무료로 열린 모델 100개 (엔비디아) · 4-fri #/3 ===== -->
+<section>
+  <div class="label">Free Now &middot; 신용카드 없이 오늘 바로</div>
+  <h2>엔비디아가 AI 모델 100여 개를 무료로 열었습니다</h2>
+  <p style="margin-bottom:14px;">ChatGPT 같은 모델 100여 개를 한곳에 모아 공짜로 개방했습니다. 코딩을 몰라도 사이트에서 채팅하듯 쓰고, 신용카드 없이 가입만으로 시작합니다.</p>
+  <div class="grid grid-3" style="gap:14px; margin-bottom:14px;">
+    <div class="card" style="padding:14px 18px;">
+      <h3 class="accent">MiniMax M3</h3>
+      <p style="color:var(--text); margin-top:6px;">코딩 실력이 클로드급으로 평가받는 모델. 무료로 코드 작성을 맡겨봅니다.</p>
+    </div>
+    <div class="card" style="padding:14px 18px;">
+      <h3 class="accent2">Qwen-Image</h3>
+      <p style="color:var(--text); margin-top:6px;">한글 글자까지 또렷하게 그려주는 이미지 모델. 포스터·카드뉴스에 써봅니다.</p>
+    </div>
+    <div class="card" style="padding:14px 18px;">
+      <h3 class="accent3">음성 모델 (23개 언어)</h3>
+      <p style="color:var(--text); margin-top:6px;">텍스트를 음성으로 바꿔줍니다. 23개 언어를 지원해 더빙·안내 음성에 써봅니다.</p>
+    </div>
+  </div>
+  <div class="grid grid-2" style="gap:16px; margin-bottom:12px;">
+    <div class="card" style="padding:14px 20px;">
+      <h3 class="accent4">무료로 시작하는 법</h3>
+      <ul style="margin-top:6px;">
+        <li>build.nvidia.com 가입 (신용카드 없음)</li>
+        <li>채팅하듯 입력하면 바로 응답</li>
+        <li>무료 등급은 사용량 제한이 있지만 가볍게 써보기엔 충분</li>
+      </ul>
+    </div>
+    <div class="qblock" style="padding:14px 20px;">
+      <p style="font-size:0.54em; color:var(--text); margin:0; line-height:1.7;">
+        <span class="accent2 bold">Q. 엔비디아 모델도 클로드 코드로 설치·사용 가능한가요?</span><br>
+        A. 네. 클로드 코드에게 '엔비디아에서 무료 키 받아서 이 모델 불러줘'라고 부탁하면, 연결 코드를 대신 써주고 설치부터 호출까지 옆에서 도와줍니다. 엔비디아 방식이 표준(오픈AI 호환)이라 주소·키만 바꾸면 되기 때문입니다.
+      </p>
+      <p class="dim" style="font-size:0.46em; margin-top:8px;">클로드 코드는 클로드 위에서 돕는 부사수, 엔비디아 모델은 그 부사수가 연결해주는 도구입니다. 코딩을 몰라도 오늘 T로 도전해볼 만합니다.</p>
+    </div>
+  </div>
+  <p class="dim" style="font-size:0.46em;">출처: <a href="https://www.instagram.com/p/DaOx6j3D7Uz/" target="_blank" style="color:var(--accent);text-decoration:underline">인스타 저장글 &middot; @ai.trend.kr (에트매거진) →</a></p>
+</section>
+
+<!-- ===== 4: Fable 5 비개발자 소개 · 4-fri #/4 ===== -->
+<section>
+  <div class="label">Model &middot; 비개발자를 위한 소개</div>
+  <h2>요즘 자주 보이는 'Fable 5', 뭐가 다른가</h2>
+  <p style="margin-bottom:12px;">개발자 얘기 같지만, 우리 일에도 바뀌는 게 있어 아주 쉽게 정리했습니다. 한마디로 <span class="bold">비싼 수석 전문가를 기간 한정으로 빌린 셈</span>입니다.</p>
+  <div class="grid grid-4" style="gap:14px; margin-bottom:14px;">
+    <div class="card" style="padding:16px 18px;">
+      <h3 class="accent">뭘 잘하나</h3>
+      <p style="margin-top:6px;">며칠짜리 일을 통째로 맡깁니다. 책 여러 권 분량의 긴 자료도 한 번에 읽고 끝까지 끌고 갑니다.</p>
+      <p class="dim" style="margin-top:6px;">쉬운 일만 시키면 진가를 못 봅니다.</p>
+    </div>
+    <div class="card" style="padding:16px 18px;">
+      <h3 class="accent2">늘 깊게 생각함</h3>
+      <p style="margin-top:6px;">답하기 전에 오래 생각하는 게 기본입니다. 느린 게 정상이고, 길고 복잡한 일일수록 결과가 좋아집니다.</p>
+      <p class="dim" style="margin-top:6px;">빠른 답이 필요하면 다른 모델이 낫습니다.</p>
+    </div>
+    <div class="card" style="padding:16px 18px;">
+      <h3 class="accent5">비싸다</h3>
+      <p style="margin-top:6px;">보통 모델의 2배입니다. 그래서 전체 일의 5~15%만, "가장 어려운 일"에만 씁니다.</p>
+      <p class="dim" style="margin-top:6px;">쉬운 일은 싼 모델로 나눠 씁니다.</p>
+    </div>
+    <div class="card" style="padding:16px 18px;">
+      <h3 class="accent4">쓰는 법이 다름</h3>
+      <p style="margin-top:6px;">하나하나 지시하는 대신 "목표와 이유"를 줍니다. 옛날 프롬프트 습관은 오히려 방해가 됩니다.</p>
+      <p class="dim" style="margin-top:6px;">"덜 지시하고, 왜 하는지를 준다."</p>
+    </div>
+  </div>
+  <div class="summary-card" style="padding:12px 20px;">
+    <p style="font-size:0.54em; color:var(--text); margin:0;">
+      <span class="accent2 bold">한마디로</span>:
+      <span class="sub">비싸고 느리지만, <span class="bold">"내가 못하던 큰 일 하나"를 통째로 맡기기</span> 좋은 모델. 다음 회차 T 워크숍과 잘 맞습니다.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ===== 5: 무료로 바로 써볼 것 · 4-fri #/5 ===== -->
+<section>
+  <div class="label">Try Now &middot; 오늘 바로 써볼 것</div>
+  <h2>이번 2주, 무료로 바로 써볼 것</h2>
+  <p style="margin-bottom:12px;">비개발자도 오늘 그대로 따라할 수 있는 것만 골랐습니다. 셋 다 무료로 시작합니다.</p>
+  <div class="grid grid-3" style="gap:14px; margin-bottom:12px;">
+    <div class="card" style="padding:14px 18px;">
+      <h3 class="accent">① 스킬 = 남이 만든 걸 그대로 설치</h3>
+      <p style="color:var(--text); margin-top:6px;">디자인 스킬 75개가 무료로 열렸습니다. 화면 녹화 영상을 주면 레이아웃·색·모션까지 프롬프트로 바꿔줍니다. 글쓰기 스킬 5종도 있습니다: 쉬운 말로 다시 쓰기 / 계속 읽히는 이야기 구조 / 첫 문장(훅) 고치기 / AI 티 걷어내기 / 내 글 20개 배워 내 말투로.</p>
+      <p class="dim" style="margin-top:6px;">체감: 매번 프롬프트를 짜는 대신, 잘 만든 스킬 하나를 받아 씁니다.</p>
+    </div>
+    <div class="card" style="padding:14px 18px;">
+      <h3 class="accent2">② 요청하는 법이 달라졌다</h3>
+      <p style="color:var(--text); margin-top:6px;">앤트로픽 개발자(Thariq)가 공유한 요청법이 X에서 이틀 만에 145만 조회가 났습니다. 시작 전에 "내가 놓친 것부터 알려줘"라고 먼저 묻고, 완성본 1개 대신 시안 4개를 먼저 받고, "AI가 나를 인터뷰하게" 만드는 방식입니다.</p>
+      <p class="dim" style="margin-top:6px;">체감: 오늘 워크숍 순서(맥락 → 작은 목표 → 반복)가 그대로 이 방식입니다.</p>
+    </div>
+    <div class="card" style="padding:14px 18px;">
+      <h3 class="accent4">③ 가장 센 모델, 쓰는 법이 다르다</h3>
+      <p style="color:var(--text); margin-top:6px;">Fable 5는 "며칠짜리 일을 통째로" 맡기는 모델입니다. 쉬운 일만 시키면 저평가하게 됩니다. 구 모델에서 쓰던 프롬프트 습관은 오히려 방해가 되니, 지시를 줄이고 "목표와 이유"를 줍니다. 전체 일의 5~15%만 여기에, 나머지는 싼 모델로 나눠 씁니다.</p>
+      <p class="dim" style="margin-top:6px;">체감: 다음 회차 T 워크숍에서 "큰 일 하나"를 통째로 맡겨봅니다.</p>
+    </div>
+  </div>
+  <div class="fillnote">
+    셋 다 지난 2주 제가 인스타에서 저장한 글 + 아듀님의 'Fable 5 완전정복' 가이드에서 골랐습니다. 원문은 발표 때 열어 보여드릴게요.
+  </div>
+</section>
+
+<!-- ===== 5b: insane-search (차단 페이지 뚫기 스킬) ===== -->
+<section>
+  <div class="label">Try Now &middot; 한 가지 더</div>
+  <h2>차단된 페이지도 뚫어 읽는 스킬: insane-search</h2>
+  <div class="grid grid-2" style="gap:20px;">
+    <div>
+      <p style="font-size:0.62em; color:var(--text); font-weight:500;">인스타나 웬만한 링크만 던져줘도 <span class="accent bold">차단된 공개 페이지를 단계적으로 뚫어</span> 그 안의 내용을 다 읽어내는 스킬입니다.</p>
+      <div class="card" style="margin-top:14px; padding:14px 20px;">
+        <h3 class="accent">뭐가 좋은가</h3>
+        <ul style="margin-top:6px;">
+          <li>인스타·대부분의 링크를 <span class="bold">본문까지 그대로 읽음</span></li>
+          <li>인스타 <span class="bold">카드뉴스</span>도 잘 인식</li>
+          <li>카드뉴스에 있는 스킬들 <span class="bold">"설치해줘"</span>라고만 하면 알아서 다 설치</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="padding:16px 20px; margin-bottom:12px;">
+        <h3 class="accent3">어떻게 쓰나</h3>
+        <p style="margin-top:6px;">스킬을 설치해두고, 읽고 싶은 링크(인스타 저장글·카드뉴스 등)를 그대로 던지면 됩니다. 우리가 트렌드를 인스타에서 줍던 그 흐름을 <span class="bold">한 번에</span> 이어줍니다.</p>
+        <p class="dim" style="margin-top:8px;">GitHub: <a href="https://github.com/fivetaku/insane-search" target="_blank" style="color:var(--accent);text-decoration:underline;">github.com/fivetaku/insane-search →</a></p>
+      </div>
+      <div class="qblock">
+        <p style="font-size:0.56em; color:var(--text); margin:0; line-height:1.7;">
+          <span class="accent bold">연결점</span><br>
+          앞의 "① 스킬 = 남이 만든 걸 그대로 설치"의 실전판. 카드뉴스에서 본 스킬을 <span class="bold">보는 즉시 설치</span>까지.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 6: /insights · 3.html #/6 ===== -->
+<section>
+  <div class="label">한 가지 더 &middot; /insights</div>
+  <h2>내가 클로드 코드를 어떻게 쓰는지 리포트로 받아본다</h2>
+  <div class="grid grid-2" style="gap:20px;">
+    <div>
+      <p style="font-size:0.62em; color:var(--text); font-weight:500;">채팅창에 <span class="accent bold">/insights</span> 한 줄이면, <span class="bold">최근 30일</span> 동안 내가 클로드 코드를 어떻게 써왔는지 정리한 리포트(HTML)를 만들어줍니다.</p>
+      <div class="card" style="margin-top:14px; padding:14px 20px;">
+        <h3 class="accent">무엇을 보여주나</h3>
+        <ul style="margin-top:6px;">
+          <li>주로 <span class="bold">어떤 일에 많이 썼는지</span> (작업 종류 분포)</li>
+          <li>세션이 얼마나 <span class="bold">효율적이었는지</span>, 토큰은 얼마나 썼는지</li>
+          <li>자주 <span class="bold">막히거나 되돌린 지점</span> (마찰 포인트)</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="padding:16px 20px; margin-bottom:12px;">
+        <h3 class="accent3">/usage와 뭐가 다른가</h3>
+        <p style="color:var(--text); margin-top:6px;"><code class="accent">/usage</code>는 <span class="bold">지금 이 순간</span>의 비용·사용량을 즉시 보여주고, <code class="accent">/insights</code>는 <span class="bold">한 달치 패턴</span>을 분석해 리포트로 묶어줍니다.</p>
+      </div>
+      <div class="qblock">
+        <p style="font-size:0.56em; color:var(--text); margin:0; line-height:1.7;">
+          <span class="accent bold">왜 좋은가</span><br>
+          "내가 클로드를 어디에 쓰고, 어디서 자꾸 막히는지"를 눈으로 보면 <span class="bold">다음에 뭘 스킬로 만들지</span>가 보입니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 7: PART 2 HEADER (지난 2주 작업) ===== -->
+<section>
+  <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
+    <div class="label">Part 2 &middot; 지난 2주의 작업</div>
+    <h1 style="font-size:1.8em;">클로드 코드와 함께한<br><span class="accent">지난 2주의 작업</span></h1>
+    <p style="font-size:0.66em; color:var(--text); margin-top:24px; line-height:1.8;">
+      부사수와 함께 만든 작업을 날것으로 보여드립니다.<br>
+      오늘 <span class="bold">S 사분면 워크숍</span>과 그대로 이어 붙습니다.
+    </p>
+  </div>
+</section>
+
+<!-- ===== 8: 내 최근 2주 작업 (블록 1, 신규) ===== -->
+<section>
+  <div class="label">Output &middot; 지난 2주 나의 작업</div>
+  <h2>이번엔 이런 걸 만들었습니다</h2>
+  <div class="grid grid-2" style="gap:16px; margin-bottom:14px;">
+    <div class="card" style="padding:16px 20px;">
+      <h3 class="accent">멤버 로드맵 · 발산↔수렴 교대 추천</h3>
+      <p style="color:var(--text); margin-top:6px;">팀 활동 이력을 발산/수렴으로 나누고, 다음 시즌엔 반대 방향을 권하는 추천 엔진을 만들었습니다.</p>
+      <p class="dim" style="margin-top:6px;">26가을 팀 배치 추천에 씁니다.</p>
+    </div>
+    <div class="card" style="padding:16px 20px;">
+      <h3 class="accent2">26가을 상세페이지 생성 파이프라인</h3>
+      <p style="color:var(--text); margin-top:6px;">상품 노트에서 상세페이지 HTML을 자동으로 뽑아내는 흐름. 손으로 옮겨 적던 일을 명령 한 줄로.</p>
+      <p class="dim" style="margin-top:6px;">T 사례에 가까운, 반복되던 편집을 자동화.</p>
+    </div>
+    <div class="card" style="padding:16px 20px;">
+      <h3 class="accent3">이벤트 신청·취소 자동화 고도화</h3>
+      <p style="color:var(--text); margin-top:6px;">애매한 취소 메시지를 자동으로 감지해 [취소 처리]/[무시] 버튼으로. 확정·대기 DM도 이모지로 한눈에.</p>
+      <p class="dim" style="margin-top:6px;">운영자 승인 게이트를 줄이고 흐름을 매끄럽게.</p>
+    </div>
+    <div class="card" style="padding:16px 20px;">
+      <h3 class="accent4">시즌레터 + 발행 전 품질 게이트</h3>
+      <p style="color:var(--text); margin-top:6px;">시즌레터를 쓰고, 발행 전에 금지어·AI 티를 자동으로 걸러내는 점검을 붙였습니다.</p>
+      <p class="dim" style="margin-top:6px;">되돌리기 어려운 발송 앞에 안전장치.</p>
+    </div>
+  </div>
+  <div class="summary-card" style="padding:12px 20px;">
+    <p style="font-size:0.54em; color:var(--text); margin:0;">
+      <span class="accent bold">패턴</span>:
+      <span class="sub">전부 "같은 일이 반복되면 스킬로 만들어두기"의 결과. 오늘 S 워크숍에서 여러분도 그 첫 칸을 만들어봅니다.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ===== 9: 2주 작업 Overview · 4-fri #/7 ===== -->
+<section>
+  <div class="label">Overview &middot; 지난 2주의 작업</div>
+  <h2>2주간의 작업 한눈에 보기</h2>
+  <div class="grid grid-2" style="gap:16px; margin-bottom:14px;">
+    <div class="card" style="padding:16px 20px;">
+      <h3 class="accent">GA4 + 아임웹 결합 상품 리포트</h3>
+      <p style="color:var(--text); margin-top:6px;">GA4를 아임웹과 결합해, 조회수와 전환률로 상품을 랭킹화하는 월간 리포트를 만들었습니다.</p>
+      <p class="dim" style="margin-top:6px;">"보고 싶던 숫자"를 자동으로 뽑는 흐름.</p>
+    </div>
+    <div class="card" style="padding:16px 20px;">
+      <h3 class="accent2">주간 마케팅 트렌드 레이더</h3>
+      <p style="color:var(--text); margin-top:6px;">외부 트렌드와 내부 신호(출석·재등록·도서)를 한 레이더에 겹쳐 보는 분석 리포트.</p>
+      <p class="dim" style="margin-top:6px;">오프닝 트렌드 브리핑의 소스이기도 합니다.</p>
+    </div>
+    <div class="card" style="padding:16px 20px;">
+      <h3 class="accent3">캡컷(CapCut) 드래프트 자동 생성</h3>
+      <p style="color:var(--text); margin-top:6px;">Photos 앨범 클립과 노트를 묶어 세로 9:16 릴스 드래프트를 코드로 생성. 다듬기만 캡컷에서 합니다.</p>
+      <p class="dim" style="margin-top:6px;">T 사례: 영상 편집은 원래 약한 영역.</p>
+    </div>
+    <div class="card" style="padding:16px 20px;">
+      <h3 class="accent4">기존 스킬 자동화작업</h3>
+      <p style="color:var(--text); margin-top:6px;">이미 만든 스킬을 cron·launchd로 자동 실행하고, 감사·백업·헬스체크·사전 점검으로 안정화했습니다.</p>
+      <p class="dim" style="margin-top:6px;">손으로 돌리던 일을 알아서 도는 일로.</p>
+    </div>
+  </div>
+  <div class="card" style="padding:16px 24px; margin-bottom:14px; background:var(--accent2); color:#F8F7F4;">
+    <div style="display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;">
+      <h3 style="color:#F8F7F4; margin:0;">개인 블로그를 처음부터 만들었습니다</h3>
+      <span style="font-size:0.5em; font-weight:600; color:#F8F7F4; background:rgba(255,255,255,0.18); padding:2px 10px; border-radius:4px;">★ 대표 T 사례</span>
+    </div>
+    <p style="color:rgba(255,255,255,0.9); margin-top:8px; font-size:0.6em; line-height:1.6;">사이트를 코드로 짓고(Hugo), 글을 쓰면 자동으로 발행되는 흐름을 만들고, AI 검색에 걸리게 하는 설정(AEO)까지. 웹 개발도 SEO도 안 해본 영역이라, 다음 회차에 다룰 T(도전) 사분면 그 자체입니다.</p>
+  </div>
+  <div class="fillnote">
+    이 중 몇 개는 지난 2주 저장한 소식과 맞닿아 있습니다. Claude로 인스타 인사이트를 분석하는 워크플로우(Windsor.ai 연동), 결과물을 공유 링크 한 장으로 만드는 Claude Code Artifacts처럼요.
+  </div>
+</section>
+
+<!-- ===== 10: 이벤트 운영 · 3.html #/12 ===== -->
+<section>
+  <div class="label">Output &middot; 이벤트 운영</div>
+  <h2>이벤트 신청을 자체 웹폼 + 실시간 알림으로</h2>
+  <div class="grid grid-2" style="gap:20px;">
+    <div>
+      <div class="card" style="padding:14px 20px; margin-bottom:12px;">
+        <h3 class="accent">무엇이 바뀌었나</h3>
+        <ul style="margin-top:6px;">
+          <li>시즌레터의 신청 버튼을 <span class="bold">자체 웹폼</span>으로 교체</li>
+          <li>체크박스 복수선택 + 이벤트별 기대사항 칸 + 신청 마감</li>
+          <li>신청 현황 대시보드를 <span class="bold">매일 09:00 자동 갱신</span> (launchd + healthcheck)</li>
+        </ul>
+      </div>
+      <div class="card" style="padding:14px 20px;">
+        <h3 class="accent3">실시간 신청 알림</h3>
+        <p style="margin-top:6px;">새 신청이 들어오면 <span class="bold">운영자에게 바로 알림</span>. 일시 네트워크 오류는 재시도로 흘려보냄.</p>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="padding:14px 20px; margin-bottom:12px;">
+        <h3 class="accent2">이벤트별 발송 자동화</h3>
+        <ul style="margin-top:6px;">
+          <li>신청자 파싱 &rarr; 슬랙 매칭 &rarr; 참석/대기 댓글 자동 발송</li>
+          <li>정원 초과 시 선착순 + 우선 선발(ODC·뉴멤버)</li>
+        </ul>
+        <p class="dim" style="margin-top:6px;">스킬: <code class="accent">/open-event-signup</code>, <code class="accent">/post-event-attendees</code></p>
+      </div>
+      <div class="qblock">
+        <p style="font-size:0.56em; color:var(--text); margin:0;">
+          <span class="accent bold">의미:</span>
+          신청을 받고, 확인하고, 댓글 달고, 마감하는 일을 <span class="bold">한 줄로</span>. 최근 여름 캠핑·박찬용 북토크 신청에 그대로 적용.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 11: STAR 리캡 + S 강조 (Part 3 header 역할) · 3.html #/14 ===== -->
+<section>
+  <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
+    <div class="label">Part 3 &middot; S 사분면 워크숍</div>
+    <h1 style="font-size:1.8em;">오늘은 S부터<br><span class="accent">시작합니다</span></h1>
+    <p style="font-size:0.66em; color:var(--text); margin-top:24px; line-height:1.8;">
+      STAR 4개 다 할 필요 없습니다.<br>
+      오늘은 가장 가벼운 한 칸, <span class="accent bold">S = Start</span>만 깊게 다룹니다.
+    </p>
+  </div>
+</section>
+
+<!-- ===== 12: STAR 4개 중 S 위치 · 3.html #/15 ===== -->
+<section>
+  <div class="label">STAR Recap</div>
+  <h2>S 사분면이 어디에 있는지 다시 보기</h2>
+  <div class="grid grid-4" style="gap:16px; margin-bottom:14px;">
+    <div class="card" style="text-align:center; padding:18px 14px; background:var(--accent); color:#F8F7F4; transform:scale(1.05);">
+      <h3 style="font-size:1.1em; margin-bottom:6px; color:#F8F7F4;">S</h3>
+      <p style="font-size:0.62em; color:#F8F7F4; font-weight:600;">Start</p>
+      <p style="margin-top:8px; font-size:0.54em; color:rgba(255,255,255,0.85);">하고 싶었는데<br>미뤄왔던 일</p>
+      <p style="margin-top:4px; font-size:0.46em; color:rgba(255,255,255,0.6);">습관 형성</p>
+      <p style="font-size:0.5em; margin-top:8px; color:#F8F7F4; font-weight:600;">★ 오늘 다룸</p>
+    </div>
+    <div class="card" style="text-align:center; padding:16px 14px; opacity:0.55;">
+      <h3 style="font-size:0.9em; margin-bottom:6px;">T</h3>
+      <p class="accent2 bold" style="font-size:0.58em;">Try</p>
+      <p style="margin-top:6px; font-size:0.5em; color:var(--text);">평소 잘 못한다고<br>생각했던 것</p>
+      <p class="dim" style="margin-top:4px; font-size:0.44em;">도전과 성장</p>
+    </div>
+    <div class="card" style="text-align:center; padding:16px 14px; opacity:0.55;">
+      <h3 style="font-size:0.9em; margin-bottom:6px;">A</h3>
+      <p class="accent3 bold" style="font-size:0.58em;">Amplify</p>
+      <p style="margin-top:6px; font-size:0.5em; color:var(--text);">이미 잘하지만<br>더 잘하고 싶은 것</p>
+      <p class="dim" style="margin-top:4px; font-size:0.44em;">차별화</p>
+    </div>
+    <div class="card" style="text-align:center; padding:16px 14px; opacity:0.55;">
+      <h3 style="font-size:0.9em; margin-bottom:6px;">R</h3>
+      <p class="accent4 bold" style="font-size:0.58em;">Recover</p>
+      <p style="margin-top:6px; font-size:0.5em; color:var(--text);">반복 작업을<br>효율화하는 것</p>
+      <p class="dim" style="margin-top:4px; font-size:0.44em;">시간 회수</p>
+    </div>
+  </div>
+  <div class="summary-card" style="padding:12px 20px;">
+    <p style="font-size:0.54em; color:var(--text); margin:0;">
+      <span class="accent bold">왜 S부터?</span>
+      <span class="sub">제일 부담 없는 칸이기 때문. "잘해야 한다"는 생각 없이 일단 시작하는 것이 핵심.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ===== 13: S 영역 자세히 · 3.html #/16 ===== -->
+<section>
+  <div class="label">S in Detail</div>
+  <h2>S = Start &mdash; 미뤄왔던 일을 시작하는 칸</h2>
+  <p style="margin-bottom:12px;">"매일 하면 좋은데 자꾸 미루는 것들" &mdash; AI에게 그 일을 매일 옆에서 도와달라고 부탁하는 영역.</p>
+  <div class="grid grid-2" style="gap:16px;">
+    <div class="card" style="padding:16px 22px;">
+      <h3 class="accent">S 영역의 특징</h3>
+      <ul style="margin-top:8px;">
+        <li><span class="bold">실패해도 부담이 적음</span> &mdash; 어차피 안 하던 일이니까</li>
+        <li><span class="bold">성과보다 빈도가 중요</span> &mdash; 매일 짧게 하는 게 성공</li>
+        <li><span class="bold">결과물보다 트리거가 핵심</span> &mdash; "AI가 먼저 말 걸어주는 구조"가 절반</li>
+        <li><span class="bold">나를 위한 일</span> &mdash; 회사 KPI가 아니라 내 삶의 작은 루틴</li>
+      </ul>
+    </div>
+    <div class="card" style="padding:16px 22px;">
+      <h3 class="accent3">슬기의 S 영역 4개 (실제 운영 중)</h3>
+      <ul style="margin-top:8px;">
+        <li><code class="accent">/hello-world</code> &mdash; 아침에 캘린더·미리알림·어제 잔여 작업을 한 화면에 띄워주는 브리핑</li>
+        <li><code class="accent">/run-daily-note</code> &mdash; 하루 끝에 그날 작업을 자동으로 일지로 정리</li>
+        <li><code class="accent">/cleanup-home</code> &mdash; 흩어진 다운로드 파일을 자동 분류</li>
+        <li><code class="accent">/backup-notes</code> &mdash; 노트를 주기적으로 백업</li>
+      </ul>
+      <p class="dim" style="margin-top:8px;">공통점: 전부 <span class="bold">"매일 해야 하는 줄 아는데 자꾸 까먹는 것"</span>이었음.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 14: S 영역 작동 원리 · 3.html #/17 ===== -->
+<section>
+  <div class="label">S in Detail</div>
+  <h2>S 영역 스킬은 어떻게 작동하는가</h2>
+  <div class="grid grid-2" style="gap:20px;">
+    <div>
+      <div class="card" style="padding:16px 22px; margin-bottom:12px;">
+        <h3 class="accent">예시 1 &mdash; /hello-world</h3>
+        <p style="margin-top:6px;">아침에 명령 한 줄 입력하면:</p>
+        <ol style="margin-top:6px;">
+          <li>인증 파일이 제대로 있는지 확인</li>
+          <li>오늘의 캘린더 일정 가져옴</li>
+          <li>미리알림 앱에서 오늘/늦은 항목 가져옴</li>
+          <li>어제 작업 일지에서 미완료 항목 확인</li>
+          <li>한 화면에 정리해서 보여줌</li>
+        </ol>
+      </div>
+      <div class="card" style="padding:14px 22px;">
+        <h3 class="accent3">예시 2 &mdash; /cleanup-home</h3>
+        <p style="margin-top:6px;">홈/다운로드 폴더를 훑고, 파일 종류·날짜로 자동 분류 폴더에 이동. <span class="bold">"이거 어디에 둘까"</span>를 매번 고민하지 않아도 됨.</p>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="padding:16px 22px;">
+        <h3 class="accent2">공통 구조</h3>
+        <ol style="margin-top:8px;">
+          <li><span class="bold">트리거</span> &mdash; 언제 시작할지 (아침에, 하루 끝에, 매주 일요일에)</li>
+          <li><span class="bold">데이터 소스</span> &mdash; 어디서 정보를 가져올지 (캘린더, 폴더, 슬랙)</li>
+          <li><span class="bold">처리</span> &mdash; 어떻게 정리할지 (분류, 요약, 정렬)</li>
+          <li><span class="bold">결과 형식</span> &mdash; 어디로 보여줄지 (화면, 파일, DM)</li>
+        </ol>
+      </div>
+      <div class="qblock" style="margin-top:14px;">
+        <p style="font-size:0.56em; color:var(--text); margin:0; line-height:1.7;">
+          <span class="accent bold">기억할 것</span><br>
+          좋은 S 스킬은 <span class="bold">"내가 명령하지 않아도 알아서 말 걸어주는 구조"</span>까지 만드는 것. 일단 오늘은 그 직전 단계인 <span class="bold">"명령 한 줄로 시작되는 단계"</span>까지 가봅니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 15: 준비1 커넥터 · 3.html #/18 ===== -->
+<section>
+  <div class="label">준비 &middot; 커넥터</div>
+  <h2>클로드 코드에 내 도구를 연결한다: 커넥터</h2>
+  <div class="grid grid-2" style="gap:20px;">
+    <div>
+      <p style="font-size:0.62em; color:var(--text); font-weight:500;">커넥터는 클로드 코드를 <span class="accent bold">구글·슬랙·깃허브 같은 외부 서비스에 연결</span>하는 통로입니다. 한 번 연결해두면 클로드가 그 도구를 직접 불러서 일을 합니다.</p>
+      <div class="card" style="margin-top:14px; padding:14px 20px;">
+        <h3 class="accent">무엇을 연결하나</h3>
+        <ul style="margin-top:6px;">
+          <li>구글(캘린더·드라이브·지메일), 슬랙, 깃허브</li>
+          <li>직접 만든 도구(MCP 서버)까지</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="padding:16px 20px; margin-bottom:12px;">
+        <h3 class="accent3">어떻게 추가하나</h3>
+        <p style="color:var(--text); margin-top:6px;">claude.ai 왼쪽 상단 메뉴 → 왼쪽 탭 <span class="bold">[사용자 지정]</span> → 커넥터에서 원하는 서비스를 검색해 설치. <span class="bold">코드 없이</span> 됩니다.</p>
+      </div>
+      <div class="qblock">
+        <p style="font-size:0.56em; color:var(--text); margin:0; line-height:1.7;">
+          연결해두면 "내 캘린더 일정 가져와", "이 슬랙 채널에 올려줘" 같은 말이 <span class="bold">바로 동작</span>합니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 16: 준비2 구글 OAuth · 3.html #/19 ===== -->
+<section>
+  <div class="label">준비 &middot; 구글 OAuth</div>
+  <h2>커넥터가 편한데도, 구글 키를 따로 받는 이유</h2>
+  <div class="grid grid-2" style="gap:18px;">
+    <div>
+      <div class="card" style="padding:14px 20px; margin-bottom:12px;">
+        <h3 class="accent">왜 필요한가</h3>
+        <p style="margin-top:6px;">커넥터는 <span class="bold">클로드 코드 안에서 대화할 때만</span> 작동합니다. 매일 자동으로 도는 작업이나 내 컴퓨터에서 따로 도는 스크립트가 구글에 접근하려면 <span class="accent bold">내 OAuth Client ID & Key</span>가 필요합니다.</p>
+      </div>
+      <div class="card" style="padding:14px 20px;">
+        <h3 class="accent2">무엇을 받나</h3>
+        <ul style="margin-top:6px;">
+          <li><span class="bold">Client ID</span>: ...apps.googleusercontent.com 형태</li>
+          <li><span class="bold">Client Secret</span>: 긴 비밀 문자열 (외부 공유·깃 커밋 금지)</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="padding:14px 20px;">
+        <h3 class="accent3">받는 법 (구글 클라우드 콘솔)</h3>
+        <ol style="margin-top:8px;">
+          <li><span class="bold">console.cloud.google.com</span> 접속 → 프로젝트 만들기</li>
+          <li>"API 및 서비스"에서 쓸 API <span class="bold">사용 설정</span> (캘린더·드라이브·지메일)</li>
+          <li><span class="bold">OAuth 동의 화면</span> 설정 (외부, 앱 이름, 본인 이메일을 테스트 사용자로)</li>
+          <li><span class="bold">사용자 인증 정보</span> → OAuth 클라이언트 ID 만들기 → <span class="bold">데스크톱 앱</span> 선택</li>
+          <li>나온 <span class="bold">Client ID·Secret</span>을 JSON으로 저장 → 내 <code class="accent">.env</code>에 보관</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 17: 준비3 .env 보관 · 3.html #/20 ===== -->
+<section>
+  <div class="label">준비 &middot; 구글 OAuth</div>
+  <h2>받은 키는 대화창에 적지 말고 .env에 넣는다</h2>
+  <div class="grid grid-2" style="gap:20px;">
+    <div>
+      <div class="card" style="padding:14px 20px; margin-bottom:12px;">
+        <h3 class="accent">VS Code에서 바로 .env 열기</h3>
+        <p style="margin-top:6px;">클로드에게 <span class="bold">".env에 ID·Secret 넣을 자리를 만들고 그 파일을 열어줘"</span>라고 하면, VS Code 창에 .env가 바로 열립니다. 만들어진 자리에 값을 <span class="bold">복사·붙여넣기</span>만 하면 됩니다.</p>
+      </div>
+      <div class="card" style="padding:14px 20px;">
+        <h3 class="accent2">JSON 파일을 받았다면</h3>
+        <p style="margin-top:6px;">"다운로드 폴더에 있는 그 JSON 파일을 보고 <span class="bold">.env에 기록해줘</span>"라고 시키면 클로드가 알아서 옮겨 적습니다.</p>
+      </div>
+    </div>
+    <div>
+      <div class="qblock">
+        <p style="font-size:0.58em; color:var(--text); margin:0; line-height:1.8;">
+          <span class="accent bold">딱 하나만 지키기</span><br>
+          ID·Secret을 <span class="bold">대화창에 직접 적지 않기.</span> "파일을 열어줘 / 파일을 보고 기록해줘"라고 시키면, 비밀 값이 대화 기록에 남지 않습니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 18: 워크숍 인트로 · 3.html #/21 ===== -->
+<section>
+  <div class="label">Workshop &middot; Intro</div>
+  <h2>오늘 워크숍 흐름</h2>
+  <div class="grid grid-4" style="gap:14px;">
+    <div class="card" style="padding:14px 18px; ">
+      <p class="accent bold" style="font-size:0.5em;">STEP 1 &middot; 5분</p>
+      <h3 style="margin-top:6px;">미뤄둔 일 떠올리기</h3>
+      <p style="margin-top:6px;">지금 머릿속에 떠오르는 "해야지 하면서 미뤘던 일" 3개를 적어봅니다.</p>
+    </div>
+    <div class="card" style="padding:14px 18px; ">
+      <p class="accent2 bold" style="font-size:0.5em;">STEP 2 &middot; 5분</p>
+      <h3 style="margin-top:6px;">하나만 고르기</h3>
+      <p style="margin-top:6px;">3개 중 가장 가벼운 것 1개만. 거창한 것 금지.</p>
+    </div>
+    <div class="card" style="padding:14px 18px; ">
+      <p class="accent3 bold" style="font-size:0.5em;">STEP 3 &middot; 10분</p>
+      <h3 style="margin-top:6px;">명령 만들기</h3>
+      <p style="margin-top:6px;">트리거 / 소스 / 처리 / 결과 4칸에 각각 한 줄씩 적어봅니다.</p>
+    </div>
+    <div class="card" style="padding:14px 18px; ">
+      <p class="accent4 bold" style="font-size:0.5em;">STEP 4 &middot; 15분</p>
+      <h3 style="margin-top:6px;">실제 실행</h3>
+      <p style="margin-top:6px;">클로드 코드 창에 그대로 붙여 넣고 결과 확인. 막히면 같이 풀어봅니다.</p>
+    </div>
+  </div>
+  <div class="summary-card" style="padding:12px 20px; margin-top:14px;">
+    <p style="font-size:0.54em; color:var(--text); margin:0;">
+      <span class="accent bold">목표</span> &mdash;
+      <span class="sub">완벽한 자동화 X. 오늘 안에 <span class="bold">한 번이라도 작동하는 S 명령</span> 만들기 O.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ===== 19: STEP 1 떠올리기 · 3.html #/22 ===== -->
+<section>
+  <div class="label">Workshop &middot; Step 1</div>
+  <h2>STEP 1 &mdash; 미뤄둔 일 떠올리기 (5분)</h2>
+  <div class="grid grid-2" style="gap:20px;">
+    <div>
+      <div class="card" style="padding:16px 22px;">
+        <h3 class="accent">"미뤄둔 일"의 정의</h3>
+        <ul style="margin-top:8px;">
+          <li>"매일 하면 좋은데 안 하고 있는 것"</li>
+          <li>"한 번 시작하면 좋은데 시작이 안 되는 것"</li>
+          <li>"머릿속엔 있는데 손이 안 가는 것"</li>
+        </ul>
+        <p class="dim" style="margin-top:8px;">업무도 좋고, 개인 영역(독서·운동·가계부)도 좋음.</p>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="padding:16px 22px;">
+        <h3 class="accent2">예시 (참고용)</h3>
+        <ul style="margin-top:8px;">
+          <li>매일 아침 어제 한 일 한 줄로 정리하기</li>
+          <li>주말마다 다운로드 폴더 정리</li>
+          <li>읽고 싶은 기사 모아두고 매일 한 개씩 요약</li>
+          <li>매주 월요일 한 주 캘린더 미리 보기</li>
+          <li>가계부에 어제 결제 내역 기록</li>
+          <li>슬랙 중요 메시지 모아두기</li>
+        </ul>
+      </div>
+      <div class="qblock" style="margin-top:14px;">
+        <p style="font-size:0.56em; color:var(--text); margin:0;">
+          <span class="accent bold">활동</span> &mdash; 노트를 펴고 <span class="bold">3개를 적어보세요.</span> 잘 안 떠오르면 위 예시에서 가장 비슷한 것을 골라도 됩니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 20: STEP 2 고르기 · 3.html #/23 ===== -->
+<section>
+  <div class="label">Workshop &middot; Step 2</div>
+  <h2>STEP 2 &mdash; 가장 가벼운 1개 고르기 (5분)</h2>
+  <div class="grid grid-2" style="gap:20px;">
+    <div>
+      <div class="card" style="padding:16px 22px;">
+        <h3 class="accent">고르는 기준 3가지</h3>
+        <ol style="margin-top:8px;">
+          <li><span class="bold">5분 안에 끝나는 것</span> &mdash; 거창한 건 금지</li>
+          <li><span class="bold">결과를 누가 검사 안 하는 것</span> &mdash; 회사 KPI 말고 내 삶의 일</li>
+          <li><span class="bold">매일 또는 매주 반복되는 것</span> &mdash; 일회성 작업은 R 영역으로</li>
+        </ol>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="padding:16px 22px;">
+        <h3 class="accent3">하지 말 것</h3>
+        <ul style="margin-top:8px;">
+          <li>"내 인생을 바꿀 거대한 습관" 같은 거 고르지 마세요</li>
+          <li>"AI가 알아서 다 해주는" 같은 막연한 기대 금지</li>
+          <li>다른 사람과 협업이 필요한 것은 보류</li>
+        </ul>
+      </div>
+      <div class="qblock" style="margin-top:14px;">
+        <p style="font-size:0.56em; color:var(--text); margin:0;">
+          <span class="accent bold">활동</span> &mdash; 3개 중 가장 작고 가벼운 것에 <span class="bold">동그라미 하나</span>. 그것이 오늘 우리가 만들 S 스킬의 주제입니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 21: STEP 3 명령 만들기 · 3.html #/24 ===== -->
+<section>
+  <div class="label">Workshop &middot; Step 3</div>
+  <h2>STEP 3 &mdash; 4칸으로 명령 만들기 (10분)</h2>
+  <div class="grid grid-2" style="gap:18px;">
+    <div>
+      <div class="card" style="padding:16px 22px;">
+        <h3 class="accent">4칸 양식</h3>
+        <ol style="margin-top:8px;">
+          <li><span class="bold">트리거</span> &mdash; "언제 이 일을 할 것인가?"</li>
+          <li><span class="bold">소스</span> &mdash; "어디서 정보를 가져올 것인가?"</li>
+          <li><span class="bold">처리</span> &mdash; "어떻게 가공할 것인가?"</li>
+          <li><span class="bold">결과</span> &mdash; "결과를 어디로 보내줄 것인가?"</li>
+        </ol>
+        <p class="dim" style="margin-top:8px;">한 칸당 한 줄이면 충분합니다. 완벽할 필요 없음.</p>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="padding:14px 22px;">
+        <h3 class="accent3">완성 예시 &mdash; "매일 캘린더 정리"</h3>
+        <div class="code-block" style="margin-top:8px; padding:10px 16px; line-height:1.7; font-size:0.46em;">
+          <span class="comment"># 트리거</span><br>
+          <span style="color:#F1EFEA;">매일 아침 9시</span><br>
+          <span class="comment"># 소스</span><br>
+          <span style="color:#F1EFEA;">구글 캘린더 오늘 일정</span><br>
+          <span class="comment"># 처리</span><br>
+          <span style="color:#F1EFEA;">시간순 정렬, 회의 / 개인일 분류</span><br>
+          <span class="comment"># 결과</span><br>
+          <span style="color:#F1EFEA;">~/오늘일정.md 파일로 정리</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="summary-card" style="padding:12px 20px; margin-top:14px;">
+    <p style="font-size:0.54em; color:var(--text); margin:0;">
+      <span class="accent bold">활동</span> &mdash;
+      <span class="sub">노트 한 장에 4칸을 그리고 각각 한 줄씩 채워보세요. 옆사람과 비교해도 좋습니다.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ===== 22: STEP 4 실행 · 3.html #/25 ===== -->
+<section>
+  <div class="label">Workshop &middot; Step 4</div>
+  <h2>STEP 4 &mdash; 실제로 실행해보기 (15분)</h2>
+  <div class="grid grid-2" style="gap:20px;">
+    <div>
+      <div class="card" style="padding:16px 22px;">
+        <h3 class="accent">실행 방법</h3>
+        <ol style="margin-top:8px;">
+          <li>VS Code에서 클로드 코드 채팅창 열기</li>
+          <li>4칸 내용을 그대로 한국어 문장으로 풀어 입력</li>
+          <li>클로드가 묻는 질문에 한 줄씩 대답</li>
+          <li>결과 확인 &mdash; 잘 되면 다음 칸 추가, 안 되면 막힌 부분 같이 풀기</li>
+        </ol>
+      </div>
+      <div class="card" style="padding:14px 22px; margin-top:12px;">
+        <h3 class="accent2">자주 막히는 곳</h3>
+        <ul style="margin-top:6px;">
+          <li>"권한이 없다"는 메시지 &rarr; 캘린더/슬랙 등 인증 필요</li>
+          <li>"파일을 찾을 수 없다" &rarr; 정확한 폴더 경로 알려주기</li>
+          <li>너무 많은 걸 한 번에 시키기 &rarr; 한 단계씩 나누기</li>
+        </ul>
+        <p class="dim" style="margin-top:8px;">팁: 첫 스킬은 캘린더·슬랙처럼 로그인이 필요한 것보다 <span class="bold">내 컴퓨터 파일 정리</span>처럼 바로 되는 일로 시작하면 막힘이 적습니다.</p>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="padding:14px 22px;">
+        <h3 class="accent3">입력 예시 (그대로 써도 됨)</h3>
+        <div class="code-block" style="margin-top:8px; padding:12px 16px; line-height:1.7; font-size:0.44em;">
+          <span style="color:#F1EFEA;">&gt; 매일 아침 9시에</span><br>
+          <span style="color:#F1EFEA;">&nbsp;&nbsp;구글 캘린더 오늘 일정을</span><br>
+          <span style="color:#F1EFEA;">&nbsp;&nbsp;시간순으로 정리하고</span><br>
+          <span style="color:#F1EFEA;">&nbsp;&nbsp;회의/개인일정으로 분류해서</span><br>
+          <span style="color:#F1EFEA;">&nbsp;&nbsp;~/오늘일정.md 파일로 저장하는</span><br>
+          <span style="color:#F1EFEA;">&nbsp;&nbsp;스킬을 만들어줘.</span><br><br>
+          <span style="color:#F1EFEA;">&gt; 먼저 한 번만 실행해서</span><br>
+          <span style="color:#F1EFEA;">&nbsp;&nbsp;결과를 보여줘.</span>
+        </div>
+        <p class="dim" style="margin-top:8px;">결과가 마음에 들면 저장해두기. 매일 자동으로 실행하는 건 다음 시간에 다룹니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 23: 멤버 Q&A 1 · 메일 여러 개 ===== -->
+<section>
+  <div class="label">From Members &middot; Q&amp;A</div>
+  <h2>Q. 메일 계정을 여러 개 동시에 관리할 수 있나요?</h2>
+  <div class="grid grid-2" style="gap:20px;">
+    <div>
+      <p style="font-size:0.62em; color:var(--text); font-weight:500;">커넥터는 <span class="bold">서비스당 계정 1개</span>만 연결됩니다(두 번째 Gmail을 연결하면 첫 번째를 덮어씀). 대신 <span class="accent bold">MCP 서버를 계정별로 하나씩</span> 따로 붙이면 됩니다.</p>
+      <div class="card" style="margin-top:14px; padding:14px 20px;">
+        <h3 class="accent">어떻게 동작하나</h3>
+        <p style="margin-top:6px;">Claude Code(터미널·데스크탑·VS Code 아무거나)에서 <span class="bold">gmail-개인, gmail-회사</span> 이렇게 각각 다른 이름(alias)으로 등록하면, 한 세션 안에서 두세 개 받은편지함을 같이 <span class="bold">읽고·검색하고·보낼</span> 수 있습니다.</p>
+      </div>
+    </div>
+    <div>
+      <div class="code-block" style="padding:14px 18px; line-height:1.9; font-size:0.5em;">
+        <span class="comment"># 계정별로 하나씩 등록</span><br>
+        <span style="color:#F1EFEA;">claude mcp add gmail-개인 --</span><br>
+        <span style="color:#F1EFEA;">&nbsp;&nbsp;npx -y @shinzolabs/gmail-mcp@latest</span><br>
+        <span style="color:#F1EFEA;">claude mcp add gmail-회사 --</span><br>
+        <span style="color:#F1EFEA;">&nbsp;&nbsp;npx -y @shinzolabs/gmail-mcp@latest</span>
+      </div>
+      <div class="qblock" style="margin-top:12px;">
+        <p style="font-size:0.56em; color:var(--text); margin:0; line-height:1.7;">
+          각각 등록할 때 해당 계정으로 <span class="bold">인증만</span> 하면 되고, <code class="accent">/mcp</code>로 둘 다 <span class="bold">✓ Connected</span> 뜨는지 확인하면 끝. <span class="dim">(정식 지원은 아님)</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 24: 멤버 Q&A 2 · VS Code vs 데스크탑 ===== -->
+<section>
+  <div class="label">From Members &middot; Q&amp;A</div>
+  <h2>Q. VS Code에 Claude vs 데스크탑 Claude Code, 뭐가 다른가요?</h2>
+  <div class="grid grid-2" style="gap:20px;">
+    <div>
+      <div class="card" style="padding:16px 20px; margin-bottom:12px;">
+        <h3 class="accent">디바이스 연동</h3>
+        <p style="margin-top:6px;">VS Code·CLI의 로컬 세션도 <span class="bold">Remote Control</span>로 모바일·브라우저에서 원격 제어됩니다. Cowork(클라우드 세션)는 데스크탑·웹·모바일(베타)에서 같은 작업을 이어갈 수 있습니다.</p>
+        <p class="dim" style="margin-top:6px;">→ "VS Code는 모바일과 연동 안 됨"은 정확하지 않습니다.</p>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="padding:16px 20px;">
+        <h3 class="accent3">각자의 강점 (우열 아님)</h3>
+        <ul style="margin-top:8px;">
+          <li><span class="bold">VS Code</span>: 편집기 통합, 인라인 diff, 자동 에러 읽기</li>
+          <li><span class="bold">데스크탑</span>: 시각적 diff 뷰어, 병렬 세션 관리</li>
+          <li>MCP 연결·자동화(hooks)는 <span class="bold">둘 다 동일</span></li>
+        </ul>
+        <p class="dim" style="margin-top:8px;">선호하는 워크플로우에 따라 고르면 됩니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 25: CLOSING ===== -->
+<section>
+  <div style="display:flex; flex-direction:column; justify-content:center; height:100%; text-align:center;">
+    <h1 style="font-size:1.8em;">AI는<br><span class="accent">부사수입니다</span></h1>
+    <p style="font-size:0.66em; color:var(--text); margin-top:28px; line-height:1.9;">
+      바이브 코딩으로 하나의 업무를 완벽하게 하려면<br>
+      <span class="bold">업무 프로세스를 쪼개어 생각하며, 스킬을 디벨롭</span>해가세요.
+    </p>
+    <div style="margin-top:40px;">
+      <p class="dim" style="font-size:0.46em;">26여름 AI부사수 3회차 (주말) &middot; 7월 19일 (일) &middot; @Seulki.log</p>
+    </div>
+  </div>
+</section>
+
+</div>
+</div>
+
+<!-- Custom progress bar -->
+<div id="custom-progress">
+  <div class="seg" data-section="0" onclick="goSection(0)">리캡</div>
+  <div class="seg" data-section="1" onclick="goSection(1)">AI 업데이트</div>
+  <div class="seg" data-section="2" onclick="goSection(2)">2주 작업</div>
+  <div class="seg" data-section="3" onclick="goSection(3)">S 워크숍</div>
+  <div class="seg" data-section="4" onclick="goSection(4)">멤버 Q&amp;A</div>
+  <div class="seg" data-section="5" onclick="goSection(5)">마무리</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.min.js"></script>
+<script>
+  const sections = [
+    [0, 1],                                              // 타이틀 + 2회차 리캡
+    [2, 3, 4, 5, 6, 7],                                  // AI 업데이트 (헤더 + 엔비디아 + Fable + 무료로써볼것 + insane-search + /insights)
+    [8, 9, 10, 11],                                      // 2주 작업 (헤더 + 내작업 + Overview + 이벤트)
+    [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],   // S 워크숍 (헤더 + STAR + 디테일 + 준비 + Step1~4)
+    [24, 25],                                            // 멤버 Q&A
+    [26]                                                // 클로징
+  ];
+
+  function goSection(idx) {
+    if (sections[idx]) Reveal.slide(sections[idx][0]);
+  }
+
+  function updateProgress() {
+    const cur = Reveal.getIndices().h;
+    document.querySelectorAll('#custom-progress .seg').forEach((seg, i) => {
+      const s = sections[i];
+      seg.classList.remove('active', 'done');
+      if (cur >= s[0] && cur <= s[s.length - 1]) seg.classList.add('active');
+      else if (cur > s[s.length - 1]) seg.classList.add('done');
+    });
+  }
+
+  Reveal.initialize({
+    hash: true,
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    transition: 'fade',
+    transitionSpeed: 'fast',
+    center: true,
+    controls: true,
+    controlsLayout: 'edges',
+    slideNumber: 'c/t',
+  });
+
+  Reveal.on('slidechanged', updateProgress);
+  Reveal.on('ready', updateProgress);
+</script>
+</body>
+</html>
