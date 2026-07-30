@@ -107,9 +107,8 @@
 <body>
 <div class="wrap">
   <header>
-    <h1>26가을, 어떤 팀에서 만날까요</h1>
-    <p class="lede">열여덟 개 팀을 요일과 성장 트랙, 이번 시즌에 하고 싶은 일로 걸러 봅니다. 팀을 누르면 커리큘럼과 파트너 소개가 있는 상세페이지로 갑니다.</p>
-    <p class="meta">등록 7월 31일 (금) 21:00 시작 · 8월 25일 (화) 자정 마감 · 팀마다 정원의 50%만 선착순</p>
+    <h1>가을, 어떤 성장을 원하나요</h1>
+    <p class="lede">팀을 누르면 커리큘럼과 파트너 소개가 있는 상세페이지로 이동합니다.</p>
   </header>
 
   <div class="filters">
@@ -119,17 +118,18 @@
         <button class="chip on" data-v="">전체</button>
         <button class="chip" data-v="목">목 저녁</button>
         <button class="chip" data-v="금">금 저녁</button>
-        <button class="chip" data-v="토">토요일</button>
-        <button class="chip" data-v="일">일요일</button>
+        <button class="chip" data-v="토-10:30">토요일 오전</button>
+        <button class="chip" data-v="토-14:30">토요일 오후</button>
+        <button class="chip" data-v="일-10:30">일요일 오전</button>
+        <button class="chip" data-v="일-14:30">일요일 오후</button>
       </div>
     </div>
     <div class="frow" data-group="band">
       <span class="flabel">이번 시즌에 하고 싶은 일</span>
       <div class="chips">
         <button class="chip on" data-v="">전체</button>
-        <button class="chip" data-v="확장">넓히기</button>
-        <button class="chip" data-v="정리">정리하기</button>
-        <button class="chip" data-v="둘다">둘 다</button>
+        <button class="chip" data-v="확장">인풋 얻기</button>
+        <button class="chip" data-v="정리">아웃풋 만들기</button>
       </div>
     </div>
     <div class="frow" data-group="track">
@@ -147,8 +147,8 @@
       <span class="flabel">팀 종류</span>
       <div class="chips">
         <button class="chip on" data-v="">전체</button>
-        <button class="chip" data-v="keep">여름에서 이어지는 팀</button>
-        <button class="chip" data-v="new">가을에 새로 여는 팀</button>
+        <button class="chip" data-v="new">뉴</button>
+        <button class="chip" data-v="keep">앵콜</button>
       </div>
     </div>
   </div>
@@ -162,8 +162,6 @@
   <div class="empty" id="empty" hidden>조건에 맞는 팀이 없습니다. 필터를 하나 지워 보세요.</div>
 
   <p class="foot">
-    시간이 겹치는 팀은 장소가 나뉘어 있고, 한 팀 정원은 최대 16명입니다. 팀오호츠크만 5회로 진행합니다.<br>
-    CMO씽킹은 10월 18일 (일)에 시작합니다. 등록 후 팀을 바꾸고 싶으면 8월 26일 (수)까지 알려주세요.<br>
     전체 일정은 <a href="https://hfk.imweb.me/36">HFK 캘린더</a>에서 볼 수 있습니다.
   </p>
 </div>
@@ -175,6 +173,7 @@ const TEAMS = [
 "url": "https://thehfk.org/shop_view?idx=199",
 "partner": "이림",
 "day": "목",
+"daykey": "목",
 "time": "19:30",
 "slot": "목요일 19:30",
 "first": "9월 10일 (목)",
@@ -190,6 +189,7 @@ const TEAMS = [
 "url": "https://thehfk.org/shop_view?idx=230",
 "partner": "김민정",
 "day": "목",
+"daykey": "목",
 "time": "19:30",
 "slot": "목요일 19:30",
 "first": "9월 10일 (목)",
@@ -205,6 +205,7 @@ const TEAMS = [
 "url": "https://thehfk.org/shop_view?idx=158",
 "partner": "손현",
 "day": "목",
+"daykey": "목",
 "time": "19:30",
 "slot": "목요일 19:30",
 "first": "9월 17일 (목)",
@@ -220,6 +221,7 @@ const TEAMS = [
 "url": "https://thehfk.org/shop_view?idx=309",
 "partner": "박지영",
 "day": "목",
+"daykey": "목",
 "time": "19:30",
 "slot": "목요일 19:30",
 "first": "9월 17일 (목)",
@@ -235,6 +237,7 @@ const TEAMS = [
 "url": "https://thehfk.org/shop_view?idx=49",
 "partner": "심현보",
 "day": "금",
+"daykey": "금",
 "time": "19:30",
 "slot": "금요일 19:30",
 "first": "9월 11일 (금)",
@@ -250,6 +253,7 @@ const TEAMS = [
 "url": "https://thehfk.org/shop_view?idx=56",
 "partner": "오유리",
 "day": "금",
+"daykey": "금",
 "time": "19:30",
 "slot": "금요일 19:30",
 "first": "9월 11일 (금)",
@@ -265,6 +269,7 @@ const TEAMS = [
 "url": "https://thehfk.org/shop_view?idx=128",
 "partner": "장재형",
 "day": "금",
+"daykey": "금",
 "time": "19:30",
 "slot": "금요일 19:30",
 "first": "9월 18일 (금)",
@@ -280,6 +285,7 @@ const TEAMS = [
 "url": "https://thehfk.org/shop_view?idx=72",
 "partner": "김재윤",
 "day": "토",
+"daykey": "토-10:30",
 "time": "10:30",
 "slot": "토요일 10:30",
 "first": "9월 12일 (토)",
@@ -295,6 +301,7 @@ const TEAMS = [
 "url": "https://thehfk.org/shop_view?idx=51",
 "partner": "전소영",
 "day": "토",
+"daykey": "토-10:30",
 "time": "10:30",
 "slot": "토요일 10:30",
 "first": "9월 19일 (토)",
@@ -310,6 +317,7 @@ const TEAMS = [
 "url": "https://thehfk.org/shop_view?idx=274",
 "partner": "김초연",
 "day": "토",
+"daykey": "토-10:30",
 "time": "10:30",
 "slot": "토요일 10:30",
 "first": "9월 19일 (토)",
@@ -325,6 +333,7 @@ const TEAMS = [
 "url": "https://thehfk.org/shop_view?idx=154",
 "partner": "김혜리",
 "day": "토",
+"daykey": "토-14:30",
 "time": "14:30",
 "slot": "토요일 14:30",
 "first": "9월 12일 (토)",
@@ -340,6 +349,7 @@ const TEAMS = [
 "url": "https://thehfk.org/shop_view?idx=305",
 "partner": "김라현",
 "day": "토",
+"daykey": "토-14:30",
 "time": "14:30",
 "slot": "토요일 14:30",
 "first": "9월 19일 (토)",
@@ -355,6 +365,7 @@ const TEAMS = [
 "url": "https://thehfk.org/shop_view?idx=50",
 "partner": "김성남",
 "day": "일",
+"daykey": "일-10:30",
 "time": "10:30",
 "slot": "일요일 10:30",
 "first": "9월 13일 (일)",
@@ -370,6 +381,7 @@ const TEAMS = [
 "url": "https://thehfk.org/shop_view?idx=232",
 "partner": "이슬기",
 "day": "일",
+"daykey": "일-10:30",
 "time": "10:30",
 "slot": "일요일 10:30",
 "first": "9월 20일 (일)",
@@ -385,6 +397,7 @@ const TEAMS = [
 "url": "https://thehfk.org/shop_view?idx=101",
 "partner": "서기석",
 "day": "일",
+"daykey": "일-10:30",
 "time": "10:30",
 "slot": "일요일 10:30",
 "first": "10월 18일 (일)",
@@ -400,6 +413,7 @@ const TEAMS = [
 "url": "https://thehfk.org/shop_view?idx=65",
 "partner": "김동일",
 "day": "일",
+"daykey": "일-14:30",
 "time": "14:30",
 "slot": "일요일 14:30",
 "first": "9월 13일 (일)",
@@ -415,6 +429,7 @@ const TEAMS = [
 "url": "https://thehfk.org/shop_view?idx=307",
 "partner": "김재윤",
 "day": "일",
+"daykey": "일-14:30",
 "time": "14:30",
 "slot": "일요일 14:30",
 "first": "9월 13일 (일)",
@@ -430,6 +445,7 @@ const TEAMS = [
 "url": "https://thehfk.org/shop_view?idx=303",
 "partner": "유통민",
 "day": "일",
+"daykey": "일-14:30",
 "time": "14:30",
 "slot": "일요일 14:30",
 "first": "9월 20일 (일)",
@@ -445,8 +461,9 @@ const state = { day:"", band:"", track:"", kind:"" };
 
 function render() {
   const list = TEAMS.filter(t =>
-    (!state.day   || t.day   === state.day) &&
-    (!state.band  || t.band  === state.band) &&
+    (!state.day   || t.daykey === state.day) &&
+    // 인풋·아웃풋 둘 다 하는 팀("둘다")은 어느 쪽을 골라도 남는다
+    (!state.band  || t.band === state.band || t.band === "둘다") &&
     (!state.track || t.track === state.track) &&
     (!state.kind  || t.kind  === state.kind));
 
@@ -455,7 +472,7 @@ function render() {
   document.getElementById("cards").innerHTML = list.map(t => `
     <a class="card" href="${t.url}" target="_blank" rel="noopener noreferrer">
       <div class="tags">
-        <span class="tag ${t.kind === "keep" ? "keep" : ""}">${t.kind === "keep" ? "이어지는 팀" : "새로 여는 팀"}</span>
+        <span class="tag ${t.kind === "keep" ? "keep" : ""}">${t.kind === "keep" ? "앵콜" : "뉴"}</span>
         <span class="tag">${t.track} · ${t.trackKo}</span>
       </div>
       <p class="name">${t.name}</p>
