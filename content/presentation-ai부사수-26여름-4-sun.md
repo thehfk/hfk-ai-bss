@@ -309,7 +309,7 @@ github.com/andrewyng 의 <a href="https://github.com/andrewyng/aisuite" style="c
 사진 고르는 화면을 직접 만들었습니다
 
 ### s9-9  (p)
-19개 팀 페이지에 넣을 사진을 수천 장에서 골라야 했습니다. 눈으로 넘겨보다 보면 어디까지 봤는지도, 뭘 이미 골랐는지도 잊습니다. 그래서 브라우저에서 한 장씩 넘기며 고르는 화면을 만들었습니다. <a href="http://127.0.0.1:8779/outputs/26가을_에디팅/중복사진_교체피커.html" style="color:var(--accent);text-decoration:underline" target="_blank">피커 열어보기 →</a>
+19개 팀 페이지에 넣을 사진을 수천 장에서 골라야 했습니다. 눈으로 넘겨보다 보면 어디까지 봤는지도, 뭘 이미 골랐는지도 잊습니다. 그래서 브라우저에서 한 장씩 넘기며 고르는 화면을 만들었습니다. <a href="http://127.0.0.1:8777/outputs/26가을_에디팅/사진보드_라운드.html" style="color:#FFFFFF;text-decoration:underline;font-weight:600" target="_blank">전체 사진 선택 피커 →</a><span style="opacity:.5"> · </span><a href="http://127.0.0.1:8779/outputs/26가을_에디팅/중복사진_교체피커.html" style="color:#FFFFFF;text-decoration:underline;font-weight:600" target="_blank">중복사진 교체 피커 →</a>
 
 
 ## slide 10 · 오늘은 T, 도전할 차례입니다
@@ -492,7 +492,7 @@ T 영역 공통 4단계
 
 ### s14-14  (p)
 <span class="accent2 bold">결과</span>:
-      <span class="sub">"화면 만드는 건 내 분야가 아니야"에서 <span class="bold">"눈 아픈 일이 생기면 화면부터 만든다"</span>로. 완벽하진 않지만, 할 수 있는 일 리스트가 한 칸 늘었습니다. <a href="http://127.0.0.1:8779/outputs/26가을_에디팅/중복사진_교체피커.html" style="color:var(--accent);text-decoration:underline" target="_blank">피커 열어보기 →</a></span>
+      <span class="sub">"화면 만드는 건 내 분야가 아니야"에서 <span class="bold">"눈 아픈 일이 생기면 화면부터 만든다"</span>로. 완벽하진 않지만, 할 수 있는 일 리스트가 한 칸 늘었습니다. <a href="http://127.0.0.1:8777/outputs/26가을_에디팅/사진보드_라운드.html" style="color:var(--accent);text-decoration:underline;font-weight:600" target="_blank">전체 사진 선택 피커 →</a><span style="opacity:.5"> · </span><a href="http://127.0.0.1:8779/outputs/26가을_에디팅/중복사진_교체피커.html" style="color:var(--accent);text-decoration:underline;font-weight:600" target="_blank">중복사진 교체 피커 →</a></span>
 
 
 ## slide 15 · 이 팀이 적어둔 "해보고 싶은 것"에서 고르기
