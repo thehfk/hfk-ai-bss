@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>AI 업데이트, T 사분면 워크숍 · AI부사수 4회차 (주말)</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root {
+    --bg: #F8F7F4;
+    --text: #2C2C2C;
+    --text-sub: #6B6B6B;
+    --text-dim: #9A9A9A;
+    --accent: #8B5E3C;
+    --accent2: #3D5A80;
+    --accent3: #5B7B5E;
+    --accent4: #7B6B8A;
+    --accent5: #8A5E5E;
+    --accent6: #5A7B7B;
+    --card-bg: #F1EFEA;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 44px; }
+  body {
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    font-size: 16px;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 100%;
+    padding: 0 20px 40px;
+    line-height: 1.7;
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+  }
+
+  #sticky-nav {
+    position: sticky;
+    top: 0;
+    left: -20px;
+    right: -20px;
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    height: 36px;
+    background: #ECEAE5;
+    display: flex;
+    z-index: 100;
+    font-family: 'Pretendard', sans-serif;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  #sticky-nav .nav-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-dim);
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+    text-decoration: none;
+    border: none;
+    background: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  #sticky-nav .nav-item + .nav-item { border-left: 1px solid rgba(0,0,0,0.06); }
+  #sticky-nav .nav-item.active { background: var(--accent); color: #F8F7F4; }
+
+  .section-separator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 32px 0 20px;
+  }
+  .section-separator::before, .section-separator::after {
+    content: ""; flex: 1; height: 1px; background: rgba(0,0,0,0.08);
+  }
+  .section-separator .sep-label {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent); white-space: nowrap;
+  }
+
+  .slide-section { padding: 20px 0; }
+  .slide-section:first-of-type { padding-top: 16px; }
+
+  h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.3; }
+  h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 10px; line-height: 1.3; }
+  h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 6px; word-break: keep-all; overflow-wrap: break-word; }
+  p { font-size: 15px; line-height: 1.7; color: var(--text-sub); }
+  li { font-size: 15px; line-height: 1.7; color: var(--text-sub); }
+
+  ul { list-style: none; padding-left: 0; margin: 0; }
+  ul li { padding-left: 14px; position: relative; }
+  ul li::before { content: ""; position: absolute; left: 0; top: 11px; width: 4px; height: 4px; border-radius: 50%; background: var(--text-dim); }
+  ol { padding-left: 18px; }
+  ol li { padding-left: 4px; }
+  ol li::before { display: none; }
+
+  code { font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; font-size: 0.88em; }
+
+  .sub { color: var(--text-sub); }
+  .dim { color: var(--text-dim); font-size: 14px; }
+  .accent { color: var(--accent); }
+  .accent2 { color: var(--accent2); }
+  .accent3 { color: var(--accent3); }
+  .accent4 { color: var(--accent4); }
+  .accent5 { color: var(--accent5); }
+  .accent6 { color: var(--accent6); }
+  .bold { font-weight: 600; }
+
+  .label { font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 16px 18px;
+    width: 100%;
+  }
+  .card h3 { margin: 0; }
+  .card p { margin: 0; }
+  .card ul, .card ol { margin: 0; }
+  .card > * + * { margin-top: 10px !important; }
+  .card li + li { margin-top: 3px; }
+
+  .stack { display: flex; flex-direction: column; gap: 12px; }
+
+  .code-block {
+    background: #2C2C2C;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 14px;
+    line-height: 1.85;
+    color: #D4D0C8;
+    text-align: left;
+    width: 100%;
+    overflow-x: auto;
+  }
+  .code-block .comment { color: #6B6B6B; }
+
+  .summary-card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 12px 18px;
+    text-align: center;
+  }
+  .summary-card p { font-size: 14px; color: var(--text); margin: 0; }
+
+  .qblock {
+    background: rgba(139,94,60,0.06);
+    border-radius: 8px;
+    padding: 14px 18px;
+  }
+
+  .stat-num { font-size: 32px; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; }
+  .stat-label { font-size: 13px; color: var(--text-sub); margin-top: 4px; }
+
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .stat-card { background: var(--card-bg); border-radius: 8px; padding: 16px; text-align: center; }
+
+  .title-section { text-align: center; padding: 48px 0 32px; }
+  .closing-section { text-align: center; padding: 32px 0 48px; }
+
+  .card code { font-size: 13px; }
+</style>
+</head>
+<body>
+
+<nav id="sticky-nav">
+  <button class="nav-item" data-target="sec-recap">리캡</button>
+  <button class="nav-item" data-target="sec-news">AI</button>
+  <button class="nav-item" data-target="sec-work">2주</button>
+  <button class="nav-item" data-target="sec-t">T</button>
+  <button class="nav-item" data-target="sec-workshop">워크숍</button>
+  <button class="nav-item" data-target="sec-wrap">마무리</button>
+</nav>
+
+<!-- ===== TITLE ===== -->
+<div class="title-section">
+  <h1>AI 업데이트,<br><span class="accent2">그리고 T 사분면 워크숍</span></h1>
+  <p style="font-size:15px; color:var(--text-sub); margin-top:14px;">AI 트렌드 · 지난 2주 작업 공유 · 못한다고 생각했던 일에 도전하는 시간</p>
+  <p class="dim" style="margin-top:24px;">26여름 AI부사수(SUN) 4회차 · 8월 2일 (일) 10:30 · 5층 오아시스덕수궁 · @Seulki.log</p>
+</div>
+
+<!-- ===== 1: 3회차 리캡 ===== -->
+<div class="section-separator" id="sec-recap"><span class="sep-label">Recap · 3회차</span></div>
+<div class="slide-section">
+  <div class="label">Recap · 3회차</div>
+  <h2>지난 시간에 다룬 것</h2>
+  <div class="stack">
+    <div class="card">
+      <h3 class="accent">AI 트렌드 + 파트너의 2주 기록</h3>
+      <p>Fable 5 실제 사용 후기와 <code class="accent">insane-search</code>를 소개했고, 파트너가 2주간 만든 작업을 그대로 보여드렸습니다.</p>
+      <p class="dim">"이런 영역까지 확장할 수 있구나 싶어 시야가 넓어졌다."</p>
+    </div>
+    <div class="card">
+      <h3 class="accent3">S 사분면 실습 (Start)</h3>
+      <p>하고 싶었는데 미뤄왔던 일 하나를 AI로 시작. 루틴과 습관을 만드는 스킬을 직접 설계했습니다.</p>
+      <p class="dim">"미뤄왔던 운동 기록을 다 옮겼다", "갈구면 안 되는 일은 없더라."</p>
+    </div>
+    <div class="card">
+      <h3 class="accent4">스킬 읽는 법 &amp; 인터뷰</h3>
+      <p>스킬을 받아만 두지 않고 README를 열어 원리를 확인했습니다. 시키기 전에 AI와 충분히 대화하는 법도 함께 봤습니다.</p>
+      <p class="dim">"일방적으로 시키는 게 아니라, 알아서 제안하게 만드는 쪽으로."</p>
+    </div>
+  </div>
+  <div class="summary-card" style="margin-top:12px;">
+    <p><span class="accent2 bold">오늘의 흐름</span>: <span class="sub">AI 트렌드 → 지난 2주 작업 공유 → T 사분면 자세히 → 워크숍 실습 → 4L 회고</span></p>
+  </div>
+</div>
+
+<!-- ===== 2: PART 1 + AI 트렌드 ===== -->
+<div class="section-separator" id="sec-news"><span class="sep-label">Part 1 · What's New</span></div>
+<div class="slide-section">
+  <div class="label">Part 1 · What's New</div>
+  <h2>지난 2주, 무슨 일이 있었나</h2>
+  <p style="margin-bottom:8px;">가장 센 모델의 값이 절반이 되고, 남이 만든 스킬을 그대로 받아 쓰는 게 흔해지고, AI를 쓰는 사람에게 법이 뭘 요구하는지도 정해졌습니다.</p>
+  <p class="dim">매 회차 오프닝의 트렌드 브리핑: "추적 피로" 대신 "내 일과의 접점"만 봅니다. 오늘은 7월 19일 이후 2주치입니다.</p>
+</div>
+<div class="slide-section">
+  <div class="label">New Model · 7월 24일</div>
+  <h2>지난 회차에 본 Fable 5, 그 절반 값짜리가 나왔습니다</h2>
+  <p style="margin-bottom:8px;">7월 24일 <span class="bold">Claude Opus 5</span>가 나왔습니다. 3회차에 "비싸고 느리지만 큰 일을 통째로 맡기기 좋다"고 소개한 Fable 5의 성능에 근접하면서, 값은 절반입니다. 클로드 유료 사용자는 별도 결제 없이 바로 고를 수 있습니다.</p>
+  <div class="stack">
+    <div class="card">
+      <h3 class="accent">값이 절반</h3>
+      <p>Fable 5 성능의 95% 수준을 절반 값에 냅니다(앤트로픽 자체 코딩 벤치마크 기준).</p>
+      <p class="dim">아껴 쓰던 일을 편하게 맡길 수 있게 됐습니다.</p>
+    </div>
+    <div class="card">
+      <h3 class="accent2">얼마나 깊게 생각할지 고르기</h3>
+      <p>effort(사고 강도)를 낮게/중간/높게로 조절합니다. 낮추면 빠르고 싸게, 높이면 더 꼼꼼하게.</p>
+      <p class="dim">간단한 일에 높게 걸 필요가 없습니다.</p>
+    </div>
+    <div class="card">
+      <h3 class="accent3">자동화·컴퓨터 조작에 강함</h3>
+      <p>여러 단계를 스스로 이어서 처리하는 자동화 평가에서 다음 순위 모델보다 1.5배 좋은 결과가 나왔습니다.</p>
+      <p class="dim">우리가 만드는 스킬이 딱 이 종류의 일입니다.</p>
+    </div>
+    <div class="card">
+      <h3 class="accent4">쓰는 사람이 바꿀 것</h3>
+      <p>클로드 Max는 기본 모델이 Opus 5로 바뀌었습니다(Pro는 고를 수 있는 가장 센 모델). 급할 땐 Fast 모드로 2.5배 빠르게 답을 받습니다(대신 값은 2배). 시키지 않아도 스스로 검산하니, "다시 확인해줘"를 덧붙이면 오히려 장황해집니다.</p>
+    </div>
+  </div>
+  <div class="qblock" style="margin-top:12px;">
+    <p style="font-size:14px; color:var(--text); margin:0;"><span class="accent2 bold">오늘 T와 무슨 상관인가</span><br>지난 회차까지는 "제일 센 모델은 비싸니 아껴 쓰자"가 기본이었습니다. 값이 절반이 되면 판단이 바뀝니다. 못한다고 생각해서 미뤄둔 큰 일 하나를 <span class="bold">통째로 맡겨보는 선택</span>이 이번 2주에 훨씬 부담 없어졌습니다.</p>
+    <p class="dim" style="margin-top:6px;">대신 말이 길어졌습니다. 답이 장황하면 "짧게, 결론부터"를 먼저 적어주세요.</p>
+  </div>
+  <p class="dim" style="font-size:12px; margin-top:8px;">출처: <a href="https://www.anthropic.com/news/claude-opus-5" target="_blank" style="color:var(--accent);text-decoration:underline">Introducing Claude Opus 5 · Anthropic (2026-07-24) →</a></p>
+</div>
+
+<!-- Fable 5 비개발자 소개 -->
+<div class="slide-section">
+  <div class="label">Skills · 남이 만든 걸 그대로</div>
+  <h2>인기 스킬 5종을 받아봤더니 30개가 깔렸습니다</h2>
+  <p style="margin-bottom:8px;">지난 회차에 "스킬을 일단 받아서 채워보는 것도 나쁘지 않겠다"는 회고가 있었습니다. 그래서 유튜브에서 인기라고 소개된 5종을 제 계정에 직접 설치해봤습니다. 결과는 신규 스킬 <span class="bold">30개</span>였습니다.</p>
+  <div class="stack">
+    <div class="card">
+      <h3 class="accent">Superpowers · 14개</h3>
+      <p>일하는 방식 자체를 다루는 스킬 묶음. 브레인스토밍, 계획 쓰기, 완료 전 검증, 막힌 문제 파고들기.</p>
+      <p class="dim">도구가 아니라 순서를 잡아줍니다.</p>
+    </div>
+    <div class="card">
+      <h3 class="accent2">UI/UX Pro Max · 7개</h3>
+      <p>디자인·브랜드·배너·슬라이드. 디자인 비전공자가 결과물의 보기 좋은 정도를 올릴 때 씁니다.</p>
+      <p class="dim">오늘 T로 골라볼 만한 영역.</p>
+    </div>
+    <div class="card">
+      <h3 class="accent3">Remotion · 9개</h3>
+      <p>영상을 코드로 만드는 묶음. 자막·렌더링까지 들어 있어 영상 편집이 약한 사람에게 맞습니다.</p>
+      <p class="dim">저도 아직 안 써봤습니다.</p>
+    </div>
+    <div class="card">
+      <h3 class="accent5">claude-mem · 설치 실패</h3>
+      <p>대화를 기억해두는 스킬인데, 백그라운드에서 계속 도는 프로그램과 설정 파일 수정이 함께 딸려옵니다.</p>
+      <p class="dim">안전 장치에 막혀 못 깔았습니다.</p>
+    </div>
+  </div>
+  <div class="qblock" style="margin-top:12px;">
+    <p style="font-size:14px; color:var(--text); margin:0;"><span class="accent2 bold">받아보고 알게 된 것 두 가지</span><br>① 설치는 "리포를 내려받아 스킬 폴더만 복사"면 끝입니다. 낯선 설치 명령을 그대로 실행하는 것보다 안전하고, 뭐가 들어왔는지도 눈으로 보입니다.<br>② 이름이 흔한 스킬(design, brand, slides)이 전체 계정에 깔리면 <span class="bold">엉뚱한 작업에서도 자꾸 튀어나옵니다</span>. 안 쓰는 건 폴더째 지우면 됩니다.</p>
+  </div>
+</div>
+
+<!-- 무료로 바로 써볼 것 -->
+<div class="slide-section">
+  <div class="label">Try Now · 오늘 바로 써볼 것</div>
+  <h2>이번 2주, 무료로 바로 써볼 것</h2>
+  <p style="margin-bottom:8px;">오늘 그대로 따라할 수 있는 것만 골랐습니다. 앞의 두 가지에 법 이야기 하나를 더했습니다.</p>
+  <div class="stack">
+    <div class="card">
+      <h3 class="accent">① 모델과 사고 강도를 골라 쓰기</h3>
+      <p>같은 질문이라도 짧은 확인은 낮은 강도로, 며칠짜리 일은 Opus 5에 높은 강도로 맡깁니다. 클로드 화면에서 모델을 바꾸는 것만으로도 절반은 됩니다.</p>
+      <p class="dim">체감: 다 세게 걸 필요가 없다는 걸 알면 오래 쓰게 됩니다.</p>
+    </div>
+    <div class="card">
+      <h3 class="accent2">② 스킬 하나 받아서 열어보기</h3>
+      <p>지난 회차 회고에 나온 대로, 받고 끝내지 말고 그 안의 설명 파일을 한 번 열어보세요. "이 사람은 이 일을 어떤 순서로 쪼갰나"가 그대로 보입니다.</p>
+      <p class="dim">체감: 내 스킬을 쓸 때 무엇을 적어야 할지가 여기서 나옵니다.</p>
+    </div>
+    <div class="card">
+      <h3 class="accent4">③ AI 기본법이 7월 21일 시행됐습니다</h3>
+      <p>규제 대상은 AI 서비스를 만들어 파는 사업자입니다. 업무에 도구를 쓰는 개인은 처벌 대상이 아닙니다. 다만 사람 얼굴·목소리를 바꾼 영상·이미지에는 표시 의무가 계도기간 없이 바로 적용됩니다.</p>
+      <p class="dim">체감: "회사에서 써도 되나" 걱정은 접고, 만들어 파는 쪽만 조심하면 됩니다.</p>
+    </div>
+  </div>
+  <div class="qblock" style="margin-top:12px;">
+    <p style="font-size:14px; color:var(--text); margin:0;">③ 관련: 나머지 고지 의무는 1년 이상 계도기간이 있고, 실제 과태료는 빨라도 2027년 중반 이후로 예정돼 있습니다. 비수도권 중소기업 재직자는 AI 서비스 비용 지원 대상에 새로 들어갔습니다.</p>
+  </div>
+</div>
+
+<!-- ===== 3: PART 2 + 2주 작업 ===== -->
+<div class="section-separator" id="sec-work"><span class="sep-label">Part 2 · 지난 2주의 작업</span></div>
+<div class="slide-section">
+  <div class="label">Part 2 · 지난 2주의 작업</div>
+  <h2>7월 20일 ~ 8월 1일,<br>클로드 코드와 함께한 2주</h2>
+  <p>부사수 없이 일하며 만든 작업을 날것으로 보여드립니다. 오늘은 <span class="bold">"못하던 영역에 도전한"</span> 작업을 골라, T 사분면과 이어 붙입니다.</p>
+</div>
+<div class="slide-section">
+  <div class="label">Overview · 지난 2주의 작업</div>
+  <h2>2주간의 작업 한눈에 보기</h2>
+  <div class="stack">
+    <div class="card">
+      <h3 class="accent">가을시즌 19팀 상세페이지 개편</h3>
+      <p>파트너 피드백과 일정 변경을 노트·아임웹·구글 캘린더 세 곳에 같은 값으로 반영했습니다. 7월 31일 등록 오픈이 마감이었습니다.</p>
+      <p class="dim">2주의 대부분을 여기에 썼습니다.</p>
+    </div>
+    <div class="card">
+      <h3 class="accent2">파트너 일정 4자 대조</h3>
+      <p>카톡 1:1 대화에서 파트너가 말한 날짜를 상품 노트·아임웹·캘린더와 대조해 어긋난 곳을 찾았습니다.</p>
+      <p class="dim">T 사례: 대화 기록을 자료로 쓴 건 처음.</p>
+    </div>
+    <div class="card">
+      <h3 class="accent3">등록 정원을 예약 실행으로 조절</h3>
+      <p>재등록 기간엔 정원 절반만 열고, 일반등록이 열리는 시각에 나머지가 자동으로 채워지게 예약했습니다.</p>
+      <p class="dim">맥이 꺼져 있으면 건너뛰는 문제까지 손봤습니다.</p>
+    </div>
+    <div class="card">
+      <h3 class="accent4">페이지가 왜 깨지는지 규명</h3>
+      <p>레터가 깨져 보이는 원인을 실측했습니다. 게시판 편집기가 저장할 때 특정 서식을 지운다는 걸 확인했습니다.</p>
+      <p class="dim">추측 대신 하나씩 지워보며 범인을 찾았습니다.</p>
+    </div>
+    <div class="card" style="background:var(--accent2);">
+      <h3 style="color:#F8F7F4;">사진 고르는 화면을 직접 만들었습니다 &nbsp;<span style="font-size:12px; font-weight:600; background:rgba(255,255,255,0.18); padding:2px 8px; border-radius:4px;">★ 오늘의 대표 T 사례</span></h3>
+      <p style="color:rgba(255,255,255,0.9);">19개 팀 페이지에 넣을 사진을 수천 장에서 골라야 했습니다. 눈으로 넘겨보다 보면 어디까지 봤는지도, 뭘 이미 골랐는지도 잊습니다. 그래서 브라우저에서 한 장씩 넘기며 고르는 화면을 만들었습니다. 화면 만드는 일은 제 분야가 아니라, 딱 오늘 다룰 T(도전) 사분면입니다. 뒤에서 4단계로 자세히 보여드릴게요.</p>
+    </div>
+  </div>
+  <div class="qblock" style="margin-top:12px;">
+    <p style="font-size:14px; color:var(--text); margin:0;">2주 내내 시즌 오픈 마감에 쫓겼습니다. 그런데도 새 영역에 손을 댄 건, 손으로 하면 이번 주도 다음 시즌도 똑같이 걸릴 일이었기 때문입니다.</p>
+  </div>
+</div>
+
+<!-- ===== 4: PART 3 T 사분면 ===== -->
+<div class="section-separator" id="sec-t"><span class="sep-label">Part 3 · T 사분면 워크숍</span></div>
+<div class="slide-section">
+  <div class="label">Part 3 · T 사분면 워크숍</div>
+  <h2>오늘은 T,<br><span class="accent2">도전할 차례입니다</span></h2>
+  <p>지난 시간엔 "미뤄둔 일"을 시작했다면, 오늘은 <span class="accent2 bold">"내가 못한다고 생각했던 것"</span>을 AI에게 부탁해봅니다.</p>
+</div>
+
+<!-- STAR Recap -->
+<div class="slide-section">
+  <div class="label">STAR Recap</div>
+  <h2>T 사분면이 어디에 있는지 다시 보기</h2>
+  <div class="stack">
+    <div class="card" style="opacity:0.55;">
+      <h3>S · Start</h3>
+      <p style="margin:0;">하고 싶었는데 미뤄왔던 일. <span class="dim">습관 형성 · 지난 회차</span></p>
+    </div>
+    <div class="card" style="background:var(--accent2);">
+      <h3 style="color:#F8F7F4;">T · Try &nbsp;<span style="font-size:13px;">★ 오늘 다룸</span></h3>
+      <p style="color:rgba(255,255,255,0.9); margin:0;">평소 잘 못한다고 생각했던 것. 도전과 성장.</p>
+    </div>
+    <div class="card" style="opacity:0.55;">
+      <h3>A · Amplify</h3>
+      <p style="margin:0;">이미 잘하지만 더 잘하고 싶은 것. <span class="dim">차별화 · 5회차</span></p>
+    </div>
+    <div class="card" style="opacity:0.55;">
+      <h3>R · Recover</h3>
+      <p style="margin:0;">반복 작업을 효율화하는 것. <span class="dim">시간 회수 · 6회차</span></p>
+    </div>
+  </div>
+  <div class="summary-card" style="margin-top:12px;">
+    <p><span class="accent2 bold">왜 T인가?</span> <span class="sub">S가 "하던 일을 더 잘"이었다면, T는 <span class="bold">"안 해봤던 일에 발을 담그는 것"</span>. AI 덕분에 진입 문턱이 크게 낮아진 영역입니다.</span></p>
+  </div>
+</div>
+
+<!-- T in Detail -->
+<div class="slide-section">
+  <div class="label">T in Detail</div>
+  <h2>T = Try, 평소 못한다고 생각했던 것</h2>
+  <p style="margin-bottom:10px;">"전공이 아니라서", "툴을 몰라서", "배운 적 없어서"로 그동안 손대지 못했던 일을 AI를 옆에 두고 한번 해보는 영역입니다.</p>
+  <div class="stack">
+    <div class="card">
+      <h3 class="accent2">T 영역의 특징</h3>
+      <ul>
+        <li><span class="bold">결과물을 완성합니다</span>: S와 달리 습관이 아니라 산출물 중심</li>
+        <li><span class="bold">첫 시도는 무조건 엉성합니다</span>: 완벽을 목표로 하면 시작을 못 함</li>
+        <li><span class="bold">"처음 해봅니다"를 AI에게 알려주는 게 관건</span>: 맥락이 바뀜</li>
+        <li><span class="bold">한 번 뚫으면 가능 영역이 크게 넓어집니다</span>: 전문 분야의 진입 문턱이 내려감</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 class="accent3">파트너의 T 영역 사례 (실제 시도)</h3>
+      <ul>
+        <li><code class="accent">/edit-premiere-xml</code>: 영상 편집 약함 → 프리미어 XML을 텍스트로 편집</li>
+        <li><code class="accent">/update-card-news</code>: 디자인 비전공 → 카드뉴스를 반복 개선</li>
+        <li><span class="accent">Apps Script</span>: 프로그래밍 처음 → 구글폼 자동 알림 위젯</li>
+        <li><code class="accent">/ga-report</code>: 데이터 분석 약함 → GA4 월별 리포트 자동화</li>
+      </ul>
+      <p class="dim">공통점: 전부 <span class="bold">"이건 내 분야가 아니야"</span>에서 시작했습니다.</p>
+    </div>
+  </div>
+</div>
+
+<!-- T 작동 원리 -->
+<div class="slide-section">
+  <div class="label">T in Detail</div>
+  <h2>T 영역 스킬은 어떻게 뚫는가</h2>
+  <div class="stack">
+    <div class="card">
+      <h3 class="accent">T 영역 공통 4단계</h3>
+      <ol>
+        <li><span class="bold">맥락</span>: "이 분야 처음입니다. 기본 개념부터 알려주세요."</li>
+        <li><span class="bold">작은 목표</span>: "완벽한 결과" 대신 "일단 한 번 돌아가는 것"</li>
+        <li><span class="bold">관찰</span>: 첫 결과의 어디가 어색한지 구체적으로 지목</li>
+        <li><span class="bold">반복</span>: "이것만 고쳐보자"를 3~5번</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3 class="accent3"><code class="accent">/insights</code>를 옆에 두기</h3>
+      <p>3회차에 써본 <code class="accent">/insights</code>로 내 프롬프트 습관을 점검하세요. "왜 결과가 엉뚱한가"의 답이 대개 내 질문 방식에 있습니다.</p>
+    </div>
+    <div class="card">
+      <h3 class="accent2">예시: 어설픈 첫 프롬프트에서 출발</h3>
+      <div class="code-block"><span class="comment"># 맥락</span><br>데이터 분석은 처음. 표만 겨우 봅니다.<br><span class="comment"># 작은 목표</span><br>엑셀 한 장을 막대그래프 1개로.<br><span class="comment"># 원하는 결과 형식</span><br>HTML 파일 1개, 브라우저에서 바로 실행.<br><span class="comment"># 체크 방법</span><br>코드 전에 뭘 준비해야 하는지 먼저 알려줘.</div>
+    </div>
+    <div class="qblock">
+      <p style="font-size:14px; color:var(--text); margin:0;"><span class="accent2 bold">기억할 것</span><br>T 영역의 가장 큰 장벽은 기술이 아니라 <span class="bold">"난 못할 것 같다"는 감정</span>입니다. AI에게 "처음입니다"를 말하는 순간 문이 열립니다.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 내 T 사례 = 블로그 만들기 -->
+<div class="slide-section">
+  <div class="label">My T · 실제 사례</div>
+  <h2>이번 2주 나의 T: 사진 고르는 화면을 만들어봤습니다</h2>
+  <p style="margin-bottom:10px;">화면을 만드는 일은 해본 적이 없었습니다. 앞의 4단계를 그대로 밟았습니다.</p>
+  <div class="stack">
+    <div class="card">
+      <p class="accent bold" style="font-size:13px; margin:0;">1. 맥락</p>
+      <h3>"화면 만들기는 처음"</h3>
+      <p style="margin:0;">"사진 고르는 화면은 만들어본 적 없다. 팀별로 수천 장에서 골라야 하고, 이미 고른 건 다시 안 보이면 좋겠다"고 먼저 알렸습니다.</p>
+    </div>
+    <div class="card">
+      <p class="accent2 bold" style="font-size:13px; margin:0;">2. 작은 목표</p>
+      <h3>"한 팀만 넘겨보기"</h3>
+      <p style="margin:0;">19개 팀을 한 번에 처리하는 도구 말고, 한 팀 사진을 브라우저에서 넘겨보며 고르는 것부터 목표로 잡았습니다.</p>
+    </div>
+    <div class="card">
+      <p class="accent3 bold" style="font-size:13px; margin:0;">3. 관찰</p>
+      <h3>첫 결과는 엉성</h3>
+      <p style="margin:0;">파일을 그냥 열면 사진이 안 떴고, 촬영 날짜가 하루씩 밀려 나왔고, 남의 팀 사진이 섞여 들어왔습니다. 하나씩 짚었습니다.</p>
+    </div>
+    <div class="card">
+      <p class="accent4 bold" style="font-size:13px; margin:0;">4. 반복</p>
+      <h3>고치고 또 고침</h3>
+      <p style="margin:0;">사진을 띄우는 방식을 바꾸고, 날짜를 한국 시간으로 맞추고, 파일 이름으로 중복을 걸러냈습니다. 그다음 스킬로 저장했습니다.</p>
+    </div>
+  </div>
+  <div class="summary-card" style="margin-top:12px;">
+    <p><span class="accent2 bold">결과</span>: <span class="sub">"화면 만드는 건 내 분야가 아니야"에서 <span class="bold">"눈 아픈 일이 생기면 화면부터 만든다"</span>로. 완벽하진 않지만, 할 수 있는 일 리스트가 한 칸 늘었습니다.</span></p>
+  </div>
+</div>
+
+<!-- 이 팀의 T 후보 -->
+<div class="slide-section">
+  <div class="label">T for This Team</div>
+  <h2>이 팀이 적어둔 "해보고 싶은 것"에서 고르기</h2>
+  <p style="margin-bottom:10px;">3회차까지 4L 회고에 쌓인 "Long for"를 모아보면, 도전해볼 영역이 이미 보입니다. 오늘 T는 여기서 하나 골라도 좋습니다.</p>
+  <div class="stack">
+    <div class="card">
+      <h3 class="accent">기록 정리</h3>
+      <p>밀려 있는 기록 싱크업 · 옵시디언 정리 · 데이터 쌓는 습관 만들기.</p>
+      <p class="dim">가장 많이 적힌 주제.</p>
+    </div>
+    <div class="card">
+      <h3 class="accent2">자동으로 도는 흐름</h3>
+      <p>따로 놀던 스킬을 이어 붙여, 신경 안 써도 알아서 도는 작업 하나 만들기.</p>
+      <p class="dim">"루프를 연결하고 싶다"가 여러 번.</p>
+    </div>
+    <div class="card">
+      <h3 class="accent3">쓰는 서비스와 연결</h3>
+      <p>회사 시스템 · 쇼핑몰 · 사이트를 한 개만 연결해 상태를 들여다보기.</p>
+      <p class="dim">구글 연동 다음 단계.</p>
+    </div>
+    <div class="card">
+      <h3 class="accent4">글을 내보내는 길</h3>
+      <p>검색·AI 답변에 걸리는 소개 페이지 만들기 · 쓴 글을 자동으로 올리기.</p>
+      <p class="dim">개인 사업·사이드에 바로 쓰입니다.</p>
+    </div>
+  </div>
+  <div class="qblock" style="margin-top:12px;">
+    <p style="font-size:14px; color:var(--text); margin:0;"><span class="accent2 bold">"회사 PC로는 안 된다", "노트북을 펼치기가 어렵다"</span>: 이 팀에서 가장 자주 나온 두 문장입니다. T는 회사 공식 결과물이 아니어도 되고, 오늘 안에 끝나야 합니다. 개인 · 사이드 · 일상 영역에서 "처음 해보는 것"을 고르면 보안 제약 없이 지금 이 자리에서 도전할 수 있습니다.</p>
+  </div>
+</div>
+
+<!-- ===== 5: WORKSHOP ===== -->
+<div class="section-separator" id="sec-workshop"><span class="sep-label">Workshop · 오늘의 실습</span></div>
+<div class="slide-section">
+  <div class="label">Workshop · Intro</div>
+  <h2>오늘 워크숍 흐름</h2>
+  <div class="stack">
+    <div class="card">
+      <p class="accent bold" style="font-size:13px; margin:0;">STEP 1</p>
+      <h3>못한다고 생각한 것</h3>
+      <p style="margin:0;">"내 분야 아니라서" 미뤄온 일 3개를 적어봅니다.</p>
+    </div>
+    <div class="card">
+      <p class="accent2 bold" style="font-size:13px; margin:0;">STEP 2</p>
+      <h3>하나 고르기</h3>
+      <p style="margin:0;">3개 중 가장 가벼운 1개. 거창한 건 나중에.</p>
+    </div>
+    <div class="card">
+      <p class="accent3 bold" style="font-size:13px; margin:0;">STEP 3</p>
+      <h3>첫 명령 만들기</h3>
+      <p style="margin:0;">맥락 / 작은 목표 / 원하는 결과 / 체크 방법 4칸.</p>
+    </div>
+    <div class="card">
+      <p class="accent4 bold" style="font-size:13px; margin:0;">STEP 4</p>
+      <h3>실행 + 반복</h3>
+      <p style="margin:0;">첫 결과를 보고 "뭐가 어색한지"를 3번만 피드백.</p>
+    </div>
+  </div>
+  <div class="summary-card" style="margin-top:12px;">
+    <p><span class="accent2 bold">목표</span>: <span class="sub">완벽한 결과는 아닙니다. 오늘 안에 <span class="bold">"나도 이걸 할 수 있구나" 한 번 느끼기</span>입니다.</span></p>
+  </div>
+</div>
+
+<!-- STEP 1 -->
+<div class="slide-section">
+  <div class="label">Workshop · Step 1</div>
+  <h2>STEP 1: 못한다고 생각했던 것 떠올리기</h2>
+  <div class="stack">
+    <div class="card">
+      <h3 class="accent2">"못한다"의 뜻</h3>
+      <ul>
+        <li>"내 전공이 아니라서" 미뤄둔 것</li>
+        <li>"툴을 배운 적이 없어서" 시도 못 한 것</li>
+        <li>"전문가한테 맡겨야 하는 일" 같아 포기한 것</li>
+        <li>"나는 저런 건 못해"라고 습관적으로 말한 것</li>
+      </ul>
+      <p class="dim">업무도 좋고 취미도 좋습니다 (디자인 · 영상 · 코딩 · 데이터 분석).</p>
+    </div>
+    <div class="card">
+      <h3 class="accent3">잘 안 떠오르면</h3>
+      <ul>
+        <li>옆 사람과 5분 짝 토론: "요즘 손 안 가는 일" 서로 묻기</li>
+        <li><code class="accent">/insights</code>로 내 AI 사용 패턴에서 약한 영역 찾기</li>
+        <li>앞의 4가지 영역(기록 정리 · 도는 흐름 · 서비스 연결 · 글 내보내기)에서 고르기</li>
+      </ul>
+      <p class="dim">"뭘 할 수 있을지 모르겠다"는 회고가 지난 회차에도 나왔습니다. 못 고르는 게 정상입니다.</p>
+    </div>
+    <div class="qblock">
+      <p style="font-size:14px; color:var(--text); margin:0;"><span class="accent2 bold">활동</span>: 노트에 <span class="bold">3개를 적어보세요.</span> "못할 것 같은 이유"도 한 줄씩.</p>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 2 -->
+<div class="slide-section">
+  <div class="label">Workshop · Step 2</div>
+  <h2>STEP 2: 가장 가벼운 1개 고르기</h2>
+  <div class="stack">
+    <div class="card">
+      <h3 class="accent2">고르는 기준 3가지</h3>
+      <ol>
+        <li><span class="bold">실패해도 남에게 피해 안 가는 것</span>: 회사 공식 결과물 말고 내 실험물</li>
+        <li><span class="bold">결과물이 한 장 / 한 파일로 나오는 것</span>: 범위가 좁을수록 좋음</li>
+        <li><span class="bold">검색만으로는 배우기 벅찼던 것</span>: 옆에서 알려줄 사람이 필요했던 영역</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3 class="accent">회사 데이터가 막혀 있다면</h3>
+      <p>오늘 T는 <span class="bold">개인 · 일상 영역</span>으로 고르면 됩니다. 보안 걱정 없이, 내 자료로 도전.</p>
+    </div>
+    <div class="card">
+      <h3 class="accent3">하지 말 것</h3>
+      <ul>
+        <li>"한 달 걸리는 프로젝트"를 T에 넣지 마세요</li>
+        <li>"전문가 수준으로 마무리"를 목표로 잡지 마세요</li>
+        <li>여러 명이 같이 봐야 하는 결과물은 오늘 보류</li>
+      </ul>
+    </div>
+    <div class="qblock">
+      <p style="font-size:14px; color:var(--text); margin:0;"><span class="accent2 bold">활동</span>: 가장 작은 범위의 일 1개에 도전해봅니다.</p>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 3 -->
+<div class="slide-section">
+  <div class="label">Workshop · Step 3</div>
+  <h2>STEP 3: 첫 명령 만들기</h2>
+  <div class="stack">
+    <div class="card">
+      <h3 class="accent2">T 영역 4칸 양식</h3>
+      <ol>
+        <li><span class="bold">맥락</span>: "이 분야 처음입니다. 기본부터 알려주세요."</li>
+        <li><span class="bold">작은 목표</span>: "일단 한 번 돌아가는 결과 1개"</li>
+        <li><span class="bold">원하는 결과 형식</span>: "HTML 파일 / 표 1개 / 노트 1장"</li>
+        <li><span class="bold">체크 방법</span>: "결과 보여주고 물어봐주세요"</li>
+      </ol>
+      <p class="dim">폼이 아니라 대화입니다. 한 칸 친 뒤 답을 보고 다음 칸으로.</p>
+    </div>
+    <div class="card">
+      <h3 class="accent3">완성 예시: "인스타 저장글 아카이빙 처음 해보기"</h3>
+      <div class="code-block"><span class="comment"># 맥락</span><br>코딩 처음. 인스타에 저장만 잔뜩 해둠.<br><span class="comment"># 작은 목표</span><br>저장한 글 1개를 텍스트로 뽑아 노트에 저장.<br><span class="comment"># 원하는 결과 형식</span><br>마크다운 노트 1장. 제목 + 본문 + 링크.<br><span class="comment"># 체크 방법</span><br>1개만 먼저 해보고 결과를 보여줘.</div>
+    </div>
+    <div class="summary-card">
+      <p><span class="accent2 bold">활동</span>: <span class="sub">노트에 4칸을 그리고 각각 한 줄씩 채워보세요. <span class="bold">"처음입니다"를 꼭 쓸 것.</span></span></p>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 4 -->
+<div class="slide-section">
+  <div class="label">Workshop · Step 4</div>
+  <h2>STEP 4: 실행 + 3번 피드백</h2>
+  <div class="stack">
+    <div class="card">
+      <h3 class="accent2">실행 방법</h3>
+      <ol>
+        <li>VS Code 클로드 코드 채팅창 열기</li>
+        <li>4칸 내용을 일상 언어로 풀어서 입력</li>
+        <li>첫 결과를 받음: <span class="bold">"엉성할 것을 예상"</span></li>
+        <li>어디가 어색한지 구체적으로 1~2개 피드백</li>
+        <li>3번째 반복까지만. 그 이상은 다음에</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3 class="accent">자주 막히는 곳</h3>
+      <ul>
+        <li>"잘 모르겠어요" → <span class="bold">선택지 3개를 제시</span>해달라고 요청</li>
+        <li>결과가 엉뚱함 → 맥락을 더 자세히 (왜 처음인지)</li>
+        <li>한 번에 완벽하게 하려는 마음 → "다음 1개만 고쳐줘"로 좁히기</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 class="accent3">입력 예시 (그대로 써도 됨)</h3>
+      <div class="code-block">&gt; 코딩은 처음이고, 인스타 저장글을<br>&nbsp;&nbsp;텍스트로 모아본 적이 없어.<br>&nbsp;&nbsp;저장글 링크 1개를 줄 테니<br>&nbsp;&nbsp;제목+본문을 마크다운 노트로 만들어줘.<br>&nbsp;&nbsp;먼저 1개만 해서 보여줘.<br><br>&gt; (결과 받은 뒤)<br>&nbsp;&nbsp;본문이 잘렸어. 전체로 다시.<br>&nbsp;&nbsp;저장 폴더는 ~/Documents/아카이브로.</div>
+      <p class="dim">3번째 피드백까지만. 그 다음엔 <span class="bold">멈추고 기록</span>하세요.</p>
+    </div>
+  </div>
+</div>
+
+<!-- WORKSHOP WRAP -->
+<div class="slide-section">
+  <div class="label">Workshop · Wrap</div>
+  <h2>오늘 뚫은 T를 어떻게 키워갈까</h2>
+  <div class="stack">
+    <div class="card">
+      <h3 class="accent">오늘 밤</h3>
+      <ul>
+        <li>첫 결과물을 파일로 저장</li>
+        <li>"어색했던 것 → 고친 것" 한 줄 메모</li>
+        <li>"처음엔 못할 줄 알았지?" 한마디</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 class="accent2">이번 2주</h3>
+      <ul>
+        <li>같은 주제로 결과물 2개 더 만들기</li>
+        <li>처음과 3번째 결과 비교</li>
+        <li>슬랙에 시도 공유 (자랑해도 좋음)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 class="accent3">다음 회차로</h3>
+      <ul>
+        <li>반복해서 하던 T를 <span class="bold">스킬로 저장</span></li>
+        <li>"이제 할 수 있는 것 리스트"에 추가</li>
+        <li>5회차 A(Amplify)로 한 단계 더</li>
+      </ul>
+    </div>
+  </div>
+  <div class="summary-card" style="margin-top:12px;">
+    <p><span class="accent2 bold">기억하세요</span>: <span class="sub">T 영역 성공의 지표는 "결과물의 퀄리티"가 아니라 <span class="bold">"내가 할 수 있는 일의 리스트가 늘었는지"</span>입니다.</span></p>
+  </div>
+</div>
+
+<!-- ===== 6: NEXT + CLOSING ===== -->
+<div class="section-separator" id="sec-wrap"><span class="sep-label">Next · 마무리</span></div>
+<div class="slide-section">
+  <div class="label">Next</div>
+  <h2>5회차 예고</h2>
+  <div class="card">
+    <h3 class="accent3">5회차에 다룰 것: A (Amplify) 사분면</h3>
+    <ul>
+      <li>이미 잘하는 영역을 AI로 <span class="bold">한 단계 더</span></li>
+      <li>오늘 T에서 뚫은 경험을 반복 가능한 스킬로 만드는 법</li>
+      <li>멤버들의 T 시도 공유 &amp; 코멘트</li>
+    </ul>
+    <p class="dim">8월 16일 (일) 10:30 · 5층 오아시스덕수궁</p>
+  </div>
+</div>
+
+<div class="slide-section">
+  <div class="closing-section">
+    <h1 style="font-size:26px;">못한다고 생각했던 일에<br><span class="accent2">한 번 발을 담가봅니다</span></h1>
+    <p style="font-size:15px; color:var(--text); margin-top:24px; line-height:1.9;">AI 부사수의 진짜 쓸모는 <span class="bold">"내 분야가 아니었던 영역"</span>으로 나를 한 칸 밀어주는 데 있습니다.</p>
+    <div style="margin-top:36px;">
+      <p class="dim">26여름 AI부사수(SUN) 4회차 · 8월 2일 (일) · @Seulki.log</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('#sticky-nav .nav-item').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = document.getElementById(btn.dataset.target);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  const navItems = document.querySelectorAll('#sticky-nav .nav-item');
+  const sectionAnchors = [
+    document.getElementById('sec-recap'),
+    document.getElementById('sec-news'),
+    document.getElementById('sec-work'),
+    document.getElementById('sec-t'),
+    document.getElementById('sec-workshop'),
+    document.getElementById('sec-wrap')
+  ];
+
+  function updateNav() {
+    const scrollY = window.scrollY + 60;
+    let activeIdx = 0;
+    sectionAnchors.forEach((anchor, i) => {
+      if (anchor && anchor.offsetTop <= scrollY) activeIdx = i;
+    });
+    navItems.forEach((item, i) => {
+      item.classList.toggle('active', i === activeIdx);
+    });
+  }
+
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+</script>
+</body>
+</html>

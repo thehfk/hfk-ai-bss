@@ -45,7 +45,7 @@ git add -A && git commit -m "content: 3-sun 문구 수정" && git push
 - `presentation-ai부사수-26여름-1-fri.html`, `-1-sun.html`
 - `presentation-ai부사수-26여름-2-fri.html`, `-2-sun.html`
 - `presentation-ai부사수-3.html` (3회차 주중), `presentation-ai부사수-26여름-3-sun.html` (3회차 주말)
-- `presentation-ai부사수-26여름-4-fri.html`
+- `presentation-ai부사수-26여름-4-fri.html`, `-4-sun.html`
 - `presentation-ai-workshop-for-member-mobile.html` (멤버 워크숍)
 
 > 검증: 위 8개 모두 extract→inject 왕복 후 보이는 텍스트·슬라이드 수 100% 일치.
