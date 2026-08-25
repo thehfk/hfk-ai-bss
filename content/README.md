@@ -1,8 +1,23 @@
 # 발표 덱 콘텐츠 파이프라인 (콘텐츠 .md + 주입)
 
-리치한 reveal.js HTML 디자인은 그대로 두고, **편집 가능한 텍스트 블록만** 이 폴더의
-`*.md` 로 빼놓은 것입니다. `.md` 를 고치고 주입(inject)하면 발표 HTML 본문에 반영되고,
-git push 하면 `skaug12.github.io/hfk-ai-bss/` 에 배포됩니다.
+리치한 reveal.js HTML 디자인은 그대로 두고, **편집 가능한 텍스트 블록만** `*.md` 로
+빼놓은 것입니다. `.md` 를 고치고 주입(inject)하면 발표 HTML 본문에 반영되고,
+git push 하면 `thehfk.github.io/hfk-ai-bss/` 에 배포됩니다.
+
+## ⚠️ AI부사수 덱의 .md 는 이 폴더에 없습니다 (2026-08-25 이관)
+
+발표 원고는 개인 자료라 **iCloud Memo 보관함이 정본**입니다:
+
+```
+Memo/3 콘텐츠/발표/AI부사수/_content/presentation-ai부사수-*.md
+```
+
+`scripts/deck_content.py` 가 Memo 를 먼저 찾고, 없을 때만 이 폴더로 폴백합니다.
+그래서 명령어 사용법은 아래 그대로이고 경로만 신경 쓰지 않으면 됩니다.
+이 폴더에 남은 것은 아직 안 옮긴 덱(`presentation-ai-workshop-for-member-mobile.md`)뿐입니다.
+
+새 덱은 이 추출·주입 방식이 아니라 Memo 소스노트 + `make_deck.py` 로 씁니다
+(색인: `Memo/3 콘텐츠/발표/_발표목록.md`).
 
 ## 워크플로우
 

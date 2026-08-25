@@ -22,13 +22,25 @@ from bs4 import BeautifulSoup
 BLOCK = ["h1", "h2", "h3", "h4", "p", "li"]
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONTENT_DIR = os.path.join(ROOT, "content")
+# 발표 텍스트 원본(.md)은 개인 자료라 Memo 보관함이 정본이다. 이 레포에는 배포용 HTML 만 둔다.
+# 레포 content/ 는 아직 안 옮긴 덱을 위한 폴백일 뿐이다.
+MEMO_CONTENT_DIR = os.path.expanduser(
+    "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/Memo/3 콘텐츠/발표/AI부사수/_content"
+)
 
 
 def md_path(deck, md=None):
+    """<덱이름>.md 경로. Memo(정본) 우선, 없으면 레포 content/ 폴백."""
     if md:
         return md
     base = os.path.splitext(os.path.basename(deck))[0]
-    return os.path.join(CONTENT_DIR, base + ".md")
+    memo = os.path.join(MEMO_CONTENT_DIR, base + ".md")
+    if os.path.exists(memo):
+        return memo
+    repo = os.path.join(CONTENT_DIR, base + ".md")
+    if os.path.exists(repo):
+        return repo
+    return memo  # 새로 추출하는 덱은 Memo 에 쓴다
 
 
 def soup_of(deck):
@@ -134,7 +146,7 @@ def check(deck):
     orig_soup = BeautifulSoup(original, "html.parser")
     n_orig = len(slides_of(orig_soup))
     vt_orig = visible_text(orig_soup)
-    tmp = md_path(deck, os.path.join(CONTENT_DIR, "_check_tmp.md"))
+    tmp = md_path(deck, os.path.join(os.path.dirname(md_path(deck)), "_check_tmp.md"))
     extract(deck, tmp)
     _, injected = inject(deck, tmp, write=False)
     os.remove(tmp)
