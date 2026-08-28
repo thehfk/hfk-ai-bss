@@ -15,14 +15,18 @@
 #odc-lookup-root .odc-hero-title{font-size:32px;}
 #odc-lookup-root .odc-plan-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:10px;}
 #odc-lookup-root .odc-coupon-table th,#odc-lookup-root .odc-coupon-table td{padding:14px 12px;}
-#odc-lookup-root details{border:1px solid #ddcfbf; border-radius:8px; background:#ffffff; margin-bottom:8px; overflow:hidden;}
-#odc-lookup-root details summary{cursor:pointer; padding:14px 44px 14px 18px; font-size:15px; font-weight:600; color:#2d2523; list-style:none; position:relative; line-height:1.55;}
+#odc-lookup-root details{border:0; border-bottom:1px solid #ddcfbf; border-radius:0; background:transparent; margin:0; overflow:hidden;}
+#odc-lookup-root details summary{cursor:pointer; padding:15px 44px 15px 2px; font-size:15px; font-weight:600; color:#2d2523; list-style:none; position:relative; line-height:1.55;}
 #odc-lookup-root details summary::-webkit-details-marker{display:none;}
-#odc-lookup-root details summary::after{content:'+'; position:absolute; right:18px; top:50%; transform:translateY(-50%); font-size:20px; font-weight:400; color:#980000; line-height:1;}
+#odc-lookup-root details summary::after{content:'+'; position:absolute; right:4px; top:50%; transform:translateY(-50%); font-size:20px; font-weight:400; color:#980000; line-height:1;}
 #odc-lookup-root details[open] summary::after{content:'\2212';}
-#odc-lookup-root details > div.odc-faq-body{padding:0 18px 16px; font-size:14px; line-height:1.8; color:#2d2523; border-top:1px solid #ddcfbf; padding-top:14px;}
+#odc-lookup-root details[open]{background:rgba(255,255,255,0.5);}
+#odc-lookup-root details > div.odc-faq-body{padding:0 44px 18px 2px; font-size:14px; line-height:1.8; color:#2d2523;}
 #odc-lookup-root details > div.odc-faq-body code{font-family:'SF Mono',Menlo,Consolas,monospace; background:#f0eae2; padding:2px 6px; border-radius:3px; font-size:13px;}
-#odc-lookup-root .odc-faq-cat{font-size:12px; font-weight:700; color:#980000; letter-spacing:1px; margin:0 0 10px 0; text-transform:uppercase;}
+#odc-lookup-root .odc-band{background:#e7dfd3; border-radius:8px; padding:22px 24px;}
+#odc-lookup-root .odc-plan{padding:18px 16px; border-radius:6px; background:#e7dfd3; min-width:0;}
+#odc-lookup-root .odc-faq-cat{display:flex; align-items:center; gap:10px; font-size:12px; font-weight:700; color:#980000; letter-spacing:1px; margin:0 0 12px 0; text-transform:uppercase;}
+#odc-lookup-root .odc-faq-cat::after{content:''; flex:1 1 auto; height:1px; background:#ddcfbf;}
 #odc-lookup-root .odc-faq-group{margin-bottom:24px;}
 @media print{
   body{background:#ffffff !important; padding:0 !important;}
@@ -41,6 +45,7 @@
 }
 @media (max-width:640px){
   #odc-lookup-root{padding:0 4px !important;}
+  #odc-lookup-root .odc-quota{text-align:left !important; width:100%;}
   #odc-lookup-root .odc-hero-title{font-size:24px !important; line-height:1.35 !important;}
   #odc-lookup-root .odc-section-title{font-size:19px !important;}
   #odc-lookup-root .odc-plan-grid{grid-template-columns:1fr !important;}
@@ -48,25 +53,39 @@
   #odc-lookup-root .odc-coupon-table th,#odc-lookup-root .odc-coupon-table td{padding:10px 8px !important; font-size:13px !important;}
   #odc-lookup-root .odc-coupon-table th:first-child,#odc-lookup-root .odc-coupon-table td:first-child{width:auto !important;}
   #odc-lookup-root input,#odc-lookup-root button{font-size:15px !important;}
-  #odc-lookup-root details summary{font-size:14px !important; padding:12px 38px 12px 14px !important;}
-  #odc-lookup-root details > div.odc-faq-body{padding:12px 14px 14px !important; font-size:13px !important;}
+  #odc-lookup-root details summary{font-size:14px !important; padding:13px 34px 13px 2px !important;}
+  #odc-lookup-root details > div.odc-faq-body{padding:0 34px 14px 2px !important; font-size:13px !important;}
 }
 </style>
 
 <header style="margin-bottom:48px;">
 <p style="font-size:12px; font-weight:700; color:#980000; letter-spacing:1px; margin:0 0 12px 0; text-transform:uppercase;">ODC 멤버 전용 페이지</p>
 <p class="odc-hero-title" style="font-weight:800; color:#2d2523; line-height:1.3; letter-spacing:-0.02em; margin:0 0 16px 0;">나의 ODC 어떻게 진행되는 걸까?</p>
-<p style="font-size:16px; line-height:1.85; color:#2d2523; margin:0;">이름을 조회하면 ODC 멤버십 정보, 현재까지 이벤트 및 어드벤처 참여 횟수, 잔여 팀 등록 가능 횟수, 추가 등록 시 쿠폰 사용 방법을 한 번에 확인하실 수 있어요.</p>
+<p style="font-size:16px; line-height:1.85; color:#2d2523; margin:0;">이름을 조회하면 ODC 멤버십 정보, 지금까지 참여한 이벤트·어드벤처 횟수, 앞으로 등록할 수 있는 팀 수, 등록할 때 쓰는 쿠폰 코드를 한 번에 확인하실 수 있어요.</p>
 </header>
+
+<!-- 검색 -->
+<div style="margin-bottom:32px;">
+<h2 class="odc-section-title" style="font-size:22px; font-weight:800; color:#2d2523; padding-bottom:10px; border-bottom:1px solid #2d2523; margin:0 0 24px 0; letter-spacing:-0.02em;">내 정보 조회</h2>
+<div>
+<div style="display:flex; gap:10px; flex-wrap:wrap;">
+<input id="odc-q" type="text" placeholder="이름을 입력하세요 (예: 이슬기)" autocomplete="off" style="flex:1 1 220px; min-width:200px; padding:10px 16px; font-size:15px; border:1px solid #ceb9a4; border-radius:999px; font-family:inherit; color:#2d2523; background:#ffffff; box-sizing:border-box;">
+<button id="odc-search-btn" type="button" style="padding:10px 22px; font-size:14px; font-weight:600; border:1px solid #980000; border-radius:999px; background:#980000; color:#f0eae2; cursor:pointer; font-family:inherit; box-sizing:border-box;">조회</button>
+</div>
+<p style="font-size:13px; color:#2d2523; opacity:0.7; margin:12px 0 0 0; line-height:1.6;">동명이인이 있으면 전화번호 끝 4자리도 함께 입력해주세요. (예: 이슬기 1829)</p>
+</div>
+<div id="odc-status" style="margin-top:16px; margin-bottom:4px; font-size:13px; color:#2d2523; opacity:0.65;">데이터를 불러오고 있어요...</div>
+<div id="odc-result" style="margin-top:20px;"></div>
+</div>
 
 <!-- ODC 소개 -->
 <div style="margin-bottom:56px;">
 <h2 class="odc-section-title" style="font-size:22px; font-weight:800; color:#2d2523; padding-bottom:10px; border-bottom:1px solid #2d2523; margin:0 0 24px 0; letter-spacing:-0.02em;">ODC가 뭐였더라?</h2>
-<div style="padding:24px 22px; border:1px solid #ddcfbf; border-radius:8px; background:#ffffff;">
+<div>
 <p style="font-size:15px; line-height:1.85; color:#2d2523; margin:0 0 18px 0;">ODC는 HFK를 한 시즌 이상 경험한 멤버들만 신청가능한 1년 멤버십입니다. 신청한 시즌부터 1년동안 바쁜 시즌엔 이벤트와 클럽으로 가볍게, 여유로운 시즌엔 팀 멤버로 깊이 있게 참여할 수 있습니다. 자신의 일정에 맞게 HFK를 활용해 보세요.</p>
 <div class="odc-plan-grid">
 
-<div style="padding:18px 16px; border:1px solid #ddcfbf; border-radius:6px; min-width:0;">
+<div class="odc-plan">
 <p style="font-size:15px; font-weight:700; color:#980000; margin:0 0 4px 0;">관계 멤버십</p>
 <p style="font-size:12px; color:#2d2523; opacity:0.8; margin:0 0 10px 0;">팀 없이, 이벤트와 클럽만</p>
 <p style="font-size:13px; font-weight:700; color:#2d2523; margin:0 0 10px 0;">시즌 팀 0개</p>
@@ -78,7 +97,7 @@
 </ul>
 </div>
 
-<div style="padding:18px 16px; border:1px solid #ddcfbf; border-radius:6px; min-width:0;">
+<div class="odc-plan">
 <p style="font-size:15px; font-weight:700; color:#980000; margin:0 0 4px 0;">지성 멤버십</p>
 <p style="font-size:12px; color:#2d2523; opacity:0.8; margin:0 0 10px 0;">한 시즌은 의미 있게</p>
 <p style="font-size:13px; font-weight:700; color:#2d2523; margin:0 0 10px 0;">시즌 팀 1개</p>
@@ -91,7 +110,7 @@
 </ul>
 </div>
 
-<div style="padding:18px 16px; border:1px solid #ddcfbf; border-radius:6px; min-width:0;">
+<div class="odc-plan">
 <p style="font-size:15px; font-weight:700; color:#980000; margin:0 0 4px 0;">성장 멤버십</p>
 <p style="font-size:12px; color:#2d2523; opacity:0.8; margin:0 0 10px 0;">두 시즌을 깊이 있게</p>
 <p style="font-size:13px; font-weight:700; color:#2d2523; margin:0 0 10px 0;">시즌 팀 2개</p>
@@ -108,25 +127,11 @@
 </div>
 </div>
 
-<!-- 검색 -->
-<div style="margin-bottom:32px;">
-<h2 class="odc-section-title" style="font-size:22px; font-weight:800; color:#2d2523; padding-bottom:10px; border-bottom:1px solid #2d2523; margin:0 0 24px 0; letter-spacing:-0.02em;">내 정보 조회</h2>
-<div style="padding:24px 22px; border:1px solid #ddcfbf; border-radius:8px; background:#ffffff;">
-<div style="display:flex; gap:10px; flex-wrap:wrap;">
-<input id="odc-q" type="text" placeholder="이름을 입력하세요 (예: 이슬기)" autocomplete="off" style="flex:1 1 220px; min-width:200px; padding:10px 16px; font-size:15px; border:1px solid #ddcfbf; border-radius:999px; font-family:inherit; color:#2d2523; background:#f0eae2; box-sizing:border-box;">
-<button id="odc-search-btn" type="button" style="padding:10px 22px; font-size:14px; font-weight:600; border:1px solid #980000; border-radius:999px; background:#980000; color:#f0eae2; cursor:pointer; font-family:inherit; box-sizing:border-box;">조회</button>
-</div>
-<p style="font-size:13px; color:#2d2523; opacity:0.7; margin:12px 0 0 0; line-height:1.6;">동명이인이 있으면 전화번호 끝 4자리도 함께 입력해주세요. (예: 이슬기 1829)</p>
-</div>
-<div id="odc-status" style="margin-top:14px; font-size:13px; color:#2d2523; opacity:0.65;">데이터를 불러오고 있어요...</div>
-<div id="odc-result" style="margin-top:24px;"></div>
-</div>
-
 <!-- 쿠폰 사용 방법 -->
 <div style="margin-bottom:48px;">
 <h2 class="odc-section-title" style="font-size:22px; font-weight:800; color:#2d2523; padding-bottom:10px; border-bottom:1px solid #2d2523; margin:0 0 24px 0; letter-spacing:-0.02em;">쿠폰 사용 방법</h2>
 
-<div style="padding:22px 24px; border:1px solid #ddcfbf; border-radius:8px; background:#ffffff; margin-bottom:18px;">
+<div style="margin-bottom:22px;">
 <p style="font-size:14px; font-weight:700; color:#2d2523; margin:0 0 14px 0;">두 가지 쿠폰을 상황에 맞게 사용해주세요</p>
 <table class="odc-coupon-table" style="width:100%; border-collapse:collapse; font-size:14px;">
 <thead>
@@ -154,7 +159,7 @@
 </table>
 </div>
 
-<div style="padding:22px 24px; border:1px solid #ddcfbf; border-radius:8px; background:#ffffff;">
+<div class="odc-band">
 <p style="font-size:14px; font-weight:700; color:#2d2523; margin:0 0 14px 0;">등록 단계</p>
 <ol style="padding-left:22px; margin:0; font-size:15px; line-height:1.85;">
 <li style="margin-bottom:10px;"><a href="https://www.thehfk.com" target="_blank" rel="noopener" style="color:#980000;">HFK 사이트</a>에서 등록하고 싶은 시즌 팀 상품을 장바구니에 담거나 결제 단계로 이동합니다.</li>
@@ -220,7 +225,7 @@
 <div class="odc-faq-body">네, 관계 멤버십에는 시즌 팀이 포함되어 있지 않지만, 원하시는 시즌에 <code>welcomebackodc27</code> 쿠폰을 사용하셔서 12만원에 등록하실 수 있습니다.</div>
 </details>
 <details>
-<summary>사용하지 않은 시즌 팀 한도는 다음 해로 넘어가나요?</summary>
+<summary>사용하지 않은 시즌 팀 한도는 다음 해에도 쓸 수 있나요?</summary>
 <div class="odc-faq-body">ODC 멤버십 기간 1년 안에서만 사용 가능합니다. 미사용 한도는 자동 소멸됩니다.</div>
 </details>
 </div>
@@ -290,34 +295,63 @@
 <script>
 (function(){
   var ODC_URL = 'https://docs.google.com/spreadsheets/d/1q6jHHZ8ynO6JN41Wyy16IL8LyYuQ8NPpTgzta0-hm44/gviz/tq?tqx=out:csv&gid=1676556872';
-  var MBR_URL = 'https://docs.google.com/spreadsheets/d/1BydHQ0DQagXdzhVZ1QD6JPO8dQ0eYZPQ68nipw0B8WE/gviz/tq?tqx=out:csv&gid=370823670';
-  // 출석 시트. 이벤트는 26봄 출석 탭(gid=0), 어드벤처는 별도 26봄 어드벤처 탭(gid=1642151827).
-  // headers=0 — 자동 헤더 감지로 첫 행이 합쳐지는 현상 방지.
-  var ATT_EVENT_URL = 'https://docs.google.com/spreadsheets/d/1Lqem8RwJmoXQp1xXbblAmJoRA_BWN56asR823g3CJyM/gviz/tq?tqx=out:csv&gid=0&headers=0';
-  // 자동 sync 가 들어가는 별도 이벤트 탭 (26봄 이벤트, gid=542059452)
-  var ATT_EVENT_AUTO_URL = 'https://docs.google.com/spreadsheets/d/1Lqem8RwJmoXQp1xXbblAmJoRA_BWN56asR823g3CJyM/gviz/tq?tqx=out:csv&gid=542059452&headers=0';
-  var ATT_ADVENTURE_URL = 'https://docs.google.com/spreadsheets/d/1Lqem8RwJmoXQp1xXbblAmJoRA_BWN56asR823g3CJyM/gviz/tq?tqx=out:csv&gid=1642151827&headers=0';
-  // 현재 시트는 26봄 시즌 — 새 시즌 시트가 생기면 이 매핑 갱신
-  var ATT_SHEET_SEASON = '26봄';
+  // 통합멤버십 '멤버 리스트'. gviz 가 아니라 export 로 받는다.
+  // gviz 는 시트에 걸린 **필터를 그대로 따라가서** 지금은 26가을 146행만 돌려준다.
+  // 그러면 과거 시즌 등록이 통째로 안 잡혀 사용한 팀 수가 실제보다 적게 나온다
+  // (2026-08-27 김화진: 3팀 등록인데 1팀으로 표시). export 는 4,551행 전체를 준다.
+  var MBR_URL = 'https://docs.google.com/spreadsheets/d/1BydHQ0DQagXdzhVZ1QD6JPO8dQ0eYZPQ68nipw0B8WE/export?format=csv&gid=370823670';
+  // 출석 시트. 탭은 gid 가 아니라 **이름**으로 읽는다('26가을 이벤트' 처럼).
+  // 시즌 이름에서 탭 이름이 나오므로 새 시즌이 생겨도 여기 손댈 게 없다.
+  var ATT_BASE = 'https://docs.google.com/spreadsheets/d/1Lqem8RwJmoXQp1xXbblAmJoRA_BWN56asR823g3CJyM/gviz/tq?tqx=out:csv&headers=0&sheet=';
+  // 없는 탭을 요청하면 gviz 가 에러 대신 **첫 번째 탭 내용**을 조용히 돌려준다.
+  // 그래서 이 이름으로 한 번 받아 지문으로 쓰고, 같은 내용이 오면 '그 탭 없음'으로 본다.
+  var ATT_PROBE = '__존재하지않는탭__';
 
-  var SEASON_LONG = {
-    '25가을': '2025년 09-11월 가을시즌',
-    '25겨울': '2025년 12-02월 겨울시즌',
-    '26봄':   '2026년 03-05월 봄시즌',
-    '26여름': '2026년 06-08월 여름시즌',
-    '26가을': '2026년 09-11월 가을시즌',
-    '26겨울': '2026년 12-02월 겨울시즌'
-  };
-  var SEASON_LABEL = {
-    '25가을':'2025 가을','25겨울':'2025 겨울','26봄':'2026 봄',
-    '26여름':'2026 여름','26가을':'2026 가을','26겨울':'2026 겨울'
-  };
-  var ODC_PERIODS = {
-    '[ODC] 2025 가을 - 2026 여름': ['25가을','25겨울','26봄','26여름'],
-    '[ODC] 2025 겨울 - 2026 가을': ['25겨울','26봄','26여름','26가을'],
-    '[ODC] 2026 봄 - 2026 겨울':   ['26봄','26여름','26가을','26겨울']
-  };
-  var FUTURE = ['26여름','26가을','26겨울'];
+  // ── 시즌·기간은 하드코딩하지 않고 계산한다 (시즌마다 코드를 고치지 않으려고) ──
+  var SEASON_CYCLE = ['봄','여름','가을','겨울'];
+  var SEASON_MONTH = {'봄':3, '여름':6, '가을':9, '겨울':12};   // 시즌 시작 월(겨울은 12월)
+
+  function seasonKey(y, s){ return String(y).slice(2) + s; }        // 2026,'가을' → '26가을'
+  function seasonName(key){ return (key||'').replace(/^\d{2}/, ''); }
+  function seasonYear(key){ return 2000 + parseInt((key||'').slice(0,2), 10); }
+  function seasonLabel(key){ return seasonYear(key) + ' ' + seasonName(key); }
+  function seasonIndex(key){ return seasonYear(key)*4 + SEASON_CYCLE.indexOf(seasonName(key)); }
+
+  function nextSeason(y, s){
+    var i = SEASON_CYCLE.indexOf(s);
+    return i === SEASON_CYCLE.length - 1 ? [y+1, SEASON_CYCLE[0]] : [y, SEASON_CYCLE[i+1]];
+  }
+
+  // '[ODC] 2026 가을 - 2027 여름' → ['26가을','26겨울','27봄','27여름']
+  // 기간 이름 자체가 시작·끝을 담고 있어서 기간이 새로 생겨도 그대로 읽힌다.
+  // 옛 'ODC 2025' 처럼 시작·끝이 없는 표기는 null 을 돌려 조회 대상에서 빠진다.
+  function periodSeasons(period){
+    var m = /(\d{4})\s*(봄|여름|가을|겨울)\s*[-~\u2013]\s*(\d{4})\s*(봄|여름|가을|겨울)/.exec(period||'');
+    if (!m) return null;
+    var y = +m[1], sn = m[2], ey = +m[3], es = m[4], out = [], guard = 0;
+    while (guard++ < 16){
+      out.push(seasonKey(y, sn));
+      if (y === ey && sn === es) return out;
+      var nx = nextSeason(y, sn); y = nx[0]; sn = nx[1];
+    }
+    return out;
+  }
+
+  // 통합멤버십 시트의 '2026년 09-11월 가을시즌' → '26가을'.
+  // 겨울 표기가 '12-02월'과 '12-2월'로 섞여 있어 문자열 비교 대신 연도+시즌명으로 읽는다.
+  function seasonKeyFromLabel(s){
+    var m = /(\d{4})\s*년.*?(봄|여름|가을|겨울)\s*시즌/.exec(s||'');
+    return m ? seasonKey(+m[1], m[2]) : null;
+  }
+
+  // 등록 가능한 시즌 = 아직 시작하지 않은 시즌. 등록은 보통 시즌 시작 직전까지 열려 있어
+  // 시작일(그 달 1일)을 기준으로 본다. 마감일과 시작일 사이 며칠은 마감된 시즌이 남아 보인다.
+  function isRegisterable(key){
+    var name = seasonName(key);
+    if (SEASON_CYCLE.indexOf(name) < 0) return false;
+    return new Date() < new Date(seasonYear(key), SEASON_MONTH[name] - 1, 1);
+  }
+
   var PLAN_QUOTA = {'지성_60만원':1,'지성_66만원':1,'성장_84만원':2,'성장_90만원':2,'관계_48만원':0};
   var PLAN_SHORT = {'지성_60만원':'지성','지성_66만원':'지성','성장_84만원':'성장','성장_90만원':'성장','관계_48만원':'관계'};
   var COUPON_TEAM = 'welcomebackodc';
@@ -351,6 +385,16 @@
 
   function normalizePhone(p){return (p||'').replace(/\D/g,'');}
 
+  // 폼 타임스탬프('2026. 7. 30 오후 8:27:43') → 정렬용 숫자. 못 읽으면 0.
+  function parseFormTs(s){
+    var m = /(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})(?:\s*(오전|오후)?\s*(\d{1,2}):(\d{2}):(\d{2}))?/.exec(s||'');
+    if (!m) return 0;
+    var h = m[5] ? parseInt(m[5],10) : 0;
+    if (m[4]==='오후' && h!==12) h += 12;
+    if (m[4]==='오전' && h===12) h = 0;
+    return new Date(+m[1], +m[2]-1, +m[3], h, m[6]?+m[6]:0, m[7]?+m[7]:0).getTime();
+  }
+
   function setStatus(text){
     var el = document.getElementById('odc-status');
     if (el) el.textContent = text;
@@ -375,95 +419,132 @@
     return null;
   }
 
+  // ODC 기간에 등장하는 시즌들 → 출석 시트 탭 이름('26가을 이벤트' 등).
+  function attendanceSources(){
+    var seen = {}, keys = [];
+    ODC_ROWS.forEach(function(m){
+      (m.seasons||[]).forEach(function(k){ if (!seen[k]){ seen[k] = true; keys.push(k); } });
+    });
+    // 아직 시작하지 않은 시즌은 출석 자체가 없으니 요청하지 않는다(불필요한 왕복 절감).
+    keys = keys.filter(function(k){ return !isRegisterable(k); });
+    keys.sort(function(a,b){return seasonIndex(a)-seasonIndex(b);});
+    var out = [];
+    keys.forEach(function(k){
+      ['출석','이벤트','어드벤처'].forEach(function(kind){
+        out.push({season:k, kind:kind, tab:k + ' ' + kind});
+      });
+    });
+    return out;
+  }
+
+  // 지문(없는 탭을 요청했을 때 돌아오는 첫 번째 탭 내용)과 같으면 그 탭은 아직 없는 것.
+  // 다만 첫 번째 탭 자신을 요청한 경우도 지문과 같으므로, 머리글에 그 시즌이 적혀 있는
+  // 출석 탭이면 살린다('2026 봄시즌 출석 관리' 처럼 시즌이 제목에 있다).
+  function tabIsReal(src, text, fingerprint){
+    if (!text) return false;
+    if (text !== fingerprint) return true;
+    var head = text.slice(0, 300);
+    return src.kind === '출석'
+        && head.indexOf(String(seasonYear(src.season))) >= 0
+        && head.indexOf(seasonName(src.season)) >= 0;
+  }
+
   function init(){
     setStatus('데이터를 불러오고 있어요...');
-    Promise.all([
+    var jobs = [
       fetch(ODC_URL).then(function(r){return r.text();}),
       fetch(MBR_URL).then(function(r){return r.text();}),
-      fetch(ATT_EVENT_URL).then(function(r){return r.text();}).catch(function(){return '';}),
-      fetch(ATT_EVENT_AUTO_URL).then(function(r){return r.text();}).catch(function(){return '';}),
-      fetch(ATT_ADVENTURE_URL).then(function(r){return r.text();}).catch(function(){return '';})
-    ]).then(function(texts){
+      fetch(ATT_BASE + encodeURIComponent(ATT_PROBE)).then(function(r){return r.text();}).catch(function(){return '';})
+    ];
+    Promise.all(jobs).then(function(texts){
       var odcRowsAll = parseCSV(texts[0]);
       var mbrRowsAll = parseCSV(texts[1]);
-      var attEventRows = texts[2] ? parseCSV(texts[2]) : [];
-      var attEventAutoRows = texts[3] ? parseCSV(texts[3]) : [];
-      var attAdvRows = texts[4] ? parseCSV(texts[4]) : [];
-      // 세 탭의 행을 합쳐서 같은 파서로 처리 (헤더 dedupe는 파서에서 처리)
-      var attRowsAll = attEventRows.concat(attEventAutoRows).concat(attAdvRows);
 
       ODC_ROWS = [];
       for (var i=1;i<odcRowsAll.length;i++){
         var r = odcRowsAll[i];
         if (!r || r.length<6) continue;
         var period = r[1]||'';
-        if (!ODC_PERIODS[period]) continue;
+        var seasons = periodSeasons(period);
+        if (!seasons) continue;
         var name = (r[2]||'').trim();
         if (!name || /^\d+$/.test(name)) continue;
         var phone = normalizePhone(r[3]);
-        if (!phone) continue;
+        var email = (r[4]||'').trim().toLowerCase();
+        // 전화번호 칸이 비어도 이메일이 있으면 살린다. 예전엔 전화가 없으면 행을 통째로
+        // 건너뛰어 그 사람은 조회 자체가 안 됐다(2026-08-27 서영인). 팀 매칭은 이메일로도 된다.
+        if (!phone && !email) continue;
         ODC_ROWS.push({
+          ts: parseFormTs(r[0]),
           period: period,
-          seasons: ODC_PERIODS[period],
+          seasons: seasons,
           name: name,
           phone: phone,
           phoneLast4: phone.slice(-4),
-          email: (r[4]||'').trim().toLowerCase(),
+          email: email,
           plan: r[5]||''
         });
       }
 
-      MBR_BY_SEASON = {};
-      Object.keys(SEASON_LONG).forEach(function(k){MBR_BY_SEASON[k]=[];});
-      var SEASON_TO_KEY = {};
-      Object.keys(SEASON_LONG).forEach(function(k){SEASON_TO_KEY[SEASON_LONG[k]]=k;});
+      // 멤버십을 갱신하면 같은 사람에게 기간이 다른 행이 둘 이상 생긴다. 그대로 두면
+      // 조회에서 '동명이인 2명'으로 잡혀 본인이 자기 정보를 못 본다(2026-08-27 허재필·박재희).
+      // 이메일(없으면 전화)이 같으면 타임스탬프가 가장 늦은 행 = 현재 멤버십만 남긴다.
+      var byPerson = {}, personOrder = [];
+      for (var k=0;k<ODC_ROWS.length;k++){
+        var row = ODC_ROWS[k];
+        var pkey = row.email || row.phone;
+        if (byPerson[pkey] === undefined){ personOrder.push(pkey); byPerson[pkey] = row; }
+        else if ((row.ts||0) >= (byPerson[pkey].ts||0)){ byPerson[pkey] = row; }
+      }
+      ODC_ROWS = personOrder.map(function(pk){return byPerson[pk];});
 
+      MBR_BY_SEASON = {};
       for (var j=1;j<mbrRowsAll.length;j++){
         var mr = mbrRowsAll[j];
         if (!mr || mr.length<8) continue;
-        var seasonStr = mr[3]||'';
-        var key = SEASON_TO_KEY[seasonStr];
-        if (key) MBR_BY_SEASON[key].push(mr);
+        var mkey = seasonKeyFromLabel(mr[3]||'');
+        if (!mkey) continue;
+        (MBR_BY_SEASON[mkey] = MBR_BY_SEASON[mkey] || []).push(mr);
       }
 
       // 출석 시트 파싱: "이벤트명/어드벤처명" 헤더 행 + "이름|팀|참석" 서브헤더 + 데이터 행 묶음.
       // 팀 세션 표(서브헤더가 "이름|회사|1회차...")는 무시.
-      // 두 탭 합치기 때문에 같은 헤더가 양쪽에 있으면 중복되므로 dedupe.
+      // 탭마다 따로 돌린다. 시즌은 탭에서 오고, 같은 섹션이 두 탭에 있으면 dedupe.
       ATT_SECTIONS = [];
       var seenHeaders = {};
-      if (attRowsAll && attRowsAll.length >= 2){
-        var EVENT_KEYWORDS = ['스페셜토크','PEST','북토크','AAR 밋업','AAR밋업','HBR 포럼','HBR포럼','포럼'];
-        function isEventHeader(s){
-          if (!s) return false;
-          for (var i=0;i<EVENT_KEYWORDS.length;i++){
-            if (s.indexOf(EVENT_KEYWORDS[i]) >= 0) return true;
-          }
-          return false;
+      var EVENT_KEYWORDS = ['스페셜토크','PEST','북토크','AAR 밋업','AAR밋업','HBR 포럼','HBR포럼','포럼',
+                            '브리핑','워크숍','워크샵','캠핑','뉴멤버','게더링','필드트립','무비토크','브랜드 토크'];
+      function isEventHeader(s){
+        if (!s) return false;
+        for (var i=0;i<EVENT_KEYWORDS.length;i++){
+          if (s.indexOf(EVENT_KEYWORDS[i]) >= 0) return true;
         }
-        function isAdventureHeader(s){
-          return s && s.indexOf('어드벤처') === 0;
-        }
-        function isSubheader(row){
-          return row && row[0] === '이름'
-            && (row[1] || '').trim() === '팀'
-            && (row[2] || '').trim() === '참석';
-        }
+        return false;
+      }
+      function isAdventureHeader(s){
+        return s && s.indexOf('어드벤처') === 0;
+      }
+      function isSubheader(row){
+        return row && row[0] === '이름'
+          && (row[1] || '').trim() === '팀'
+          && (row[2] || '').trim() === '참석';
+      }
+      function parseAttendanceTab(rows, season){
+        if (!rows || rows.length < 2) return;
         var i = 0;
-        while (i < attRowsAll.length){
-          var hdr = attRowsAll[i] || [];
+        while (i < rows.length){
+          var hdr = rows[i] || [];
           var hdrText = (hdr[0] || '').trim();
           if (!hdrText){ i++; continue; }
           var isAdv = isAdventureHeader(hdrText);
           var isEvt = !isAdv && isEventHeader(hdrText);
           if (!isAdv && !isEvt){ i++; continue; }
           // 다음 행이 서브헤더(이름|팀|참석)여야 정식 섹션으로 인정
-          var sub = attRowsAll[i+1];
-          if (!isSubheader(sub)){ i++; continue; }
-          var section = { type: isAdv ? 'adventure' : 'event', season: ATT_SHEET_SEASON, header: hdrText, attended: {} };
-          // 데이터 행 시작
+          if (!isSubheader(rows[i+1])){ i++; continue; }
+          var section = { type: isAdv ? 'adventure' : 'event', season: season, header: hdrText, attended: {} };
           var j = i + 2;
-          while (j < attRowsAll.length){
-            var dr = attRowsAll[j] || [];
+          while (j < rows.length){
+            var dr = rows[j] || [];
             var nm = (dr[0] || '').trim();
             if (!nm) break;                          // 빈 행 → 섹션 종료
             if (nm.indexOf('참석률') >= 0) { j++; break; }  // 합계 행 → 종료
@@ -471,7 +552,7 @@
             section.attended[nm] = (att === 'O' || att === '✓' || att === 'V');
             j++;
           }
-          var dedupeKey = section.type + '|' + section.header;
+          var dedupeKey = season + '|' + section.type + '|' + section.header;
           if (!seenHeaders[dedupeKey]){
             seenHeaders[dedupeKey] = true;
             ATT_SECTIONS.push(section);
@@ -479,8 +560,18 @@
           i = j;
         }
       }
-
-      setStatus('총 ' + ODC_ROWS.length + '명의 ODC 멤버 데이터가 준비됐어요. 이름을 입력해 조회해주세요.');
+      // 조회 대상 시즌 목록에서 출석 탭 이름을 만들어 2차로 받아온다.
+      var fingerprint = texts[2];
+      var sources = attendanceSources();
+      return Promise.all(sources.map(function(src){
+        return fetch(ATT_BASE + encodeURIComponent(src.tab)).then(function(r){return r.text();}).catch(function(){return '';});
+      })).then(function(attTexts){
+        for (var s=0; s<sources.length; s++){
+          if (!tabIsReal(sources[s], attTexts[s], fingerprint)) continue;
+          parseAttendanceTab(parseCSV(attTexts[s]), sources[s].season);
+        }
+        setStatus('총 ' + ODC_ROWS.length + '명의 ODC 멤버 데이터가 준비됐어요. 이름을 입력해 조회해주세요.');
+      });
     }).catch(function(err){
       console.error(err);
       setStatus('데이터를 불러오지 못했어요. 잠시 후 다시 시도해주세요.');
@@ -514,7 +605,9 @@
       return;
     }
     if (candidates.length > 1){
-      var list = candidates.map(function(c){return escapeHtml(c.name)+' (전화번호 끝 '+escapeHtml(c.phoneLast4)+')';}).join(', ');
+      var list = candidates.map(function(c){
+        return escapeHtml(c.name) + (c.phoneLast4 ? ' (전화번호 끝 '+escapeHtml(c.phoneLast4)+')' : ' (전화번호 미등록)');
+      }).join(', ');
       resultEl.innerHTML = '<div style="padding:18px 20px; border:1px solid #ddcfbf; border-radius:6px; background:#f0eae2; font-size:14px; line-height:1.7; color:#2d2523;">동명이인이 '+candidates.length+'명 발견되었어요: '+list+'<br>이름 뒤에 본인의 전화번호 끝 4자리를 함께 입력해주세요. (예: '+escapeHtml(candidates[0].name)+' '+escapeHtml(candidates[0].phoneLast4)+')</div>';
       return;
     }
@@ -576,7 +669,7 @@
     return { topic: topic, dateLabel: normalizeDateLabel(dateLabel) };
   }
 
-  function buildAttendanceHtml(m){
+  function buildAttendance(m){
     var attended = [];  // [{type, topic, dateLabel, sortKey}]
     if (ATT_SECTIONS && ATT_SECTIONS.length > 0){
       for (var i=0; i<ATT_SECTIONS.length; i++){
@@ -585,9 +678,10 @@
         if (sec.attended[m.name] === true){
           var d = parseSectionDate(sec.header || '');
           var lbl = parseSectionLabel(sec.header || '', sec.type);
+          var sIdx = seasonIndex(sec.season);
           attended.push({
             type: sec.type, topic: lbl.topic, dateLabel: lbl.dateLabel,
-            sortKey: d.month * 100 + d.day,
+            sortKey: (sIdx < 0 ? 99 : sIdx) * 10000 + d.month * 100 + d.day,
           });
         }
       }
@@ -600,28 +694,7 @@
       else adventureCount++;
     }
 
-    var statColor = function(zero){return zero?'opacity:0.5;':'';};
-    var hasHeader = ATT_SECTIONS && ATT_SECTIONS.length > 0;
-    var eventValHtml, adventureValHtml;
-    if (!hasHeader){
-      eventValHtml = '<p style="font-size:13px; color:#2d2523; opacity:0.7; margin:0;">데이터 연결 준비 중</p>';
-      adventureValHtml = '<p style="font-size:13px; color:#2d2523; opacity:0.7; margin:0;">데이터 연결 준비 중</p>';
-    } else {
-      eventValHtml = '<p style="font-size:24px; font-weight:800; color:'+(eventCount===0?'#2d2523':'#980000')+'; '+statColor(eventCount===0)+' line-height:1.1; margin:0;">'+eventCount+'<span style="font-size:13px; font-weight:600; opacity:0.85; margin-left:4px;">회</span></p>';
-      adventureValHtml = '<p style="font-size:24px; font-weight:800; color:'+(adventureCount===0?'#2d2523':'#980000')+'; '+statColor(adventureCount===0)+' line-height:1.1; margin:0;">'+adventureCount+'<span style="font-size:13px; font-weight:600; opacity:0.85; margin-left:4px;">회</span></p>';
-    }
-
-    // 카운트 박스
-    var countHtml = '<div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:18px;">'
-      + '<div style="flex:1 1 200px; min-width:180px; padding:14px 16px; border:1px solid #ddcfbf; border-radius:6px;">'
-        + '<p style="font-size:12px; color:#2d2523; opacity:0.8; margin:0 0 8px 0; font-weight:700;">현재까지 이벤트 참여</p>'
-        + eventValHtml
-      + '</div>'
-      + '<div style="flex:1 1 200px; min-width:180px; padding:14px 16px; border:1px solid #ddcfbf; border-radius:6px;">'
-        + '<p style="font-size:12px; color:#2d2523; opacity:0.8; margin:0 0 8px 0; font-weight:700;">현재까지 어드벤처 참여</p>'
-        + adventureValHtml
-      + '</div>'
-    + '</div>';
+    var hasData = !!(ATT_SECTIONS && ATT_SECTIONS.length > 0);
 
     // 시간순 타임라인
     var timelineHtml = '';
@@ -637,7 +710,7 @@
           + '</div>'
         + '</li>';
       }).join('');
-      timelineHtml = '<div style="padding:16px 18px; border:1px solid #ddcfbf; border-radius:6px; margin-bottom:16px;">'
+      timelineHtml = '<div style="margin-top:14px; padding:18px 20px; border:1px solid #ddcfbf; border-radius:8px; background:#ffffff;">'
         + '<p style="font-size:12px; color:#2d2523; opacity:0.8; margin:0 0 10px 0; font-weight:700;">참석 타임라인 ('+attended.length+'회)</p>'
         + '<ul style="list-style:none; margin:0; padding:0;">'+items+'</ul>'
         + '<div class="odc-no-print" style="margin-top:16px; text-align:right;">'
@@ -646,7 +719,8 @@
       + '</div>';
     }
 
-    return countHtml + timelineHtml;
+    return {eventCount: eventCount, adventureCount: adventureCount,
+            hasData: hasData, timelineHtml: timelineHtml};
   }
 
   function renderMember(m){
@@ -657,74 +731,118 @@
       for (var j=0;j<rows.length;j++){
         var team = matchTeamForOdc(m, rows[j]);
         if (team){
-          used.push({season: sk, label: SEASON_LABEL[sk], team: team});
+          used.push({season: sk, label: seasonLabel(sk), team: team});
         }
       }
     }
     var planShort = PLAN_SHORT[m.plan] || '?';
     var quota = PLAN_QUOTA[m.plan] || 0;
     var remaining = Math.max(0, quota - used.length);
-    var availableSeasons = m.seasons.filter(function(s){return FUTURE.indexOf(s)>=0;}).map(function(s){return SEASON_LABEL[s];});
+    var availableSeasons = m.seasons.filter(isRegisterable).map(seasonLabel);
     var periodLabel = m.period.replace('[ODC] ', '');
     var isRelation = planShort === '관계';
-
-    var usedHtml;
-    if (used.length === 0){
-      usedHtml = '<p style="font-size:14px; color:#2d2523; opacity:0.6; margin:0;">아직 등록한 팀이 없어요.</p>';
-    } else {
-      usedHtml = '<ul style="margin:0; padding:0; list-style:none; font-size:14px; line-height:1.85;">' +
-        used.map(function(u){return '<li><strong>'+escapeHtml(u.label)+'</strong> &mdash; '+escapeHtml(u.team)+'</li>';}).join('') +
-        '</ul>';
-    }
+    var att = buildAttendance(m);
 
     var seasonsHtml = availableSeasons.length > 0
       ? availableSeasons.map(function(s){return '<strong>'+escapeHtml(s)+'</strong>';}).join(', ')
       : '<strong>(남은 시즌 없음)</strong>';
 
-    var couponChip = function(code, isAccent){
+    // 쿠폰 코드는 결제창에 붙여넣는 것이라 문장 안에 끼우지 않고
+    // 아래에 복사 버튼과 함께 한 줄로 둔다.
+    var couponRow = function(code, isAccent){
       var bg = isAccent ? '#980000' : '#2d2523';
-      return '<span style="display:inline-block; padding:4px 10px; background:'+bg+'; color:#ffffff; font-size:13px; font-weight:700; letter-spacing:1px; border-radius:4px; font-family:\'SF Mono\',Menlo,Consolas,monospace;">'+escapeHtml(code)+'</span>';
+      return '<div style="margin-top:16px; padding-top:16px; border-top:1px solid #ddcfbf; display:flex; align-items:center; gap:10px; flex-wrap:wrap;">'
+        + '<code style="display:inline-block; padding:9px 14px; background:'+bg+'; color:#ffffff; font-size:14px; font-weight:700; letter-spacing:1px; border-radius:5px; font-family:\'SF Mono\',Menlo,Consolas,monospace;">'+escapeHtml(code)+'</code>'
+        + '<button type="button" data-copy="'+escapeHtml(code)+'" class="odc-no-print" style="padding:9px 14px; border:1px solid '+bg+'; background:transparent; color:'+bg+'; border-radius:5px; font-size:13px; font-weight:700; cursor:pointer; font-family:inherit;">코드 복사</button>'
+        + '</div>';
     };
 
-    var msgHtml;
-    if (remaining >= 1){
-      msgHtml = '<div style="padding:18px 20px; border:1px solid #ddcfbf; border-radius:6px; background:#ffffff; font-size:14px; line-height:1.75; color:#2d2523;"><strong style="color:#980000;">'+remaining+'팀</strong> 등록이 가능합니다. 등록 가능한 시즌: '+seasonsHtml+'<br><br>본인 멤버십으로 새로운 시즌에 진행되는 팀을 등록하실 때는 '+couponChip(COUPON_TEAM, false)+' 쿠폰 코드를 결제 시 입력해주세요.</div>';
-    } else if (isRelation){
-      msgHtml = '<div style="padding:18px 20px; border:1px solid #ddcfbf; border-radius:6px; background:#ffffff; font-size:14px; line-height:1.75; color:#2d2523;"><strong>관계 멤버십</strong>은 시즌 팀이 포함되지 않은 멤버십이에요. 1년동안 이벤트와 클럽을 자유롭게 이용하실 수 있습니다.<br><br>새로운 시즌에 진행되는 팀에 참여하고 싶으시다면 팀 추가 등록 할인 쿠폰 '+couponChip(COUPON_ADDON, true)+' 을 사용해주세요. 결제 시 쿠폰 코드를 입력하시면 <strong style="color:#980000;">27만원이 할인</strong>됩니다.</div>';
-    } else {
-      msgHtml = '<div style="padding:18px 20px; border:1px solid #ddcfbf; border-radius:6px; background:#ffffff; font-size:14px; line-height:1.75; color:#2d2523;">ODC '+escapeHtml(planShort)+' 멤버십 한도('+quota+'팀)를 모두 사용하셨어요. 새로운 시즌에 진행되는 팀에 추가로 등록하고 싶으시다면 팀 추가 등록 할인 쿠폰 '+couponChip(COUPON_ADDON, true)+' 을 사용해주세요. 결제 시 쿠폰 코드를 입력하시면 <strong style="color:#980000;">27만원이 할인</strong>됩니다.<br><br>※ 멤버십으로 제공되는 시즌 팀 등록용인 <strong>'+escapeHtml(COUPON_TEAM)+'</strong> 쿠폰은 사용하실 수 없습니다.</div>';
-    }
+    // ── 버건디 멤버십 카드 ──
+    var quotaHtml = isRelation
+      ? '<p style="font-size:19px; font-weight:800; line-height:1.35; margin:0; color:#ff9a92;">이벤트 · 클럽</p>'
+        + '<p style="font-size:12px; opacity:0.7; margin:6px 0 0 0;">시즌 팀 미포함</p>'
+      : '<p style="font-size:44px; font-weight:800; line-height:1; margin:0; color:#ff9a92;">'+used.length
+        + '<span style="font-size:17px; font-weight:600; opacity:0.8;"> / '+quota+'</span></p>'
+        + '<p style="font-size:12px; opacity:0.7; margin:6px 0 0 0;">사용 / 한도</p>'
+        // 추가 등록 쿠폰으로 한도보다 많이 등록한 경우가 있어(지성 1팀인데 3팀) 오해가 없게 적어준다.
+        + (used.length > quota ? '<p style="font-size:11px; opacity:0.55; margin:3px 0 0 0;">추가 등록 포함</p>' : '');
 
-    var statColor = function(zero){return zero?'opacity:0.5;':'';};
-    var html = '<div style="padding:26px 24px; border:1px solid #ddcfbf; border-radius:8px; background:#ffffff;">'
-      + '<div style="display:flex; align-items:baseline; gap:12px; margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid #ddcfbf; flex-wrap:wrap;">'
-        + '<p style="font-size:22px; font-weight:800; color:#2d2523; margin:0;">'+escapeHtml(m.name)+' 님</p>'
-        + '<span style="padding:4px 10px; border:1px solid #980000; border-radius:4px; font-size:12px; font-weight:700; color:#980000;">ODC '+escapeHtml(planShort)+'</span>'
-        + '<span style="font-size:13px; color:#2d2523; opacity:0.75;">'+escapeHtml(periodLabel)+'</span>'
-      + '</div>'
-      + '<div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:18px;">'
-        + '<div style="flex:1 1 140px; min-width:120px; padding:14px 12px; border:1px solid #ddcfbf; border-radius:6px; text-align:center;">'
-          + '<p style="font-size:28px; font-weight:800; color:#980000; line-height:1.1; margin:0 0 4px 0;">'+quota+'</p>'
-          + '<p style="font-size:12px; color:#2d2523; opacity:0.75; margin:0;">시즌 팀 한도</p>'
+    var fact = function(label, value){
+      return '<span style="opacity:0.72;">'+label+' <strong style="opacity:1; color:#f0eae2;">'+value+'</strong></span>';
+    };
+    var facts = [];
+    if (att.hasData){
+      facts.push(fact('이벤트', att.eventCount + '회'));
+      facts.push(fact('어드벤처', att.adventureCount + '회'));
+    } else {
+      facts.push('<span style="opacity:0.72;">참여 기록 준비 중</span>');
+    }
+    facts.push(fact('등록한 팀', used.length === 0
+      ? '없음'
+      : used.map(function(u){return escapeHtml(u.label)+' '+escapeHtml(u.team);}).join(', ')));
+
+    var cardHtml = '<div style="border-radius:10px; background:#441a15; color:#f0eae2; padding:26px 24px;">'
+      + '<div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap;">'
+        + '<div style="flex:1 1 220px; min-width:0;">'
+          + '<p style="font-size:11px; letter-spacing:2px; font-weight:700; opacity:0.6; margin:0 0 8px 0;">ODC MEMBERSHIP</p>'
+          + '<p style="font-size:25px; font-weight:800; margin:0; line-height:1.3; word-break:break-word;">'+escapeHtml(m.name)
+            + ' <span style="font-size:15px; font-weight:600; opacity:0.75;">'+escapeHtml(planShort)+'</span></p>'
+          + '<p style="font-size:13px; opacity:0.7; margin:6px 0 0 0;">'+escapeHtml(periodLabel)+'</p>'
         + '</div>'
-        + '<div style="flex:1 1 140px; min-width:120px; padding:14px 12px; border:1px solid #ddcfbf; border-radius:6px; text-align:center;">'
-          + '<p style="font-size:28px; font-weight:800; color:'+ (used.length===0?'#2d2523':'#980000') +'; '+statColor(used.length===0)+' line-height:1.1; margin:0 0 4px 0;">'+used.length+'</p>'
-          + '<p style="font-size:12px; color:#2d2523; opacity:0.75; margin:0;">사용한 팀</p>'
-        + '</div>'
-        + '<div style="flex:1 1 140px; min-width:120px; padding:14px 12px; border:1px solid #ddcfbf; border-radius:6px; text-align:center;">'
-          + '<p style="font-size:28px; font-weight:800; color:'+ (remaining===0?'#2d2523':'#980000') +'; '+statColor(remaining===0)+' line-height:1.1; margin:0 0 4px 0;">'+remaining+'</p>'
-          + '<p style="font-size:12px; color:#2d2523; opacity:0.75; margin:0;">잔여 가능 팀</p>'
-        + '</div>'
+        + '<div class="odc-quota" style="flex:0 0 auto; text-align:right;">'+quotaHtml+'</div>'
       + '</div>'
-      + buildAttendanceHtml(m)
-      + '<div style="padding:14px 16px; border:1px solid #ddcfbf; border-radius:6px; margin-bottom:16px;">'
-        + '<p style="font-size:12px; color:#2d2523; opacity:0.8; margin:0 0 8px 0; font-weight:700;">사용 내역</p>'
-        + usedHtml
+      + '<div style="margin-top:20px; padding-top:16px; border-top:1px solid rgba(240,234,226,0.22); display:flex; gap:20px; flex-wrap:wrap; font-size:13px; line-height:1.9;">'
+        + facts.join('')
       + '</div>'
-      + msgHtml
     + '</div>';
 
-    document.getElementById('odc-result').innerHTML = html;
+    // ── 안내 박스 ──
+    var msg, row;
+    if (isRelation){
+      msg = '<strong>관계 멤버십</strong>은 시즌 팀이 포함되지 않은 멤버십이에요. 1년동안 이벤트와 클럽을 자유롭게 이용하실 수 있습니다.'
+        + '<br><br>새로운 시즌에 진행되는 팀에 참여하고 싶으시다면 아래 팀 추가 등록 할인 쿠폰을 결제 시 입력해주세요. '
+        + '<strong style="color:#980000;">27만원이 할인</strong>됩니다.'
+        + '<br><br>등록 가능한 시즌: '+seasonsHtml;
+      row = couponRow(COUPON_ADDON, true);
+    } else if (remaining >= 1){
+      msg = '<strong style="color:#980000;">'+remaining+'팀</strong> 등록이 가능합니다. 등록 가능한 시즌: '+seasonsHtml
+        + '<br><br>본인 멤버십으로 새로운 시즌에 진행되는 팀을 등록하실 때는 아래 쿠폰 코드를 결제 시 입력해주세요.';
+      row = couponRow(COUPON_TEAM, false);
+    } else {
+      msg = '새로운 시즌에 진행되는 팀에 추가로 등록하시려면 아래 팀 추가 등록 할인 쿠폰을 결제 시 입력해주세요. '
+        + '<strong style="color:#980000;">27만원이 할인</strong>됩니다.'
+        + '<br><br>등록 가능한 시즌: '+seasonsHtml
+        + '<br><span style="font-size:13px; opacity:0.75;">※ 추가 등록에는 '+escapeHtml(COUPON_TEAM)+' 코드가 적용되지 않습니다.</span>';
+      row = couponRow(COUPON_ADDON, true);
+    }
+    var msgHtml = '<div style="margin-top:14px; padding:20px 22px; border:1px solid #ddcfbf; border-radius:8px; background:#ffffff; font-size:14px; line-height:1.85; color:#2d2523;">'+msg+row+'</div>';
+
+    document.getElementById('odc-result').innerHTML = cardHtml + msgHtml + att.timelineHtml;
+  }
+
+  // 쿠폰 복사. 결과는 innerHTML 로 다시 그려지므로 컨테이너에 위임한다.
+  document.getElementById('odc-result').addEventListener('click', function(e){
+    var btn = e.target && e.target.getAttribute && e.target.getAttribute('data-copy') ? e.target : null;
+    if (!btn) return;
+    var code = btn.getAttribute('data-copy');
+    var done = function(){
+      var before = btn.textContent;
+      btn.textContent = '복사됨';
+      setTimeout(function(){ btn.textContent = before; }, 1500);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(code).then(done, function(){ fallbackCopy(code, done); });
+    } else {
+      fallbackCopy(code, done);
+    }
+  });
+  function fallbackCopy(text, done){
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta); done();
+    } catch(err){ /* 복사 실패는 조용히 넘긴다 (코드가 화면에 보이므로 직접 선택 가능) */ }
   }
 
   document.getElementById('odc-search-btn').addEventListener('click', search);
