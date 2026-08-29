@@ -46,6 +46,14 @@
   .meta .k{flex:0 0 64px;color:var(--muted);}
   .meta .v{flex:1 1 auto;}
   .q-label{display:block;font-size:13.5px;font-weight:600;color:var(--ink);margin:0 0 7px;}
+  .opts{display:flex;flex-direction:column;gap:8px;margin:0 0 18px;}
+  .opt{display:flex;align-items:center;gap:10px;padding:12px 13px;border:1.5px solid var(--field);
+       border-radius:10px;cursor:pointer;font-size:15px;color:var(--ink);line-height:1.5;background:#fff;
+       transition:.15s;word-break:keep-all;}
+  .opt:hover{border-color:var(--burg);}
+  .opt input{width:auto;margin:0;accent-color:var(--red);flex:0 0 auto;}
+  .opt.on{border-color:var(--red);background:#fff7f6;font-weight:600;}
+  .opts.miss .opt{border-color:var(--coral);}
   .q-label .req{color:var(--coral);}
   textarea,input{width:100%;font-family:inherit;font-size:16px;color:var(--ink);background:#fff;
        border:1.5px solid var(--field);border-radius:10px;padding:12px 13px;line-height:1.65;letter-spacing:-0.01em;}
@@ -183,10 +191,22 @@ function activeEl(ev, i){
       (ev.speaker ? '<span class="byline">' + esc(ev.speaker) + '</span>' : '') +
       (ev.intro ? '<p class="hook">' + esc(ev.intro) + '</p>' : '') +
       '<div class="meta">' + metaRows + '</div>' +
+      (ev.options && ev.options.choices && ev.options.choices.length
+        ? '<label class="q-label">' + esc(ev.options.label || '참여 일정') + ' <span class="req">*</span></label>' +
+          '<div class="opts" data-opts="' + i + '">' +
+            ev.options.choices.map(ch =>
+              '<label class="opt"><input type="radio" name="opt-' + i + '" value="' + esc(ch) + '">' +
+              '<span>' + esc(ch) + '</span></label>').join('') +
+          '</div>'
+        : '') +
       '<label class="q-label">기대되거나 궁금한 점 <span class="req">*</span></label>' +
       '<textarea data-q="' + i + '" placeholder="이 이벤트에 기대하거나 궁금한 점을 적어주세요. 내용을 남겨주신 분을 우선 초대합니다."></textarea>' +
     '</div></div>';
   el.querySelector('.ev-head').addEventListener('click', () => toggle(el, ev.name));
+  el.querySelectorAll('.opt input').forEach(r => r.addEventListener('change', () => {
+    el.querySelectorAll('.opt').forEach(l => l.classList.toggle('on', l.querySelector('input').checked));
+    const box = el.querySelector('.opts'); if (box) box.classList.remove('miss');
+  }));
   return el;
 }
 
@@ -258,6 +278,17 @@ function submit(){
   });
   if (missQ){ missQ.scrollIntoView({block:'center',behavior:'smooth'}); return showErr('선택한 이벤트의 기대되거나 궁금한 점을 모두 적어주세요.'); }
 
+  // 여러 날 중 하루를 고르는 이벤트는 반드시 하나 선택
+  let missOpt = null;
+  CFG.events.forEach((ev,i) => {
+    if (!sel.has(ev.name) || !ev.options || !ev.options.choices) return;
+    if (!document.querySelector('input[name="opt-'+i+'"]:checked')){
+      const box = document.querySelector('.opts[data-opts="'+i+'"]');
+      if (box){ box.classList.add('miss'); if(!missOpt) missOpt = box; }
+    }
+  });
+  if (missOpt){ missOpt.scrollIntoView({block:'center',behavior:'smooth'}); return showErr('참여할 일정을 선택해 주세요.'); }
+
   if (!name.value.trim()){ name.classList.add('miss'); return showErr('이름을 적어주세요.'); }
   if (!/.+@.+\..+/.test(email.value.trim())){ email.classList.add('miss'); return showErr('슬랙 가입 이메일을 정확히 적어주세요.'); }
   if (!team.value.trim()){ team.classList.add('miss'); return showErr('소속 팀을 적어주세요.'); }
@@ -273,6 +304,10 @@ function submit(){
     const body = new URLSearchParams();
     body.append('entry.' + CFG.entry.event, ev.name);
     if (CFG.entry.expect) body.append('entry.' + CFG.entry.expect, q.value.trim());
+    if (ev.options && ev.options.entry){
+      const pick = document.querySelector('input[name="opt-'+i+'"]:checked');
+      if (pick) body.append('entry.' + ev.options.entry, pick.value);
+    }
     body.append('entry.' + CFG.entry.name, nm);
     body.append('entry.' + CFG.entry.email, em);
     if (CFG.entry.team) body.append('entry.' + CFG.entry.team, tm);
@@ -285,7 +320,11 @@ function submit(){
 }
 
 function finish(){
-  document.getElementById('done-events').textContent = '신청한 이벤트: ' + CFG.events.filter(e=>sel.has(e.name)).map(e=>e.name).join(', ');
+  document.getElementById('done-events').textContent = '신청한 이벤트: ' + CFG.events.map((e,i) => {
+    if (!sel.has(e.name)) return null;
+    const pick = document.querySelector('input[name="opt-'+i+'"]:checked');
+    return e.name + (pick ? ' (' + pick.value + ')' : '');
+  }).filter(Boolean).join(', ');
   document.getElementById('form-view').style.display = 'none';
   document.getElementById('done-view').style.display = 'block';
   window.scrollTo({top:0, behavior:'smooth'});
