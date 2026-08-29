@@ -133,6 +133,36 @@
 </section>
 
 <section>
+  <div class="label">Saved 1 &middot; 이어서 &middot; 공식 문서</div>
+  <h2>VS Code를 쓰신다면, 슬래시 한 줄로 켜집니다</h2>
+  <p style="margin-bottom:12px;">앞 장은 터미널 이야기였습니다. <span class="bold">터미널을 안 쓰셔도 됩니다.</span> VS Code 확장에서도 같은 것이 됩니다.</p>
+  <div class="grid grid-3" style="gap:14px; margin-bottom:12px;">
+    <div class="card" style="padding:14px 18px;">
+      <h3 class="accent">켜는 법</h3>
+      <p style="color:var(--text); margin-top:6px;">입력창에 <code class="accent">/remote-control</code> 또는 <code class="accent">/rc</code>를 칩니다. <span class="bold">/</span> 를 눌러 메뉴에서 골라도 됩니다.</p>
+      <p class="dim" style="margin-top:6px;">켜지면 입력창 아래에 Remote Control 표시가 뜹니다. 누르면 그 세션으로 바로 갑니다. 끄는 것도 같은 명령 한 번 더.</p>
+    </div>
+    <div class="card" style="padding:14px 18px;">
+      <h3 class="accent2">터미널과 다른 점</h3>
+      <p style="color:var(--text); margin-top:6px;">VS Code에서는 <span class="bold">QR이 뜨지 않습니다.</span> 대신 대화창에 세션 주소를 올려주고, 클로드 앱과 웹의 세션 목록에도 올라옵니다.</p>
+      <p class="dim" style="margin-top:6px;">폰에서 그 세션을 고르면 이어집니다. 세션 이름은 대화 내용에서 자동으로 붙습니다.</p>
+    </div>
+    <div class="card" style="padding:14px 18px;">
+      <h3 class="accent3">매번 켜기 번거로우면</h3>
+      <p style="color:var(--text); margin-top:6px;">명령 메뉴 Settings의 <span class="bold">Enable Remote Control for all sessions</span>를 켜두면 새 세션마다 알아서 연결됩니다.</p>
+      <p class="dim" style="margin-top:6px;">요금제 제한은 없습니다. 회사 계정으로 쓰시는 분은 관리자가 먼저 열어줘야 합니다.</p>
+    </div>
+  </div>
+  <div class="qblock" style="padding:14px 20px;">
+    <p style="font-size:0.54em; color:var(--text); margin:0; line-height:1.7;">
+      <span class="accent2 bold">어디까지가 내 컴퓨터인가</span><br>
+      실행도 파일도 <span class="bold">계속 내 컴퓨터에 있습니다.</span> 바깥에서 내 컴퓨터로 들어오는 문을 여는 게 아니라, 내 쪽에서 밖으로 나가는 연결만 씁니다. 대신 연결돼 있는 동안에는 대화 기록이 서버에 저장됩니다. 그게 있어야 기기를 옮겨도 이어집니다. 그리고 <span class="bold">VS Code를 닫으면 세션도 같이 내려갑니다.</span> 잠자기나 잠깐 끊긴 인터넷 정도는 알아서 다시 붙습니다.
+    </p>
+  </div>
+
+</section>
+
+<section>
   <div class="label">Saved 2 &middot; @ai.trend.kr &middot; 8월 24일</div>
   <h2>챗GPT가 맥의 메시지 앱을 대신 읽고 답합니다</h2>
   <p style="margin-bottom:12px;">읽고 답장 안 한 문자, 지금 몇 개나 쌓여 있나요. 8월 20일에 나온 플러그인 이야기입니다.</p>
@@ -963,7 +993,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.min.js"></script>
 <script>
-  const sections = [[0, 1], [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], [14, 15, 16, 17, 18], [19, 20, 21, 22, 23], [24, 25, 26, 27, 28], [29, 30, 31, 32, 33, 34], [35, 36]];
+  const sections = [[0, 1], [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], [15, 16, 17, 18, 19], [20, 21, 22, 23, 24], [25, 26, 27, 28, 29], [30, 31, 32, 33, 34, 35], [36, 37]];
 
   function goSection(idx) {
     if (sections[idx]) Reveal.slide(sections[idx][0]);
