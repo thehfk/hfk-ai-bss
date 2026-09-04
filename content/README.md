@@ -64,3 +64,47 @@ git add -A && git commit -m "content: 3-sun 문구 수정" && git push
 - `presentation-ai-workshop-for-member-mobile.html` (멤버 워크숍)
 
 > 검증: 위 8개 모두 extract→inject 왕복 후 보이는 텍스트·슬라이드 수 100% 일치.
+
+---
+
+# 문구·위젯 원본 (2026-09-04 추가)
+
+위는 발표 덱 파이프라인이고, 아래는 **아임웹 라이브 페이지**의 원본입니다.
+결과물 HTML 은 손대지 마세요. 여기를 고치고 빌드합니다.
+
+| 원본 | 빌드하면 | 라이브 |
+|---|---|---|
+| `member-guide.yml` | `member-guide.html` | thehfk.org/guide |
+| `widgets/registration-schedule.html` | `widget-registration-schedule.html` | thehfk.org/membership_new_season ① |
+| `widgets/team-recommender.html` | `widget-team-recommender.html` | thehfk.org/membership_new_season ② |
+| `widgets/season-alarm.html` | `widget-season-alarm.html` | thehfk.org/earlybird |
+| `odc-lookup.html` (레포 루트) | — | thehfk.org/odc |
+
+아임웹에는 페이지마다 iframe 16줄만 들어가 있습니다. **push 하면 라이브가 저절로 바뀝니다.
+붙여넣기는 필요 없습니다.**
+
+## 고치는 법
+
+```bash
+pip install -r scripts/requirements.txt      # 처음 한 번 (pyyaml)
+
+# 가이드 문구
+vi content/member-guide.yml
+python3 scripts/build_member_guide.py
+
+# 아임웹 위젯
+vi content/widgets/season-alarm.html
+python3 scripts/build_widgets.py content/widgets/season-alarm.html widget-season-alarm \
+        --title "오픈 알람 신청" --height 819
+
+git commit -am "문구 수정" && git push
+```
+
+크롬에서 claude.ai/code 로 이 레포를 열어 시켜도 됩니다. 원본·빌더·결과물이 한 레포에
+다 있어서 수정부터 배포까지 여기서 끝납니다.
+
+글자 크기·자간·색·여백은 문구 파일이 아니라 `scripts/build_member_guide.py` 맨 위
+`T` 딕셔너리에 있습니다.
+
+> 이 레포는 **PUBLIC** 입니다. 멤버 이름·연락처가 담긴 데이터를 두지 마세요.
+> `member-guide.html`, `widget-*.html` 은 자동 생성물이라 직접 고치면 다음 빌드에 지워집니다.
