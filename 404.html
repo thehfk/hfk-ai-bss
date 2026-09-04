@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>옮겨진 자료입니다</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  body{margin:0;padding:80px 20px;background:#f0eae2;color:#2d2523;
+       font-family:'Pretendard',-apple-system,sans-serif;letter-spacing:-0.02em;text-align:center}
+  h1{font-size:26px;font-weight:700;margin:0 0 12px}
+  p{font-size:16px;line-height:1.7;color:#7a6a60;margin:0 0 24px}
+  a{color:#980000;font-weight:700}
+</style></head>
+<body>
+  <h1 id="h">페이지를 찾을 수 없습니다</h1>
+  <p id="p">주소를 다시 확인해 주세요.</p>
+  <p><a href="https://thehfk.org">HFK 홈으로</a></p>
+<script>
+// 2026-09-04: 개인 발표 자료를 skaug12 레포로 분리했다. 옛 주소로 온 요청을 새 주소로 넘긴다.
+(function () {
+  var file = decodeURIComponent(location.pathname.split('/').pop() || '');
+  var to = null;
+  if (/^presentation-ai부사수/.test(file)) to = 'https://seulkilog.today/ai-bss/' + encodeURIComponent(file);
+  else if (/^(presentation-ai-workshop|presentation-ai-creative|briefing-)/.test(file))
+    to = 'https://seulkilog.today/ai-workshop/' + encodeURIComponent(file);
+  if (!to) return;
+  document.getElementById('h').textContent = '옮겨진 자료입니다';
+  document.getElementById('p').innerHTML = '개인 발표 자료는 새 주소로 옮겼습니다. 잠시 뒤 이동합니다.<br>' +
+    '<a href="' + to + '">바로 열기</a>';
+  location.replace(to);
+})();
+</script>
+</body></html>
