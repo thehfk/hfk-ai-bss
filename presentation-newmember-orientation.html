@@ -22,21 +22,21 @@
     --r-heading-font: 'Pretendard', -apple-system, sans-serif;
     --r-main-color: var(--text);
     --r-heading-color: var(--text);
-    --r-main-font-size: 40px;
+    --r-main-font-size: 38px;
   }
   .reveal { font-weight: 400; letter-spacing: -0.05em; }
   .reveal h1 { font-size: 2.4em; font-weight: 600; letter-spacing: -0.05em; line-height: 1.2; color: var(--text); text-transform: none; }
-  .reveal h2 { font-size: 1.24em; font-weight: 600; letter-spacing: -0.05em; margin-bottom: 0.5em; line-height: 1.26; color: var(--text); text-transform: none; }
+  .reveal h2 { font-size: 1.24em; font-weight: 600; letter-spacing: -0.05em; margin-bottom: 0.58em; line-height: 1.34; color: var(--text); text-transform: none; }
   .reveal h3 { font-size: 0.74em; font-weight: 600; letter-spacing: -0.05em; margin: 0 0 6px; word-break: keep-all; overflow-wrap: break-word; color: var(--text); text-transform: none; }
-  .reveal p { font-size: 0.66em; line-height: 1.62; word-break: keep-all; overflow-wrap: break-word; color: var(--text-sub); }
-  .reveal li { font-size: 0.66em; line-height: 1.62; word-break: keep-all; overflow-wrap: break-word; color: var(--text-sub); }
+  .reveal p { font-size: 0.66em; line-height: 1.82; word-break: keep-all; overflow-wrap: break-word; color: var(--text-sub); }
+  .reveal li { font-size: 0.66em; line-height: 1.8; word-break: keep-all; overflow-wrap: break-word; color: var(--text-sub); }
   .reveal ul { list-style: none; padding-left: 0; margin: 0; }
-  .reveal ul li { padding-left: 16px; position: relative; margin-bottom: 5px; }
+  .reveal ul li { padding-left: 16px; position: relative; margin-bottom: 9px; }
   .reveal ul li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
   .reveal ol { padding-left: 18px; }
   .reveal ol li { padding-left: 4px; }
   .reveal ol li::before { display: none; }
-  .reveal section { text-align: left; padding: 40px 76px 54px !important; box-sizing: border-box; overflow: hidden; }
+  .reveal section { text-align: left; padding: 48px 84px 60px !important; box-sizing: border-box; overflow: hidden; }
   .reveal .slides section:not(.present) { opacity: 0 !important; visibility: hidden !important; }
   .reveal .slides { text-align: left; }
   .reveal .slide-number { font-family: 'Pretendard'; font-size: 13px; color: var(--text-dim); }
@@ -49,20 +49,20 @@
   .bold { font-weight: 600; }
   .ink { color: var(--text) !important; }
 
-  .label { font-family: 'Pretendard', sans-serif; font-size: 0.56em; font-weight: 600; letter-spacing: -0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .label { font-family: 'Pretendard', sans-serif; font-size: 0.56em; font-weight: 600; letter-spacing: -0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
   .en { font-family: 'Pretendard', sans-serif; }
 
-  .grid { display: grid; gap: 20px; }
+  .grid { display: grid; gap: 26px; }
   .grid-2 { grid-template-columns: 1fr 1fr; }
   .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
   .grid-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
 
-  .card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 10px; padding: 20px 22px; overflow: hidden; }
+  .card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 10px; padding: 26px 30px; overflow: hidden; }
   .card h3 { margin: 0; }
   .card p { margin: 0; font-size: 0.6em; }
   .card li { font-size: 0.6em; }
   .card ul, .card ol { margin: 0; }
-  .card > * + * { margin-top: 9px !important; }
+  .card > * + * { margin-top: 14px !important; }
 
   .eyebrow { font-size: 0.64em; font-weight: 600; letter-spacing: -0.05em; color: var(--accent) !important; margin: 0 0 10px; }
 
@@ -70,17 +70,17 @@
   .chnum { display: inline-flex; align-items: center; justify-content: center; min-width: 38px; height: 38px; background: #e7ded0; color: var(--accent); border-radius: 8px; font-size: 0.64em; font-weight: 700; flex: 0 0 38px; }
 
   .row { display: flex; gap: 18px; align-items: flex-start; }
-  .row + .row { margin-top: 14px; }
+  .row + .row { margin-top: 18px; }
 
-  .rule { display: flex; gap: 16px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .rule { display: flex; gap: 16px; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--line); }
   .rule:last-child { border-bottom: none; }
   .rule .term { flex: 0 0 72px; font-size: 0.66em; font-weight: 700; color: var(--accent); }
-  .rule .desc { flex: 1 1 auto; font-size: 0.62em; line-height: 1.5; word-break: keep-all; color: var(--text-sub); }
+  .rule .desc { flex: 1 1 auto; font-size: 0.62em; line-height: 1.72; word-break: keep-all; color: var(--text-sub); }
 
-  .tl { display: flex; gap: 22px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .tl { display: flex; gap: 22px; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--line); }
   .tl:last-child { border-bottom: none; }
   .tl .yr { flex: 0 0 104px; font-size: 0.66em; font-weight: 700; color: var(--accent); letter-spacing: -0.05em; }
-  .tl .ev { flex: 1 1 auto; font-size: 0.66em; line-height: 1.5; word-break: keep-all; color: var(--text); }
+  .tl .ev { flex: 1 1 auto; font-size: 0.66em; line-height: 1.66; word-break: keep-all; color: var(--text); }
 
   .note { background: var(--card-bg); border: 1px solid var(--line); border-radius: 10px; padding: 16px 20px; }
   .note p { margin: 0; }
@@ -213,8 +213,8 @@
 <section>
   <div class="label">Get Started</div>
   <h2>오늘 안내드릴 순서</h2>
-  <p class="sub" style="margin:0 0 28px;">슬랙부터 베네핏까지, 아래 순서로 안내드립니다.</p>
-  <div class="grid grid-3" style="gap:22px 30px; margin-top:0;">
+  <p class="sub" style="margin:0 0 34px;">슬랙부터 베네핏까지, 아래 순서로 안내드립니다.</p>
+  <div class="grid grid-3" style="gap:26px 34px; margin-top:0;">
     <div class="row" style="align-items:center; margin-top:0;"><span class="badge" style="width:33px; height:33px; flex:0 0 33px; font-size:0.5em;">1</span><div><h3 style="font-size:0.72em; margin:0 0 3px;">슬랙 가입과 프로필</h3><p style="margin:0; font-size:0.56em; line-height:1.5;">HFK의 모든 소통은 슬랙에서 이뤄집니다.</p></div></div>
     <div class="row" style="align-items:center; margin-top:0;"><span class="badge" style="width:33px; height:33px; flex:0 0 33px; font-size:0.5em;">2</span><div><h3 style="font-size:0.72em; margin:0 0 3px;">슬랙 채널 익히기</h3><p style="margin:0; font-size:0.56em; line-height:1.5;">앞자리 번호로 채널 성격을 구분합니다.</p></div></div>
     <div class="row" style="align-items:center; margin-top:0;"><span class="badge" style="width:33px; height:33px; flex:0 0 33px; font-size:0.5em;">3</span><div><h3 style="font-size:0.72em; margin:0 0 3px;">팀 어드벤처</h3><p style="margin:0; font-size:0.56em; line-height:1.5;">다른 팀 세션을 한 번씩 청강해볼 수 있습니다.</p></div></div>
@@ -366,9 +366,9 @@
 
 <section>
   <div class="label">Get Started · 8</div>
-  <h2 style="margin-bottom:0.3em;">멤버 베네핏</h2>
-  <p class="sub" style="margin:0 0 14px;">시즌에 등록한 멤버라면 누구나 누릴 수 있습니다.</p>
-  <div class="grid grid-2" style="gap:10px 20px;">
+  <h2>멤버 베네핏</h2>
+  <p class="sub" style="margin:0 0 20px;">시즌에 등록한 멤버라면 누구나 누릴 수 있습니다.</p>
+  <div class="grid grid-2" style="gap:18px 26px;">
     <div class="card">
       <h3 style="font-size:0.72em;">하버드 비즈니스 리뷰 최신호</h3>
       <p>첫 세션에 HBR 최신호 1권을 드립니다. (정가 2.5만원)</p>
@@ -381,6 +381,13 @@
         <li>소정동(원테이블 라운지): 공간비 1회 50% 할인</li>
       </ul>
     </div>
+  </div>
+</section>
+
+<section>
+  <div class="label">Get Started · 8</div>
+  <h2>멤버 베네핏</h2>
+  <div class="grid grid-2" style="gap:18px 26px;">
     <div class="card">
       <h3 style="font-size:0.72em;">폴인(fol:in) Lite 3개월</h3>
       <p>일하는 나를 위한 인사이트 콘텐츠 서비스 폴인의 Lite 이용권을 3개월간 무료로 드립니다. 쿠폰번호는 슬랙에 공지합니다.</p>
@@ -481,9 +488,9 @@
   <div class="seg" data-range="0-0">Title</div>
   <div class="seg" data-range="1-3">About</div>
   <div class="seg" data-range="4-7">Program</div>
-  <div class="seg" data-range="8-23">Get Started</div>
-  <div class="seg" data-range="24-27">Notice · Letter</div>
-  <div class="seg" data-range="28-30">Intro · Q&amp;A</div>
+  <div class="seg" data-range="8-24">Get Started</div>
+  <div class="seg" data-range="25-28">Notice · Letter</div>
+  <div class="seg" data-range="29-31">Intro · Q&amp;A</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.min.js"></script>
