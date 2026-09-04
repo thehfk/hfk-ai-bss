@@ -11,6 +11,9 @@
         letter-spacing:-0.02em;word-break:keep-all;}
   /* iframe 으로 실릴 때는 폭·여백을 아임웹 섹션이 정한다 */
   html.hfk-embed body{padding:0;}
+  /* 위젯 카드의 둥근 모서리 뒤로 iframe 배경(크림)이 비쳐 아임웹의 어두운 칸에서
+     모서리에 밝은 조각이 생긴다. 실릴 때는 맨 바깥 카드만 각지게 해 꽉 채운다. */
+  html.hfk-embed body > div{border-radius:0 !important;}
 </style>
 </head>
 <body>
