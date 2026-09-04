@@ -1,0 +1,300 @@
+<!--
+  HFK 등록일정 위젯 (아임웹 임베드용) — 26가을 시즌
+  화면이 3개입니다: ⓪ 오픈 전 = D-카운트다운  ① 등록 기간 = 카운트다운(.live)  ② 마감 후 = 안내(.ended)
+  ⓪/①은 같은 .live 블록이고 카운트다운 문구만 바뀝니다.
+  <script>의 CUTOVER 시각이 지나면 .live가 사라지고 .ended가 자동으로 보입니다.
+
+  ▣ 시즌마다 바꿀 곳
+   [공통]  CUTOVER  → <script> 'YYYY-MM-DDT00:00' (등록→마감 전환 시각)
+
+   [① 등록 화면 .live]
+    1) 시즌명     → .eyebrow "2026 가을시즌 등록 일정"
+    2) 단계 날짜  → 6개 <li>의 .when (보이는 목록)
+    3) 단계 날짜  → <script> phases 배열
+       ★ 2)와 3)은 반드시 같은 날짜로! 한쪽만 고치면 카운트다운이 어긋남
+       ★ phases 순서 = 화면 ❶~❻ 순서 / point:true = 하루짜리 시점(확정·공지일)
+    4) 할인 금액  → .cta-body "20만 원 할인"
+
+   [② 마감 화면 .ended]
+    5) 뉴멤버 OT 일시 → .ended .cta-body
+    6) 가이드 링크    → <a href="https://thehfk.org/guide">
+    7) 첫 공지일      → .ended .cta-body
+
+  디자인 기준: docs/HFK-Website-Design-Guide.md v1.4
+   - 다크 배경(#2d2523) + White(#f0eae2)·Sand(#ceb9a4) 텍스트 + Coral(#ff6154) 포인트 (§2 조합 원칙)
+   - 서체는 Pretendard 하나 (§3). 카운트다운 숫자에 monospace 쓰지 않음
+   - 카드 라운드 12px (§4 여백 척도)
+-->
+<style>
+.hfk-26f, .hfk-26f * { box-sizing:border-box; }
+.hfk-26f { background:#2d2523 !important; padding:44px 0 !important; border-radius:12px !important;
+  font-family:'Pretendard Variable','Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif !important;
+  line-height:1.6 !important; max-width:100% !important; word-break:keep-all !important; }
+.hfk-26f ul, .hfk-26f li, .hfk-26f div, .hfk-26f p, .hfk-26f span {
+  background:transparent !important; background-color:transparent !important; }
+
+.hfk-26f, .hfk-26f p, .hfk-26f span, .hfk-26f div, .hfk-26f li {
+  color:#f0eae2 !important; }
+
+.hfk-26f .eyebrow { font-size:15px !important; font-weight:700 !important;
+  color:#ff6154 !important; margin:0 0 14px !important; letter-spacing:0.05em !important; }
+
+.hfk-26f .cd { margin:0 0 28px !important; }
+.hfk-26f .cd-title { font-size:15px !important; color:#ceb9a4 !important;
+  margin:0 0 8px !important; }
+.hfk-26f .cd-val { color:#f0eae2 !important; line-height:1.1 !important;
+  display:flex !important; flex-wrap:wrap !important; align-items:baseline !important; gap:0 !important; }
+.hfk-26f .cd-num { font-size:46px !important; font-weight:700 !important;
+  color:#f0eae2 !important; font-variant-numeric:tabular-nums !important;
+  font-family:'Pretendard Variable','Pretendard',-apple-system,sans-serif !important;
+  letter-spacing:-0.02em !important; }
+.hfk-26f .cd-unit { font-size:17px !important; font-weight:500 !important;
+  color:#ceb9a4 !important; margin:0 14px 0 4px !important; }
+.hfk-26f .cd-suffix { font-size:17px !important; font-weight:500 !important;
+  color:#ceb9a4 !important; margin-left:6px !important; align-self:baseline !important; }
+
+.hfk-26f .intro { font-size:15px !important; margin:0 !important;
+  color:#ceb9a4 !important;
+  padding-bottom:44px !important; border-bottom:1px solid rgba(240,234,226,0.20) !important; }
+
+.hfk-26f .list { margin:0 !important; padding:0 !important; list-style:none !important; }
+.hfk-26f .item { display:flex !important; flex-wrap:wrap !important; align-items:baseline !important;
+  gap:6px 16px !important; padding:14px 0 !important;
+  border-bottom:1px solid rgba(240,234,226,0.12) !important;
+  font-variant-numeric:tabular-nums !important; }
+.hfk-26f .item:last-child { border-bottom:none !important; }
+.hfk-26f .num  { flex:0 0 28px !important; font-size:17px !important; color:#ceb9a4 !important; }
+.hfk-26f .name { flex:1 1 200px !important; font-size:15px !important;
+  font-weight:600 !important; color:#f0eae2 !important; }
+.hfk-26f .when { flex:1 1 280px !important; font-size:14px !important;
+  color:#ceb9a4 !important; }
+.hfk-26f .stat { flex:0 0 auto !important; font-size:13px !important;
+  color:#ceb9a4 !important; min-width:80px !important; text-align:right !important;
+  font-weight:500 !important; }
+
+.hfk-26f .item.done .name { color:#ceb9a4 !important; font-weight:500 !important; }
+.hfk-26f .item.done .when,
+.hfk-26f .item.done .num,
+.hfk-26f .item.done .stat { color:#ceb9a4 !important; opacity:0.6 !important; }
+
+.hfk-26f .item.now .num { color:#ff6154 !important; }
+.hfk-26f .item.now .name { color:#f0eae2 !important; font-weight:800 !important; }
+.hfk-26f .item.now .when { color:#f0eae2 !important; font-weight:500 !important; }
+.hfk-26f .item.now .stat { color:#ff6154 !important; font-weight:800 !important; }
+
+.hfk-26f .item.next .stat { color:#f0eae2 !important; font-weight:700 !important; }
+
+.hfk-26f .table-note { font-size:13px !important; color:#ceb9a4 !important;
+  margin:0 !important; padding:14px 0 44px !important;
+  border-top:1px solid rgba(240,234,226,0.12) !important; line-height:1.6 !important; }
+
+.hfk-26f .cta { padding:0 !important; margin:0 !important; border:none !important; }
+.hfk-26f .cta-h { font-size:15px !important; font-weight:700 !important;
+  margin:0 0 8px !important; color:#ff6154 !important; }
+.hfk-26f .cta-body { margin:0 !important; color:#ceb9a4 !important;
+  line-height:1.75 !important; font-size:14px !important; }
+.hfk-26f .cta-body strong { color:#f0eae2 !important; font-weight:700 !important; }
+.hfk-26f .cta-body a { color:#ff6154 !important; text-decoration:underline !important; }
+
+@media (max-width:600px) {
+  .hfk-26f { padding:28px 0 !important; border-radius:0 !important; }
+  .hfk-26f .eyebrow { font-size:14px !important; margin-bottom:12px !important; }
+  .hfk-26f .cd-title { font-size:14px !important; }
+  .hfk-26f .cd-num { font-size:30px !important; }
+  .hfk-26f .cd-unit { font-size:13px !important; margin:0 8px 0 3px !important; }
+  .hfk-26f .cd-suffix { font-size:13px !important; margin-left:4px !important; }
+  .hfk-26f .intro { font-size:14px !important; padding-bottom:38px !important; }
+  .hfk-26f .item { padding:13px 0 !important; gap:4px 12px !important; }
+  .hfk-26f .num { flex:0 0 24px !important; font-size:16px !important; }
+  .hfk-26f .name { flex:1 1 calc(100% - 36px) !important; font-size:14px !important; }
+  .hfk-26f .when { flex:1 1 100% !important; font-size:13px !important;
+    padding-left:36px !important; }
+  .hfk-26f .stat { font-size:12px !important; padding-left:36px !important;
+    flex:1 1 100% !important; text-align:left !important; min-width:0 !important; }
+  .hfk-26f .table-note { font-size:12px !important; padding:13px 0 38px !important; }
+}
+</style>
+
+<div class="hfk-26f">
+
+  <div class="live">
+
+  <p class="eyebrow" style="color:#ff6154 !important;">2026 가을시즌 등록 일정</p>
+
+  <div class="cd">
+    <p class="cd-title" data-cd-title style="color:#ceb9a4 !important;">뉴멤버 등록 시작까지</p>
+    <div class="cd-val" data-cd-val></div>
+  </div>
+
+  <p class="intro" style="color:#ceb9a4 !important;">
+    이번 가을시즌은 단계별로 자리가 열립니다.<br>
+    재등록 멤버에게 먼저 자리가 오픈됩니다.
+  </p>
+
+  <ul class="list">
+    <li class="item" data-phase="1">
+      <span class="num" style="color:#ceb9a4 !important;">&#10102;</span>
+      <span class="name" style="color:#f0eae2 !important;">26년 여름시즌에 등록한 뉴멤버</span>
+      <span class="when" style="color:#ceb9a4 !important;">7월 31일 (금) 21:00 ~ 8월 1일 (토) 21:00</span>
+      <span class="stat" style="color:#ceb9a4 !important;"></span>
+    </li>
+    <li class="item" data-phase="2">
+      <span class="num" style="color:#ceb9a4 !important;">&#10103;</span>
+      <span class="name" style="color:#f0eae2 !important;">26년 여름시즌에 등록한 재등록 멤버</span>
+      <span class="when" style="color:#ceb9a4 !important;">8월 1일 (토) 21:00 ~ 8월 2일 (일) 21:00</span>
+      <span class="stat" style="color:#ceb9a4 !important;"></span>
+    </li>
+    <li class="item" data-phase="3">
+      <span class="num" style="color:#ceb9a4 !important;">&#10104;</span>
+      <span class="name" style="color:#f0eae2 !important;">전체 재등록 멤버</span>
+      <span class="when" style="color:#ceb9a4 !important;">8월 2일 (일) 21:00 ~ 8월 7일 (금) 00:00</span>
+      <span class="stat" style="color:#ceb9a4 !important;"></span>
+    </li>
+    <li class="item" data-phase="4">
+      <span class="num" style="color:#ceb9a4 !important;">&#10105;</span>
+      <span class="name" style="color:#f0eae2 !important;">일반 등록</span>
+      <span class="when" style="color:#ceb9a4 !important;">8월 7일 (금) 13:00 ~ 8월 25일 (화)</span>
+      <span class="stat" style="color:#ceb9a4 !important;"></span>
+    </li>
+    <li class="item" data-phase="5">
+      <span class="num" style="color:#ceb9a4 !important;">&#10106;</span>
+      <span class="name" style="color:#f0eae2 !important;">팀 진행 여부 확정</span>
+      <span class="when" style="color:#ceb9a4 !important;">8월 26일 (수)</span>
+      <span class="stat" style="color:#ceb9a4 !important;"></span>
+    </li>
+    <li class="item" data-phase="6">
+      <span class="num" style="color:#ceb9a4 !important;">&#10107;</span>
+      <span class="name" style="color:#f0eae2 !important;">첫 공지</span>
+      <span class="when" style="color:#ceb9a4 !important;">8월 30일 (일)</span>
+      <span class="stat" style="color:#ceb9a4 !important;"></span>
+    </li>
+  </ul>
+
+  <p class="table-note" style="color:#ceb9a4 !important;">
+    등록 인원이 적은 팀은 오픈이 취소될 수 있습니다.
+  </p>
+
+  <div class="cta">
+    <p class="cta-h" style="color:#ff6154 !important;">재등록 혜택</p>
+    <p class="cta-body" style="color:#ceb9a4 !important;">
+      1년 이내 재등록한 멤버에게 20만 원 할인을 제공합니다.<br>
+      할인 코드는 문자 또는 HFK 슬랙을 참고해 주세요.
+    </p>
+  </div>
+
+  </div>
+
+  <div class="ended" style="display:none;">
+
+    <p class="eyebrow" style="color:#ff6154 !important;">2026 가을시즌 등록 마감</p>
+
+    <p class="intro" style="color:#ceb9a4 !important;">
+      시즌 등록이 마감되었습니다.<br>
+      현재 열려 있는 팀에 한해, 각 팀 첫 세션 시작 전까지 <strong style="color:#f0eae2 !important; font-weight:700 !important;">추가 등록</strong>이 가능합니다.
+    </p>
+
+    <div class="cta" style="margin-top:32px !important;">
+      <p class="cta-h" style="color:#ff6154 !important;">뉴멤버 OT</p>
+      <p class="cta-body" style="color:#ceb9a4 !important;">
+        9월 2일 (수) 19:30, 9월 3일 (목) 19:30<br>
+        OT에서 <a href="https://thehfk.org/guide" target="_blank" rel="noopener noreferrer" style="color:#ff6154 !important; text-decoration:underline !important;">뉴멤버 가이드</a>를 소개합니다. 참석이 어려운 분께는 1회차 시작 전에 간단히 소개해 드립니다.
+      </p>
+    </div>
+
+    <div class="cta" style="margin-top:24px !important;">
+      <p class="cta-h" style="color:#ff6154 !important;">첫 공지</p>
+      <p class="cta-body" style="color:#ceb9a4 !important;">
+        8월 30일 (일)에 HFK 슬랙을 통해 각 팀 첫 세션과 뉴멤버 OT를 공지합니다. 곧 초대드리겠습니다.
+      </p>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var D = function(s){ return new Date(s + '+09:00'); };
+  var phases = [
+    { s:D('2026-07-31T21:00'), e:D('2026-08-01T21:00') },
+    { s:D('2026-08-01T21:00'), e:D('2026-08-02T21:00') },
+    { s:D('2026-08-02T21:00'), e:D('2026-08-07T00:00') },
+    { s:D('2026-08-07T13:00'), e:D('2026-08-25T23:59') },
+    { s:D('2026-08-26T00:00'), e:D('2026-08-26T23:59'), point:true },
+    { s:D('2026-08-30T00:00'), e:D('2026-08-30T23:59'), point:true }
+  ];
+  var CUTOVER = D('2026-08-26T00:00');
+  function applyMode(){
+    var root = document.querySelector('.hfk-26f'); if (!root) return false;
+    var live = root.querySelector('.live'), ended = root.querySelector('.ended');
+    var done = new Date() >= CUTOVER;
+    if (live)  live.style.display  = done ? 'none' : '';
+    if (ended) ended.style.display = done ? 'block' : 'none';
+    return done;
+  }
+  function pad(n){ return n < 10 ? '0'+n : ''+n; }
+  function kstDay(d){ return Math.floor((d.getTime() + 32400000) / 86400000); }
+  function unit(n, label){
+    return '<span class="cd-num" style="color:#f0eae2 !important;">'+n+'</span>' +
+           '<span class="cd-unit" style="color:#ceb9a4 !important;">'+label+'</span>';
+  }
+  function fmt(ms){
+    if (ms < 0) ms = 0;
+    var t = Math.floor(ms/1000);
+    var d = Math.floor(t/86400),
+        h = Math.floor((t%86400)/3600),
+        m = Math.floor((t%3600)/60),
+        s = t%60;
+    var html = '';
+    if (d > 0) html += unit(d, '일');
+    html += unit(h, '시간') + unit(pad(m), '분') + unit(pad(s), '초');
+    html += '<span class="cd-suffix" style="color:#ceb9a4 !important;">남음</span>';
+    return html;
+  }
+  function tick(){
+    var root = document.querySelector('.hfk-26f'); if (!root) return;
+    var now = new Date();
+    var p1 = phases[0], p3 = phases[2], p4 = phases[3], title, remain = 0;
+    if (now < p1.s)        { title='뉴멤버 등록 시작까지'; remain = p1.s - now; }
+    else if (now < p3.e)   { title='재등록 마감까지';      remain = p3.e - now; }
+    else if (now < p4.s)   { title='일반등록 시작까지';    remain = p4.s - now; }
+    else if (now < p4.e)   { title='일반등록 마감까지';    remain = p4.e - now; }
+    else                   { title='팀 진행 여부 확정';    remain = 0; }
+    var tEl = root.querySelector('[data-cd-title]'),
+        vEl = root.querySelector('[data-cd-val]');
+    if (tEl) tEl.textContent = title;
+    if (vEl) vEl.innerHTML = remain > 0 ? fmt(remain) : '<span class="cd-num" style="color:#f0eae2 !important;">대기</span>';
+
+    var currentIdx = -1;
+    for (var i=0; i<phases.length; i++) if (now>=phases[i].s && now<phases[i].e) currentIdx = i;
+    var nextIdx = -1;
+    if (currentIdx === -1) {
+      for (var j=0; j<phases.length; j++) if (now < phases[j].s) { nextIdx = j; break; }
+    } else if (currentIdx+1 < phases.length) nextIdx = currentIdx+1;
+
+    phases.forEach(function(p, i){
+      var el = root.querySelector('[data-phase="'+(i+1)+'"]'); if (!el) return;
+      var stat = el.querySelector('.stat');
+      el.classList.remove('done','now','next');
+      if (now >= p.e) { el.classList.add('done'); stat.textContent = '종료'; }
+      else if (i === currentIdx) { el.classList.add('now'); stat.textContent = '진행 중'; }
+      else if (i === nextIdx) {
+        el.classList.add('next');
+        var days = kstDay(p.s) - kstDay(now);
+        stat.textContent = days <= 0 ? '오늘 시작' : days === 1 ? '내일 시작' : days+'일 후';
+      } else { stat.textContent = ''; }
+    });
+  }
+  var timer = null;
+  function start(){
+    if (applyMode()) { if (timer) { clearInterval(timer); timer = null; } return; }
+    tick();
+    if (!timer) timer = setInterval(function(){
+      if (applyMode()) { clearInterval(timer); timer = null; return; }
+      tick();
+    }, 1000);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>

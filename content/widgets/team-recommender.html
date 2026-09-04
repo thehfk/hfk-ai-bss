@@ -1,0 +1,566 @@
+<!-- HFK 팀 추천 위젯 · 아임웹 코드 위젯 전용 -->
+<!-- 생성/갱신: run-season-ops Step 2.5 -->
+<style>
+  /* 층위: 페이지 #f0eae2 → 패널 #fff → 내부 카드 #f0eae2 (디자인 가이드 §2).
+     #fff 는 틴트 배경 위 카드에만 허용된 값이고, 이 위젯이 정확히 그 자리다.
+     예전엔 패널도 내부 카드도 #f0eae2 라 페이지와 셋 다 같은 색이었다. */
+  .hfk-rec { font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif; color: #2d2523; letter-spacing: -0.01em; line-height: 1.75; background: #fff; border: 1px solid #ddcfbf; padding: 48px 36px; border-radius: 12px; word-break: keep-all; }
+  .hfk-rec * { box-sizing: border-box; }
+  .hfk-rec button, .hfk-rec .hfk-link { cursor: pointer; font-family: inherit; letter-spacing: 0; }
+
+  /* 상단 헤더 */
+  .hfk-rec .hfk-head { margin-bottom: 32px; }
+  .hfk-rec .hfk-eyebrow { font-size: 13px; font-weight: 600; color: #980000; letter-spacing: 0.05em; margin: 0 0 8px 0; }
+  .hfk-rec h2.hfk-title { font-size: 28px; font-weight: 700; color: #2d2523; margin: 0 0 16px 0; padding-bottom: 20px; border-bottom: 1px solid #2d2523; letter-spacing: -0.02em; line-height: 1.4; }
+  .hfk-rec .hfk-lede { font-size: 17px; line-height: 1.8; color: #2d2523; margin: 0; }
+
+  /* 스텝 전환 */
+  .hfk-step { display: none; }
+  .hfk-step.hfk-on { display: block; }
+
+  /* 프로필 입력 (직무·연차) */
+  .hfk-profile-form { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
+  .hfk-field { flex: 1 1 220px; min-width: 180px; }
+  .hfk-field label { display: block; font-size: 13px; font-weight: 600; color: #441a15; letter-spacing: 0.3px; margin: 0 0 6px 4px; }
+  .hfk-field select { width: 100%; padding: 12px 24px; background: transparent; border: 1px solid #ddcfbf; border-radius: 999px; font-size: 15px; font-weight: 500; font-family: inherit; color: #441a15; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='%23441a15' d='M5 6L0 0h10z'/></svg>"); background-repeat: no-repeat; background-position: right 18px center; padding-right: 36px; cursor: pointer; }
+  .hfk-field select:hover { background-color: #f0eae2; }
+  .hfk-field select:focus { outline: none; border-color: #980000; color: #980000; }
+  .hfk-profile-actions { flex: 0 0 auto; padding-top: 22px; }
+
+  /* 트랙 카드 (보조 흐름) — 흰 패널 위 내부 카드라 #f0eae2 + 1px 보더 (§2 허용 채움 4번) */
+  .hfk-track-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+  .hfk-track-card { flex: 1 1 170px; min-width: 160px; background: #f0eae2; border: 1px solid #ddcfbf; border-radius: 12px; padding: 28px 20px; text-align: center; cursor: pointer; transition: border-color .2s; }
+  .hfk-track-card:hover { border-color: #980000; }
+  .hfk-track-dot { width: 36px; height: 36px; border-radius: 50%; background: #980000; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; line-height: 1; }
+  .hfk-track-eyebrow { font-size: 13px; font-weight: 600; color: #980000; letter-spacing: 0.05em; margin: 0 0 4px 0; }
+  .hfk-track-title { font-size: 18px; font-weight: 700; color: #2d2523; margin: 0 0 8px 0; letter-spacing: -0.01em; line-height: 1.4; }
+  .hfk-track-desc { font-size: 14px; color: #441a15; line-height: 1.6; margin: 0; }
+
+  /* 결과 헤더 / 선택 라벨 */
+  .hfk-selected-line { font-size: 13px; color: #980000; letter-spacing: 0.05em; font-weight: 600; margin: 0 0 8px 0; }
+  .hfk-selected-line strong { color: #2d2523; font-weight: 700; }
+  .hfk-results { margin-top: 24px; }
+  .hfk-results-header { font-size: 13px; font-weight: 600; color: #980000; letter-spacing: 0.05em; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #ddcfbf; }
+  .hfk-notice { padding: 16px 20px; background: #f0eae2; border: 1px solid #ddcfbf; border-radius: 8px; font-size: 15px; line-height: 1.75; color: #441a15; margin-bottom: 20px; }
+
+  /* 고민 입력 (refine) */
+  .hfk-refine { margin-top: 40px; padding-top: 28px; border-top: 1px solid #ddcfbf; }
+  .hfk-refine-head { font-size: 18px; font-weight: 700; color: #2d2523; margin: 0 0 6px 0; letter-spacing: -0.01em; }
+  .hfk-refine-sub { font-size: 15px; color: #441a15; line-height: 1.75; margin: 0 0 14px 0; }
+  .hfk-input-wrap textarea { width: 100%; padding: 14px 16px; background: #f0eae2; border: 1px solid #ddcfbf; border-radius: 8px; font-size: 15px; font-family: inherit; line-height: 1.75; color: #2d2523; letter-spacing: -0.01em; resize: vertical; min-height: 100px; }
+  .hfk-input-wrap textarea:focus { outline: none; border-color: #980000; }
+  .hfk-input-wrap textarea::placeholder { color: #441a15; opacity: 0.6; }
+  .hfk-actions { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  /* 솔리드 버튼은 이 위젯의 최상위 CTA 하나만 (§5.5 ③) */
+  .hfk-btn-primary { background: #980000; color: #fff; border: 1px solid #980000; padding: 14px 36px; border-radius: 9999px; font-size: 15px; font-weight: 600; line-height: 1.4; }
+  .hfk-btn-primary:hover { background: #441a15; border-color: #441a15; }
+  .hfk-btn-secondary { background: transparent; color: #441a15; border: 1px solid #ddcfbf; padding: 14px 36px; border-radius: 9999px; font-size: 15px; font-weight: 600; line-height: 1.4; }
+  .hfk-btn-secondary:hover { background: #f0eae2; }
+  .hfk-privacy-note { font-size: 13px; line-height: 1.6; color: #441a15; margin: 8px 0 0 0; }
+
+  /* 보조 진입 (트랙 흐름 열기) */
+  .hfk-alt { margin-top: 32px; text-align: center; }
+  .hfk-alt-link { display: inline-block; font-size: 15px; color: #441a15; border-bottom: 1px solid #ddcfbf; padding-bottom: 1px; cursor: pointer; margin: 0; }
+  .hfk-alt-link:hover { color: #980000; border-color: #980000; }
+
+  /* 팀 카드 */
+  .hfk-card { padding: 28px 0; border-bottom: 1px solid #ddcfbf; }
+  .hfk-card:last-child { border-bottom: none; }
+  .hfk-card-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .hfk-card-name { font-size: 18px; font-weight: 700; color: #2d2523; margin: 0; letter-spacing: -0.02em; line-height: 1.4; }
+  .hfk-card-rank { font-size: 13px; font-weight: 700; color: #980000; letter-spacing: 0.05em; margin-right: 10px; }
+  .hfk-card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .hfk-badge { font-size: 13px; font-weight: 600; color: #980000; padding: 3px 0; letter-spacing: 0.05em; }
+  /* Sand(#ceb9a4)는 밝은 배경 위 텍스트로 쓰지 않는다 (§2, 대비 2:1 미만) */
+  .hfk-badge-pending { color: #441a15; }
+  .hfk-card-reason { font-size: 15px; line-height: 1.75; color: #441a15; margin: 0 0 12px 0; }
+  .hfk-card-reason em { font-style: normal; font-weight: 700; color: #980000; }
+  .hfk-target-block { background: #f0eae2; border: 1px solid #ddcfbf; border-radius: 8px; padding: 16px 20px; margin-bottom: 14px; }
+  .hfk-target-label { font-size: 13px; font-weight: 700; color: #980000; letter-spacing: 0.05em; margin: 0 0 4px 0; }
+  .hfk-target-text { font-size: 15px; line-height: 1.8; color: #2d2523; margin: 0; white-space: pre-line; }
+  /* 버튼 위계는 보더 색으로 (§2·§5.5). 솔리드는 위 .hfk-btn-primary 하나만 */
+  .hfk-rec a.hfk-link { display: inline-block; padding: 14px 36px !important; background: transparent !important; border: 1px solid #980000 !important; color: #980000 !important; text-decoration: none !important; border-radius: 9999px !important; font-size: 15px !important; font-weight: 600 !important; line-height: 1.4 !important; }
+  .hfk-rec a.hfk-link:hover { background: #f0eae2 !important; }
+  .hfk-rec a.hfk-link.hfk-disabled { background: transparent !important; border: 1px solid #ddcfbf !important; color: #441a15 !important; pointer-events: none; cursor: default; }
+
+  /* 준비 중 푸터 */
+  .hfk-pending-foot { margin-top: 28px; padding: 16px 20px; background: #f0eae2; border: 1px solid #ddcfbf; border-radius: 8px; font-size: 14px; line-height: 1.75; color: #441a15; }
+  .hfk-pending-foot strong { color: #2d2523; font-weight: 700; }
+
+  /* 모바일 */
+  @media (max-width: 560px) {
+    .hfk-rec { padding: 32px 22px; border-radius: 12px; }
+    .hfk-rec h2.hfk-title { font-size: 24px; }
+    .hfk-card-name { font-size: 18px; }
+    .hfk-track-card { flex-basis: calc(50% - 6px); }
+    .hfk-profile-actions { padding-top: 8px; width: 100%; }
+    .hfk-profile-actions .hfk-btn-primary { width: 100%; }
+  }
+</style>
+
+<div class="hfk-rec">
+  <div class="hfk-head">
+    <p class="hfk-eyebrow">Find Your Team</p>
+    <h2 class="hfk-title">나에게 맞는 HFK 팀 찾기</h2>
+    <p class="hfk-lede">직무와 연차를 입력하면, 비슷한 멤버들이 그동안 가장 많이 등록한 팀 top 3를 알려드립니다.</p>
+  </div>
+
+  <!-- 1단계: 직무·연차 입력 -->
+  <div id="hfkStepProfile" class="hfk-step hfk-on">
+    <div class="hfk-profile-form">
+      <div class="hfk-field">
+        <label for="hfkJob">직무</label>
+        <select id="hfkJob"><option value="" disabled selected>직무를 선택해 주세요</option></select>
+      </div>
+      <div class="hfk-field">
+        <label for="hfkYear">연차</label>
+        <select id="hfkYear"><option value="" disabled selected>연차를 선택해 주세요</option></select>
+      </div>
+      <div class="hfk-profile-actions">
+        <button class="hfk-btn-primary" id="hfkProfileSubmit">비슷한 멤버가 등록한 팀 보기</button>
+      </div>
+    </div>
+    <p class="hfk-privacy-note">2018년부터 누적된 HFK 멤버 등록 데이터를 기반으로 합니다.</p>
+  </div>
+
+  <!-- 2단계: top 3 결과 + 고민 입력 + 보조 진입 -->
+  <div id="hfkStepResults" class="hfk-step">
+    <p class="hfk-selected-line">
+      <strong id="hfkProfileLabel"></strong> · 비슷한 멤버 <strong id="hfkSampleN"></strong>명 기준
+      &nbsp;<button class="hfk-btn-secondary" id="hfkBackProfile">다시 입력</button>
+    </p>
+    <div class="hfk-results" id="hfkProfileResults"></div>
+
+    <!-- 고민 입력으로 더 맞춤 추천 -->
+    <div class="hfk-refine">
+      <p class="hfk-refine-head">맞춤 추천</p>
+      <p class="hfk-refine-sub">지금 가진 고민을 한두 줄 적어주세요. 위 통계와 함께 키워드까지 반영해 다시 추천드립니다.</p>
+      <div class="hfk-input-wrap">
+        <textarea id="hfkConcern" placeholder="예) 팀원과 소통이 잘 안 돼요 · 데이터 기반 보고서를 쓰고 싶어요 · AI를 업무에 제대로 적용하고 싶어요"></textarea>
+        <div class="hfk-actions">
+          <button class="hfk-btn-primary" id="hfkRefineSubmit">고민까지 반영해 한번 더 추천받기</button>
+        </div>
+      </div>
+      <div class="hfk-results" id="hfkConcernResults"></div>
+    </div>
+
+    <!-- 보조 진입: 성장 방향으로 골라보기 -->
+    <div class="hfk-alt">
+      <p class="hfk-alt-link" id="hfkOpenTracks">또는 성장 방향(트랙)으로 직접 골라보기 →</p>
+    </div>
+  </div>
+
+  <!-- 보조 1단계: 트랙 카드 -->
+  <div id="hfkStepTracks" class="hfk-step">
+    <p class="hfk-selected-line"><strong>성장 방향으로 골라보기</strong>
+      &nbsp;<button class="hfk-btn-secondary" id="hfkBackToProfile">← 직무·연차 추천으로</button>
+    </p>
+    <div class="hfk-track-grid">
+      <div class="hfk-track-card" data-track="Vertical">
+        <div class="hfk-track-dot">&#8593;</div>
+        <p class="hfk-track-eyebrow">Vertical</p>
+        <p class="hfk-track-title">책임 확장</p>
+        <p class="hfk-track-desc">리더 역할로 성장하고 싶어요</p>
+      </div>
+      <div class="hfk-track-card" data-track="Horizontal">
+        <div class="hfk-track-dot">&#8596;</div>
+        <p class="hfk-track-eyebrow">Horizontal</p>
+        <p class="hfk-track-title">새로운 역할</p>
+        <p class="hfk-track-desc">타 분야의 감각을 배우고 싶어요</p>
+      </div>
+      <div class="hfk-track-card" data-track="Enrichment">
+        <div class="hfk-track-dot">&#9673;</div>
+        <p class="hfk-track-eyebrow">Enrichment</p>
+        <p class="hfk-track-title">현재 역할 심화</p>
+        <p class="hfk-track-desc">지금 일을 더 잘하고 싶어요</p>
+      </div>
+      <div class="hfk-track-card" data-track="Realignment">
+        <div class="hfk-track-dot">&#8635;</div>
+        <p class="hfk-track-eyebrow">Realignment</p>
+        <p class="hfk-track-title">커리어 전환</p>
+        <p class="hfk-track-desc">다른 길을 찾고 있어요</p>
+      </div>
+      <div class="hfk-track-card" data-track="New Horizons">
+        <div class="hfk-track-dot">&#9670;</div>
+        <p class="hfk-track-eyebrow">New Horizons</p>
+        <p class="hfk-track-title">외부 성장</p>
+        <p class="hfk-track-desc">새로운 영감이 필요해요</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 보조 2단계: 트랙 + 고민 결과 -->
+  <div id="hfkStepTrackResults" class="hfk-step">
+    <p class="hfk-selected-line">선택한 방향 &nbsp;·&nbsp; <strong id="hfkSelectedLabel"></strong>
+      &nbsp;<button class="hfk-btn-secondary" id="hfkBackTracks">← 다른 방향</button>
+    </p>
+    <div class="hfk-input-wrap">
+      <textarea id="hfkTrackConcern" placeholder="예) 팀원과 소통이 잘 안 돼요 · 데이터 기반 보고서를 쓰고 싶어요"></textarea>
+      <div class="hfk-actions">
+        <button class="hfk-btn-primary" id="hfkRecommend">팀 추천받기</button>
+      </div>
+    </div>
+    <div class="hfk-results" id="hfkResults"></div>
+  </div>
+</div>
+
+<script>
+(function() {
+  // ==== TEAMS DATA START (scripts/build_widget_teams.py 가 갱신) ====
+  var SEASON = '26가을';
+  var TEAMS = [
+    { name: '0에서1로', schedule: '주중', track: 'Realignment', productNo: '199',
+      target: "· 코딩 에이전트를 일상과 업무에 이미 써봤고, 새로운 사례보다 내 아웃풋이 필요한 분\n· 코딩 에이전트로 워크스페이스를 만들어봤고, 실제 프로젝트나 비즈니스로 이어가고 싶은 분\n· 만들고 싶은 것이 있는데, 3개월 동안 끝까지 밀어붙일 계기가 필요한 분",
+      keywords: ['바이브코딩', '코딩', '코딩에이전트', '사이드프로젝트', '개인프로젝트', '창업', '만들기', '서비스', '아이디어', '실행', '클로드', 'Claude'] },
+    { name: 'AI부사수(TUE)', schedule: '주중', track: 'Enrichment', productNo: '312',
+      target: "· 부사수 없이 혼자 모든 것을 다 해내야 하는 1인 마케터, 1인 대표, 1인 실무자\n· AI가 대단하다는 건 알지만 정작 내 업무에서 눈에 띄게 달라진 것이 없는 분\n· 바이브 코딩에 자신감은 생겼는데 앞으로 어떻게 발전시킬지 실마리가 필요한 분\n· 바이브 코딩이 친숙하지 않지만 자신의 일을 쪼개 적용해 보고 싶은 분\n· 회수한 시간을 사이드 프로젝트에 쓰고 싶은 기획자·마케터·PM",
+      keywords: ['AI', '프롬프트', '자동화', '클로드', 'Claude', 'ChatGPT', '생산성', '업무효율', '실무', '도구', '챗봇'] },
+    { name: '글쓰는OO', schedule: '주중', track: 'Enrichment', productNo: '158',
+      target: "· 현재 일하는 분야에서 3~5년 이상의 경험을 쌓은 분\n· 이직이나 독립을 준비하며 자신의 커리어를 콘텐츠로 정리해두고 싶은 분\n· 올해 해온 일을 글로 남기고 싶은데 혼자서는 계속 미루게 되어 마감과 동료가 필요한 분\n· 내가 해온 일을 잘 정리해두고, 팔리는 글로 만들어 보고 싶은 분",
+      keywords: ['글쓰기', '콘텐츠', '기록', '정리', '퍼스널브랜딩', '에디터', '기획안', '연재', '독립', '이직'] },
+    { name: '리더의서재', schedule: '주중', track: 'New Horizons', productNo: '49',
+      target: "· 일로 바쁜 가운데 '왜'를 놓치고 있다고 느끼는 리더\n· 혼자서는 끝까지 읽기 어려운 경영·경제·인문·철학 책을 3개월 안에 다 읽고 싶은 분\n· 사람과 조직과 시장을 설명할 자기 가설을 세우고 싶은 분\n· 내가 어떤 기준으로 결정을 내려왔는지 다시 살펴보고 싶은 분",
+      keywords: ['리더십', '독서', '철학', '인간', '관리자', '방향', '책', '실무리더'] },
+    { name: '영어의완성', schedule: '주중', track: 'Enrichment', productNo: '56',
+      target: "· 영어를 오래 공부했지만 중고급 수준에서 정체되어 있다고 느끼는 분\n· 의견을 말할 때 비슷한 표현을 반복하는 분\n· 업무 상황에서 말과 글을 더 명확하게 전달하고 싶은 분\n· 자연스럽고 전문적인 비즈니스 영어를 익히고 싶은 분\n· 영어 코치의 구체적인 피드백으로 자신의 표현 습관을 개선하고 싶은 분",
+      keywords: ['영어', '비즈니스영어', '표현', '어휘', '작문', '이메일', '딕테이션', '회화', '외국계'] },
+    { name: 'AI부사수(SUN)', schedule: '주말', track: 'Enrichment', productNo: '232',
+      target: "· 부사수 없이 혼자 모든 것을 다 해내야 하는 1인 마케터, 1인 대표, 1인 실무자\n· AI가 대단하다는 건 알지만 정작 내 업무에서 눈에 띄게 달라진 것이 없는 분\n· 바이브 코딩에 자신감은 생겼는데 앞으로 어떻게 발전시킬지 실마리가 필요한 분\n· 바이브 코딩이 친숙하지 않지만 자신의 일을 쪼개 적용해 보고 싶은 분\n· 회수한 시간을 사이드 프로젝트에 쓰고 싶은 기획자·마케터·PM",
+      keywords: ['AI', '프롬프트', '자동화', '클로드', 'Claude', 'ChatGPT', '생산성', '업무효율', '실무', '도구', '챗봇'] },
+    { name: 'AX팀빌딩', schedule: '주말', track: 'Enrichment', productNo: '303',
+      target: "· AI로 업무를 대체해보려 했지만 만족스럽지 못했던 분\n· 어느 정도 AI를 일에 쓰고 있는데 다른 사람의 사례에 더는 자극받지 않는 분\n· 우리 팀에 AI 도구를 만들어 주고 싶은 분",
+      keywords: ['AX', 'AI전환', '조직', '바이브코딩', '자동화', 'HR', '팀', '도입', '현업', '서비스'] },
+    { name: 'CMO씽킹', schedule: '주말', track: 'Horizontal', productNo: '101',
+      target: "· 캠페인 실행은 익숙한데 예산과 방향을 정하는 결정은 아직 어려운 마케터\n· 마케터가 아닌데 마케팅 의사결정에 관여하게 된 분\n· 실무자의 눈에서 마케팅을 이끄는 사람의 관점으로 시야를 넓히고 싶은 분",
+      keywords: ['마케팅', '마케터', 'CMO', '예산', '의사결정', '성과', '리더십', '브랜딩', '경영진', '설득'] },
+    { name: '강점차별화', schedule: '주말', track: 'Enrichment', productNo: '51',
+      target: "· 커리어 중반, 내 전문성의 정체를 한 번 정리하고 싶은 7-15년차 실무자\n· 자기계발에 지쳤지만 성장은 놓고 싶지 않은 마케팅·기획 실무자\n· MBTI나 짧은 코칭이 아니라 데이터와 연구로 자기를 분석해 보고 싶은 5-15년차 인사·HRD 담당자\n· 이력서·포트폴리오·링크드인을 전면 업데이트할 시점의 중간관리자·전략 기획자\n· 명함이 아닌 나로 살아남는 법을 고민하는 시니어, 독립을 준비하며 내 강점부터 정리해야 하는 실무자",
+      keywords: ['강점', '번아웃', '방향', '커리어', '성장', '자신감', '성과', '지치'] },
+    { name: '관찰과발견', schedule: '주말', track: 'Horizontal', productNo: '65',
+      target: "· 로지컬 씽킹만으로 풀리지 않는 문제를 어떻게 다뤄야 할지 고민인 기획자\n· 관찰과 발견에서 멈추지 않고, 발견한 것을 비즈니스가 되게 만드는 데까지 가고 싶은 분\n· AI 툴을 기획의 여러 단계에 적용하고 싶은 분",
+      keywords: ['UX', '디자인씽킹', '리서치', '사용자', '관찰', '문제정의', '프로토타입', '기획'] },
+    { name: '독립자본가', schedule: '주말', track: 'Realignment', productNo: '307',
+      target: "· 회사 밖의 자신을 어떻게 설명해야 할지 막막했던 15년차 전후의 실무자와 리더\n· 언제까지 회사에 있을 수 있을지 불안한 40대 전후의 팀장\n· 퇴사나 창업이 아니라 선택권을 먼저 만들고 싶은 분\n· 경력은 쌓았는데 회사 밖에서도 남는 것이 무엇인지 묻게 된 분\n· 앞으로 1년, 3년, 5년 무엇을 축적할지 나만의 로드맵을 세우고 싶은 분",
+      keywords: ['독립', '퇴사', '창업', '불안', '40대', '자산', '커리어', '로드맵', '전환', '회사밖'] },
+    { name: '리더될준비', schedule: '주말', track: 'Vertical', productNo: '50',
+      target: "· 회사에서 체계적인 리더십 교육을 받아본 적 없는 분\n· 미리 공부해 두고 싶은 예비 리더, 갑자기 중간관리자 역할을 맡아 후배들을 이끌어야 하는 분\n· 아직 리더를 맡을 기회는 없었지만 리더의 관점으로 문제를 바라보는 경험을 해보고 싶은 분\n· 매 회의와 1on1에서 '내가 맞게 하고 있나' 망설여지거나, 피드백·갈등·위임을 그때그때 즉흥적으로 정하고 있는 분\n· 이직·부서 이동을 앞두고 리더십 기본기를 정리하고 싶은 분",
+      keywords: ['리더십', '신입팀장', '팀장', '실수', '기초', '발령', '초보'] },
+    { name: '중간리더십', schedule: '주말', track: 'Vertical', productNo: '154',
+      target: "· 팀장이 됐지만 팀장의 역할을 준비할 시간은 없었던 분\n· 아직 인사권은 없지만 팀의 결과에는 책임을 져야 하는 중간리더\n· 리더십 콘텐츠는 많이 봤지만, 비슷한 위치의 사람들과 자신의 문제를 잘 해결한 경험을 나눠 볼 기회가 없던 분\n· '내가 지금 잘 하고 있는게 맞나', '나만 이렇게 어려운가' 싶던 고민을 혼자 안고 있는 분",
+      keywords: ['리더십', '팀장', '중간', '관리자', '끼인', '소진', '경영진', '팀원'] },
+    { name: '투자의기준', schedule: '주말', track: 'Horizontal', productNo: '305',
+      target: "· 남의 생각에 휘둘리지 않고 스스로 투자를 판단해 보고 싶은 분\n· 관심 가는 회사가 어떻게 돈을 벌고 있는지 직접 파악해 보고 싶은 분\n· 숫자를 다루는 것이 무서워 투자 분석을 미뤄 온 분\n· 회사의 결정이 늘 이해되지 않아 답답했던 실무자",
+      keywords: ['투자', '주식', '기업분석', '재무', '사업보고서', '산업', '경제', '매출', '밸류에이션', '뉴스'] }
+  ];
+  // ==== TEAMS DATA END ====
+
+  // ==== MEMBER RECS DATA START (build_member_recs.py가 갱신) ====
+  var MEMBER_RECS = {"jobs":["마케팅·브랜딩","기획·PM","영업·세일즈","MD·커머스","디자인·UX","개발·엔지니어링","컨설팅·전략","HR·인사·HRD","운영·경영지원","대표·임원","콘텐츠·에디터","금융·투자","기타"],"years":["1-3년차","4-7년차","8-12년차","13-19년차","20년+"],"recs":{"마케팅·브랜딩|1-3년차":{"n":35,"top":["영어의완성","강점차별화","중간리더십"]},"마케팅·브랜딩|4-7년차":{"n":149,"top":["강점차별화","영어의완성","CMO씽킹"]},"마케팅·브랜딩|8-12년차":{"n":221,"top":["영어의완성","강점차별화","리더의서재"]},"마케팅·브랜딩|13-19년차":{"n":129,"top":["강점차별화","리더의서재","영어의완성"]},"마케팅·브랜딩|20년+":{"n":29,"top":["리더의서재","CMO씽킹","글쓰는OO"]},"기획·PM|1-3년차":{"n":40,"top":["강점차별화","관찰과발견","영어의완성"]},"기획·PM|4-7년차":{"n":96,"top":["강점차별화","영어의완성","관찰과발견"]},"기획·PM|8-12년차":{"n":160,"top":["강점차별화","AI부사수(SUN)","영어의완성"]},"기획·PM|13-19년차":{"n":103,"top":["리더의서재","글쓰는OO","AX팀빌딩"]},"기획·PM|20년+":{"n":20,"top":["리더의서재","강점차별화","CMO씽킹"]},"영업·세일즈|1-3년차":{"n":14,"top":["강점차별화","관찰과발견","영어의완성"]},"영업·세일즈|4-7년차":{"n":41,"top":["강점차별화","리더의서재","영어의완성"]},"영업·세일즈|8-12년차":{"n":38,"top":["강점차별화","영어의완성","중간리더십"]},"영업·세일즈|13-19년차":{"n":22,"top":["강점차별화","영어의완성","리더의서재"]},"영업·세일즈|20년+":{"n":1,"top":["리더의서재","영어의완성","강점차별화"]},"MD·커머스|1-3년차":{"n":7,"top":["관찰과발견","AX팀빌딩","강점차별화"]},"MD·커머스|4-7년차":{"n":39,"top":["강점차별화","영어의완성","AX팀빌딩"]},"MD·커머스|8-12년차":{"n":13,"top":["강점차별화","관찰과발견","AI부사수(SUN)"]},"MD·커머스|13-19년차":{"n":10,"top":["강점차별화","AI부사수(SUN)","영어의완성"]},"MD·커머스|20년+":{"n":4,"top":["AI부사수(SUN)","강점차별화","영어의완성"]},"디자인·UX|1-3년차":{"n":8,"top":["강점차별화","AX팀빌딩","영어의완성"]},"디자인·UX|4-7년차":{"n":18,"top":["영어의완성","강점차별화","CMO씽킹"]},"디자인·UX|8-12년차":{"n":13,"top":["AI부사수(SUN)","0에서1로","AX팀빌딩"]},"디자인·UX|13-19년차":{"n":19,"top":["리더의서재","AX팀빌딩","영어의완성"]},"디자인·UX|20년+":{"n":6,"top":["관찰과발견","AX팀빌딩","0에서1로"]},"개발·엔지니어링|1-3년차":{"n":16,"top":["영어의완성","강점차별화","리더의서재"]},"개발·엔지니어링|4-7년차":{"n":30,"top":["영어의완성","강점차별화","리더의서재"]},"개발·엔지니어링|8-12년차":{"n":34,"top":["영어의완성","강점차별화","리더의서재"]},"개발·엔지니어링|13-19년차":{"n":35,"top":["리더의서재","리더될준비","AI부사수(SUN)"]},"개발·엔지니어링|20년+":{"n":9,"top":["리더의서재","AI부사수(TUE)","영어의완성"]},"컨설팅·전략|1-3년차":{"n":9,"top":["강점차별화","영어의완성","리더될준비"]},"컨설팅·전략|4-7년차":{"n":10,"top":["강점차별화","리더될준비","영어의완성"]},"컨설팅·전략|8-12년차":{"n":19,"top":["강점차별화","리더의서재","AI부사수(SUN)"]},"컨설팅·전략|13-19년차":{"n":25,"top":["강점차별화","AX팀빌딩","관찰과발견"]},"컨설팅·전략|20년+":{"n":5,"top":["리더의서재","영어의완성","강점차별화"]},"HR·인사·HRD|1-3년차":{"n":8,"top":["AX팀빌딩","관찰과발견","글쓰는OO"]},"HR·인사·HRD|4-7년차":{"n":14,"top":["영어의완성","CMO씽킹","강점차별화"]},"HR·인사·HRD|8-12년차":{"n":25,"top":["강점차별화","영어의완성","글쓰는OO"]},"HR·인사·HRD|13-19년차":{"n":30,"top":["영어의완성","강점차별화","글쓰는OO"]},"HR·인사·HRD|20년+":{"n":3,"top":["영어의완성","강점차별화","리더될준비"]},"운영·경영지원|1-3년차":{"n":6,"top":["리더의서재","영어의완성","강점차별화"]},"운영·경영지원|4-7년차":{"n":24,"top":["강점차별화","리더의서재","영어의완성"]},"운영·경영지원|8-12년차":{"n":26,"top":["강점차별화","리더될준비","영어의완성"]},"운영·경영지원|13-19년차":{"n":23,"top":["리더의서재","영어의완성","AX팀빌딩"]},"운영·경영지원|20년+":{"n":23,"top":["리더의서재","AX팀빌딩","영어의완성"]},"대표·임원|1-3년차":{"n":22,"top":["리더의서재","영어의완성","CMO씽킹"]},"대표·임원|4-7년차":{"n":29,"top":["리더의서재","CMO씽킹","투자의기준"]},"대표·임원|8-12년차":{"n":38,"top":["관찰과발견","영어의완성","리더의서재"]},"대표·임원|13-19년차":{"n":53,"top":["AX팀빌딩","CMO씽킹","리더의서재"]},"대표·임원|20년+":{"n":14,"top":["영어의완성","리더의서재","CMO씽킹"]},"콘텐츠·에디터|1-3년차":{"n":5,"top":["강점차별화","영어의완성","리더의서재"]},"콘텐츠·에디터|4-7년차":{"n":14,"top":["CMO씽킹","글쓰는OO","영어의완성"]},"콘텐츠·에디터|8-12년차":{"n":16,"top":["리더의서재","강점차별화","AX팀빌딩"]},"콘텐츠·에디터|13-19년차":{"n":13,"top":["영어의완성","리더의서재","강점차별화"]},"콘텐츠·에디터|20년+":{"n":7,"top":["AI부사수(SUN)","영어의완성","리더의서재"]},"금융·투자|1-3년차":{"n":2,"top":["영어의완성","리더의서재","AX팀빌딩"]},"금융·투자|4-7년차":{"n":7,"top":["AI부사수(SUN)","0에서1로","리더의서재"]},"금융·투자|8-12년차":{"n":16,"top":["리더의서재","AX팀빌딩","영어의완성"]},"금융·투자|13-19년차":{"n":11,"top":["리더의서재","영어의완성","CMO씽킹"]},"금융·투자|20년+":{"n":1,"top":["리더의서재","영어의완성","AX팀빌딩"]},"기타|1-3년차":{"n":60,"top":["강점차별화","관찰과발견","영어의완성"]},"기타|4-7년차":{"n":135,"top":["영어의완성","강점차별화","AX팀빌딩"]},"기타|8-12년차":{"n":178,"top":["강점차별화","영어의완성","리더의서재"]},"기타|13-19년차":{"n":137,"top":["리더의서재","강점차별화","리더될준비"]},"기타|20년+":{"n":38,"top":["리더의서재","영어의완성","AI부사수(SUN)"]}}};
+  // ==== MEMBER RECS DATA END ====
+
+  var URL_PREFIX = 'https://thehfk.org/shop_view?idx=';
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbzWPR_P2FwQsNuc2DRbdqfXYHuUic2WcVwqC9KcGMWBhf7aL0AqvAt8KNjEhpyD-o7izA/exec';
+
+  var TRACK_LABEL = {
+    'Vertical': 'Vertical · 책임 확장',
+    'Horizontal': 'Horizontal · 새로운 역할',
+    'Enrichment': 'Enrichment · 현재 역할 심화',
+    'Realignment': 'Realignment · 커리어 전환',
+    'New Horizons': 'New Horizons · 외부 성장'
+  };
+
+  // 팀 이름으로 TEAMS 객체 찾기
+  var TEAMS_BY_NAME = {};
+  for (var ti = 0; ti < TEAMS.length; ti++) TEAMS_BY_NAME[TEAMS[ti].name] = TEAMS[ti];
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function(c) {
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
+    });
+  }
+
+  function getSessionId() {
+    var key = 'hfk_rec_session';
+    try {
+      var id = sessionStorage.getItem(key);
+      if (!id) {
+        id = 's_' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
+        sessionStorage.setItem(key, id);
+      }
+      return id;
+    } catch (e) { return 's_anon'; }
+  }
+
+  function detectDevice() {
+    return /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent || '') ? 'mobile' : 'desktop';
+  }
+
+  function logEvent(payload) {
+    if (!ENDPOINT) return;
+    payload.timestamp = new Date().toISOString();
+    payload.session_id = getSessionId();
+    payload.device = detectDevice();
+    payload.user_agent = (navigator.userAgent || '').slice(0, 200);
+    try {
+      var body = JSON.stringify(payload);
+      if (navigator.sendBeacon) {
+        var blob = new Blob([body], { type: 'text/plain;charset=utf-8' });
+        navigator.sendBeacon(ENDPOINT, blob);
+      } else {
+        fetch(ENDPOINT, { method: 'POST', body: body, headers: { 'Content-Type': 'text/plain;charset=utf-8' }, keepalive: true });
+      }
+    } catch (e) {}
+  }
+
+  function renderCard(team, opts) {
+    opts = opts || {};
+    var hasLink = !!team.productNo;
+    var link = hasLink ? URL_PREFIX + team.productNo : '#';
+    var linkClass = hasLink ? 'hfk-link' : 'hfk-link hfk-disabled';
+    var linkText = hasLink ? '자세히 보기' : '준비 중';
+    var linkTargetAttr = hasLink ? ' target="_blank" rel="noopener"' : '';
+
+    var tags = '<span class="hfk-badge">' + escapeHtml(team.schedule) + '</span>';
+    if (!hasLink) tags += '<span class="hfk-badge hfk-badge-pending">준비 중</span>';
+
+    var rankHtml = opts.rank ? '<span class="hfk-card-rank">#' + opts.rank + '</span>' : '';
+
+    var reasonHtml = '';
+    if (opts.reason) {
+      reasonHtml = '<p class="hfk-card-reason">' + opts.reason + '</p>';
+    } else if (opts.matched && opts.matched.length > 0) {
+      var quoted = opts.matched.slice(0, 3).map(function(k){ return "<em>'" + escapeHtml(k) + "'</em>"; }).join(', ');
+      reasonHtml = '<p class="hfk-card-reason">' + quoted + ' 주제와 맞닿은 팀입니다</p>';
+    }
+
+    var linkDataAttrs = hasLink
+      ? ' data-team-name="' + escapeHtml(team.name) + '" data-product-no="' + escapeHtml(team.productNo) + '"'
+      : '';
+
+    return '<div class="hfk-card">'
+      + '<div class="hfk-card-head">'
+      +   '<p class="hfk-card-name">' + rankHtml + escapeHtml(team.name) + '</p>'
+      +   '<div class="hfk-card-tags">' + tags + '</div>'
+      + '</div>'
+      + reasonHtml
+      + '<div class="hfk-target-block">'
+      +   '<p class="hfk-target-label">이런 분에게</p>'
+      +   '<p class="hfk-target-text">' + escapeHtml(team.target) + '</p>'
+      + '</div>'
+      + '<a href="' + link + '"' + linkTargetAttr + linkDataAttrs + ' class="' + linkClass + '">' + linkText + ' →</a>'
+      + '</div>';
+  }
+
+  function renderPendingFooter() {
+    var pending = TEAMS.filter(function(t){ return t.pending; });
+    if (pending.length === 0) return '';
+    return '<div class="hfk-pending-foot"><strong>트랙 배정 준비 중</strong> · '
+      + pending.map(function(t){ return escapeHtml(t.name) + '(' + escapeHtml(t.schedule) + ')'; }).join(', ')
+      + '</div>';
+  }
+
+  // ===== Step 전환 =====
+  var stepProfile = document.getElementById('hfkStepProfile');
+  var stepResults = document.getElementById('hfkStepResults');
+  var stepTracks = document.getElementById('hfkStepTracks');
+  var stepTrackResults = document.getElementById('hfkStepTrackResults');
+  function showStep(el) {
+    [stepProfile, stepResults, stepTracks, stepTrackResults].forEach(function(s){ s.classList.remove('hfk-on'); });
+    el.classList.add('hfk-on');
+    try { window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' }); } catch(e) {}
+  }
+
+  // ===== 직무·연차 select 채우기 =====
+  var jobSel = document.getElementById('hfkJob');
+  var yearSel = document.getElementById('hfkYear');
+  for (var ji = 0; ji < MEMBER_RECS.jobs.length; ji++) {
+    var opt = document.createElement('option');
+    opt.value = MEMBER_RECS.jobs[ji]; opt.textContent = MEMBER_RECS.jobs[ji];
+    jobSel.appendChild(opt);
+  }
+  for (var yi = 0; yi < MEMBER_RECS.years.length; yi++) {
+    var opt2 = document.createElement('option');
+    opt2.value = MEMBER_RECS.years[yi]; opt2.textContent = MEMBER_RECS.years[yi];
+    yearSel.appendChild(opt2);
+  }
+
+  var profileLabel = document.getElementById('hfkProfileLabel');
+  var sampleN = document.getElementById('hfkSampleN');
+  var profileResults = document.getElementById('hfkProfileResults');
+  var concernResults = document.getElementById('hfkConcernResults');
+  var concernInput = document.getElementById('hfkConcern');
+
+  var currentProfile = null;  // { job, year, n, top: [팀명...] }
+
+  function renderProfileResults() {
+    var top = currentProfile.top.map(function(name){ return TEAMS_BY_NAME[name]; }).filter(Boolean);
+    var html = '<div class="hfk-results-header">비슷한 멤버들이 가장 많이 등록한 팀 top ' + top.length + '</div>';
+    for (var i = 0; i < top.length; i++) {
+      html += renderCard(top[i], { rank: i + 1 });
+    }
+    if (top.length === 0) {
+      html = '<div class="hfk-notice">매칭되는 팀을 찾지 못했습니다. 아래에서 고민을 적거나 트랙으로 골라보세요.</div>';
+    }
+    profileResults.innerHTML = html;
+  }
+
+  // ===== 1단계: 프로필 제출 =====
+  document.getElementById('hfkProfileSubmit').addEventListener('click', function() {
+    var job = jobSel.value;
+    var year = yearSel.value;
+    if (!job || !year) {
+      alert('직무와 연차를 모두 선택해 주세요.');
+      return;
+    }
+    var key = job + '|' + year;
+    var rec = MEMBER_RECS.recs[key];
+    if (!rec) {
+      alert('해당 조합의 데이터가 없습니다.');
+      return;
+    }
+    currentProfile = { job: job, year: year, n: rec.n, top: rec.top };
+    profileLabel.textContent = job + ' · ' + year;
+    sampleN.textContent = rec.n;
+    concernInput.value = '';
+    concernResults.innerHTML = '';
+    renderProfileResults();
+    showStep(stepResults);
+    logEvent({ event_type: 'profile_submit', job: job, year: year, sample_n: rec.n, top_teams: rec.top.join(',') });
+  });
+
+  document.getElementById('hfkBackProfile').addEventListener('click', function() {
+    showStep(stepProfile);
+  });
+
+  // ===== 고민 입력으로 더 맞춤 추천 =====
+  document.getElementById('hfkRefineSubmit').addEventListener('click', function() {
+    var input = (concernInput.value || '').trim();
+    if (!input) {
+      concernResults.innerHTML = '<div class="hfk-notice">고민을 한두 줄 적어주세요.</div>';
+      return;
+    }
+    // 키워드 매칭: 전체 팀 대상으로 점수 + 비슷한 멤버 top에도 포함된 팀에는 가산점
+    var inputLower = input.toLowerCase();
+    var profileBoost = {};
+    for (var pi = 0; pi < currentProfile.top.length; pi++) profileBoost[currentProfile.top[pi]] = (3 - pi);
+    var scored = TEAMS.filter(function(t){ return !t.pending; }).map(function(t) {
+      var matched = t.keywords.filter(function(k){ return inputLower.indexOf(k.toLowerCase()) >= 0; });
+      var score = matched.length * 10 + (profileBoost[t.name] || 0);
+      return { team: t, matched: matched, score: score };
+    });
+    scored.sort(function(a, b){ return b.score - a.score; });
+    var top3 = scored.slice(0, 3);
+    var anyMatch = top3.some(function(s){ return s.matched.length > 0; });
+
+    var html = '';
+    if (anyMatch) {
+      html += '<div class="hfk-results-header">고민과 직무·연차를 함께 반영한 추천 top 3</div>';
+    } else {
+      html += '<div class="hfk-notice">입력하신 고민과 직접 맞는 키워드는 없지만, 비슷한 멤버들이 가장 많이 등록한 팀을 보여드립니다.</div>';
+    }
+    for (var ki = 0; ki < top3.length; ki++) html += renderCard(top3[ki].team, { rank: ki + 1, matched: top3[ki].matched });
+    concernResults.innerHTML = html;
+
+    logEvent({
+      event_type: 'refine_submit',
+      job: currentProfile.job, year: currentProfile.year,
+      main_concern: input,
+      recommended_teams: top3.map(function(s){ return s.team.name; }).join(',')
+    });
+  });
+
+  // ===== 보조 진입: 트랙 흐름 =====
+  document.getElementById('hfkOpenTracks').addEventListener('click', function() {
+    showStep(stepTracks);
+    logEvent({ event_type: 'open_tracks' });
+  });
+  document.getElementById('hfkBackToProfile').addEventListener('click', function() {
+    showStep(currentProfile ? stepResults : stepProfile);
+  });
+
+  var trackConcernInput = document.getElementById('hfkTrackConcern');
+  var trackResultsBox = document.getElementById('hfkResults');
+  var selectedLabel = document.getElementById('hfkSelectedLabel');
+  var selectedTrack = null;
+
+  var trackCards = document.querySelectorAll('.hfk-track-card');
+  for (var i = 0; i < trackCards.length; i++) {
+    trackCards[i].addEventListener('click', function() {
+      selectedTrack = this.getAttribute('data-track');
+      selectedLabel.textContent = TRACK_LABEL[selectedTrack];
+      trackConcernInput.value = '';
+      trackResultsBox.innerHTML = '';
+      showStep(stepTrackResults);
+      trackConcernInput.focus();
+      logEvent({ event_type: 'track_select', track: selectedTrack });
+    });
+  }
+
+  document.getElementById('hfkBackTracks').addEventListener('click', function() {
+    showStep(stepTracks);
+    selectedTrack = null;
+  });
+
+  document.getElementById('hfkRecommend').addEventListener('click', function() {
+    var input = (trackConcernInput.value || '').trim();
+    var trackTeams = TEAMS.filter(function(t){ return t.track === selectedTrack && !t.pending; });
+
+    if (!input) {
+      var html = '<div class="hfk-notice">고민을 입력해 주세요. 일단 이 방향의 팀을 전부 보여드립니다.</div>'
+        + '<div class="hfk-results-header">' + escapeHtml(TRACK_LABEL[selectedTrack]) + ' &nbsp;·&nbsp; 전체 ' + trackTeams.length + '개 팀</div>';
+      for (var j = 0; j < trackTeams.length; j++) html += renderCard(trackTeams[j], null);
+      html += renderPendingFooter();
+      trackResultsBox.innerHTML = html;
+      return;
+    }
+
+    var inputLower = input.toLowerCase();
+    var scored = trackTeams.map(function(t) {
+      var matched = t.keywords.filter(function(k){ return inputLower.indexOf(k.toLowerCase()) >= 0; });
+      return { team: t, matched: matched, score: matched.length };
+    });
+    scored.sort(function(a, b){ return b.score - a.score; });
+    var top3 = scored.slice(0, 3);
+    var anyMatch = top3.some(function(s){ return s.score > 0; });
+
+    var resultHtml = '';
+    if (anyMatch) {
+      var matchCount = top3.filter(function(s){ return s.score > 0; }).length;
+      resultHtml += '<div class="hfk-results-header">입력하신 고민에 잘 맞는 팀 ' + matchCount + '개</div>';
+    } else {
+      resultHtml += '<div class="hfk-notice">입력하신 고민과 직접 맞는 키워드는 없지만, 이 방향에서 먼저 살펴보시면 좋은 팀입니다.</div>';
+    }
+    for (var k = 0; k < top3.length; k++) resultHtml += renderCard(top3[k].team, { matched: top3[k].matched });
+    resultHtml += renderPendingFooter();
+    trackResultsBox.innerHTML = resultHtml;
+
+    logEvent({
+      event_type: 'recommend_submit',
+      track: selectedTrack,
+      main_concern: input,
+      recommended_teams: top3.map(function(s){ return s.team.name; }).join(',')
+    });
+  });
+
+  // 팀 "자세히 보기" 클릭 CTR 수집 (전체 결과 박스에서)
+  function attachClickLog(box) {
+    box.addEventListener('click', function(e) {
+      var a = e.target.closest ? e.target.closest('a.hfk-link') : null;
+      if (!a || a.classList.contains('hfk-disabled')) return;
+      var teamName = a.getAttribute('data-team-name');
+      if (!teamName) return;
+      logEvent({
+        event_type: 'team_click',
+        clicked_team: teamName,
+        clicked_product_no: a.getAttribute('data-product-no') || '',
+        track: selectedTrack || null,
+        job: currentProfile ? currentProfile.job : null,
+        year: currentProfile ? currentProfile.year : null
+      });
+    });
+  }
+  attachClickLog(profileResults);
+  attachClickLog(concernResults);
+  attachClickLog(trackResultsBox);
+})();
+</script>
