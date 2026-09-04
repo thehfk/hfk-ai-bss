@@ -546,5 +546,25 @@ if (new URLSearchParams(location.search).get("embed") === "1") {
 
 render();
 </script>
+
+<script>
+// ?embed=1 (아임웹 iframe) 이면 바깥 여백·폭 제한을 빼고 높이를 부모에게 알린다.
+(function () {
+  if (!/[?&]embed=1/.test(location.search)) return;
+  document.documentElement.classList.add('hfk-embed');
+  var css = document.createElement('style');
+  css.textContent = 'html.hfk-embed body{padding-left:0!important;padding-right:0!important;' +
+    'padding-top:0!important}html.hfk-embed .wrap,html.hfk-embed .container{max-width:none!important}';
+  document.head.appendChild(css);
+  var last = 0;
+  function tell() {
+    var h = Math.ceil(document.documentElement.scrollHeight);
+    if (h && Math.abs(h - last) > 1) { last = h; parent.postMessage({ hfkEmbedHeight: h }, '*'); }
+  }
+  new ResizeObserver(tell).observe(document.body);
+  addEventListener('load', tell); addEventListener('resize', tell);
+  setInterval(tell, 1000); tell();
+})();
+</script>
 </body>
 </html>
