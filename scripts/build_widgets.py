@@ -42,7 +42,7 @@ WRAP = """<!DOCTYPE html>
 </style>
 </head>
 <body>
-<!-- 자동 생성물입니다. 고치지 마세요. 원본: {src} · 만든이: scripts/build_imweb_embed.py -->
+<!-- 자동 생성물입니다. 고치지 마세요. 원본: {src} · 만든이: scripts/build_widgets.py -->
 {fragment}
 <script>
 (function () {{
