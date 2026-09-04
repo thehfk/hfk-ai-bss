@@ -126,7 +126,8 @@
   document.documentElement.classList.add('hfk-embed');
   var last = 0;
   function tell() {
-    var h = Math.ceil(document.documentElement.scrollHeight);
+    var r = document.body.getBoundingClientRect(), cs = getComputedStyle(document.body);
+    var h = Math.ceil(r.height + (parseFloat(cs.marginTop) || 0) + (parseFloat(cs.marginBottom) || 0));
     if (h && Math.abs(h - last) > 1) { last = h; parent.postMessage({ hfkEmbedHeight: h }, '*'); }
   }
   new ResizeObserver(tell).observe(document.body);
