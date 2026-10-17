@@ -36,6 +36,40 @@ def project_dir(data):
     return os.environ.get("CLAUDE_PROJECT_DIR") or data.get("cwd") or os.getcwd()
 
 
+# 개인 경로: 여기만 고치는 작업은 헤더를 요구하지 않고 자동 기록도 하지 않는다.
+# worklog 는 조직 레포에 커밋되므로, 개인 프로젝트·개인 글이 일지에 실려 공유되지 않게 한다(2026-10-17 개인 프로젝트 작업 기록이 원격에 올라간 일).
+# 각자 경로는 WORKLOG_PRIVATE_DIRS(콜론 구분, ~/settings.json env)로 더한다.
+DEFAULT_PRIVATE_DIRS = ["~/personal-tools", "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/Memo"]
+
+
+def private_dirs():
+    extra = [p for p in (os.environ.get("WORKLOG_PRIVATE_DIRS") or "").split(":") if p.strip()]
+    return [os.path.realpath(os.path.expanduser(p.strip())) for p in DEFAULT_PRIVATE_DIRS + extra]
+
+
+def is_private_path(path, base=None):
+    """path(상대경로면 base 기준)가 개인 경로 안이면 True."""
+    if not path:
+        return False
+    p = os.path.realpath(os.path.join(base or os.getcwd(), os.path.expanduser(path)))
+    return any(p == d or p.startswith(d + os.sep) for d in private_dirs())
+
+
+def mentions_private_path(cmd):
+    """명령 문자열에 개인 경로가 ~ · $HOME · 절대경로 · ../ 형태로 들어 있으면 True. 공백은 '\\ ' 도 인정."""
+    home = os.path.realpath(os.path.expanduser("~"))
+    prefix = rf"(?:~|\$HOME|\$\{{HOME\}}|{re.escape(home)}|(?:\.\./)+)/?"
+    for d in private_dirs():
+        if not d.startswith(home + os.sep):
+            if d in cmd:
+                return True
+            continue
+        rel = re.escape(os.path.relpath(d, home)).replace(r"\ ", r"(?:\\ |\ )")
+        if re.search(prefix + rel + r"(?![\w-])", cmd):
+            return True
+    return False
+
+
 def short_sid(data):
     return (data.get("session_id", "") or "")[:8]
 

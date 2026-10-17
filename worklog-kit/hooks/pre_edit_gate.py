@@ -3,6 +3,8 @@
 - worklog/ 자체 편집은 항상 허용(목적을 적어야 하니까)
 - 오늘 worklog에 이 세션의 `## session:<ID>` 헤더가 없으면 편집 차단(exit 2)
   (다른 사람·다른 세션 헤더에 묻어 통과하지 않도록 세션 ID로 본다)
+- 개인 경로(worklog_common.private_dirs: ~/personal-tools · Memo 보관함 등) 편집은 헤더 없이 허용.
+  개인 작업 목적을 조직 레포 일지에 적게 만들지 않는다
 - 자정을 넘긴 세션은 어제 파일 헤더도 인정하고, 오늘 파일에 이어짐 헤더를 자동으로 단다
 - 편집 기록 자체는 성공한 편집만 남도록 PostToolUse(post_action_log.py)가 맡는다
 - 어떤 예외든 발생하면 '허용'으로 폴백(fail-safe, 사고 방지)
@@ -10,7 +12,7 @@
 import sys, os, datetime
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from worklog_common import (read_hook_input, project_dir, short_sid, worklog_path, read, locked,
-                             worker_name, has_header, header_template, CHECKLIST)
+                             worker_name, has_header, header_template, is_private_path, CHECKLIST)
 
 
 def main():
@@ -26,6 +28,8 @@ def main():
                 return 0
         except ValueError:
             pass
+        if is_private_path(path):
+            return 0
     today = datetime.date.today()
     wl = worklog_path(proj, today)
     if not sid:

@@ -13,13 +13,15 @@ PostToolUse 는 성공한 호출에만 돈다. 그래서 실패한 편집은 기
 - MCP: 도구 이름을 _ 로 나눈 단어 중 쓰기 동사가 있을 때만(get_updates 같은 조회는 제외)
 - 명령 원문은 남기지 않는다. 프로그램·하위명령·스크립트 경로·옵션 이름만 남긴다(값은 버림).
   worklog 는 레포에 커밋되고, 그 레포가 공개일 수도 있다
+- 개인 경로(worklog_common.private_dirs)는 남기지 않는다: 그 안의 파일 편집, 명령에 개인 경로가 보이는 Bash,
+  작업 폴더가 개인 경로일 때의 Bash·MCP. heredoc 본문(커밋 메시지 등)은 판정에서 뺀다
 - 같은 명령이 결과(<ID>)/중간(<ID>) 줄도 썼으면 [결과 함께] 표시를 붙여 Stop 훅이 다시 막지 않게 한다
 - 어떤 예외든 조용히 통과(fail-safe)
 """
 import sys, os, re
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from worklog_common import (read_hook_input, project_dir, short_sid, worklog_path, append,
-                             log_line, WITH_RESULT)
+                             log_line, is_private_path, mentions_private_path, WITH_RESULT)
 
 HEREDOC = re.compile(r"<<-?\s*['\"]?(\w+)['\"]?[^\n]*\n.*?\n\s*\1\b", re.S)
 QUOTED = re.compile(r"'[^']*'|\"(?:[^\"\\]|\\.)*\"")
@@ -211,17 +213,20 @@ def main():
     sid = short_sid(data)
     proj = project_dir(data)
     tag = ""
+    cwd = data.get("cwd") or proj
     if tool in ("Edit", "Write", "MultiEdit", "NotebookEdit"):
         path = ti.get("file_path") or ti.get("notebook_path") or ti.get("path") or ""
         if not path:
             return
-        path = os.path.abspath(os.path.join(data.get("cwd") or proj, os.path.expanduser(path)))
+        path = os.path.abspath(os.path.join(cwd, os.path.expanduser(path)))
         wl_dir = os.path.join(os.path.abspath(proj), "worklog")
-        if path == wl_dir or path.startswith(wl_dir + os.sep):
+        if path == wl_dir or path.startswith(wl_dir + os.sep) or is_private_path(path):
             return
         what = os.path.relpath(path, proj) if path.startswith(os.path.abspath(proj) + os.sep) else path
     elif tool == "Bash":
         cmd = ti.get("command", "") or ""
+        if is_private_path(cwd) or mentions_private_path(HEREDOC.sub("<<EOF", cmd)):
+            return
         what = bash_summary(cmd)
         if not what:
             return
@@ -229,7 +234,7 @@ def main():
         if sid and re.search(rf"(결과|중간)\({re.escape(sid)}\)", cmd):
             tag = " " + WITH_RESULT
     elif tool.startswith("mcp__"):
-        if not mcp_is_write(tool):
+        if not mcp_is_write(tool) or is_private_path(cwd):
             return
         what = tool.replace("mcp__", "", 1)
         tool = "MCP"
