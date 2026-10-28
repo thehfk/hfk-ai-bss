@@ -56,6 +56,6 @@
 - **이름:** 기본은 git 이름, 없으면 맥 사용자 이름입니다. 바꾸려면 `~/.claude/settings.json` 에
   `"env": { "WORKLOG_AUTHOR": "내 이름" }` 을 넣습니다
 - **개인 작업 빼기:** `~/personal-tools` 와 iCloud 옵시디언 `Memo` 보관함 안의 파일만 고치는 작업은 기록하지 않습니다.
-  다른 개인 폴더도 빼려면 같은 `env` 에 `"WORKLOG_PRIVATE_DIRS": "~/내폴더:~/다른폴더"` 처럼 콜론으로 이어 넣습니다
+  다른 개인 폴더도 빼려면 같은 `env` 에 `"WORKLOG_PRIVATE_DIRS": "~/내폴더:~/다른폴더"` 처럼 콜론으로 이어 넣습니다(윈도우는 세미콜론 `;`)
 - **끄기:** 이 프로젝트의 `.claude/settings.json` 에서 `.claude/hooks/worklog/` 가 들어간 줄을 지웁니다
 - **업데이트:** 설치할 때 쓴 한 줄 명령을 다시 실행하면 됩니다(기존 기록은 그대로)

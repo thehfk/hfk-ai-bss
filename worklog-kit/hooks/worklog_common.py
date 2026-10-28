@@ -26,8 +26,15 @@ WITH_RESULT = "[결과 함께]"  # 같은 명령이 결과 줄도 썼다는 표�
 
 
 def read_hook_input():
+    """stdin JSON 을 UTF-8 로 읽고, 출력도 UTF-8 로 맞춘다.
+    한글 윈도우 파이썬은 파이프를 cp949 로 읽고 써서 한글 프롬프트가 깨지거나 출력이 UnicodeEncodeError 로 죽는다."""
     import sys
-    raw = sys.stdin.read()
+    for s in (sys.stdout, sys.stderr):
+        try:
+            s.reconfigure(encoding="utf-8")
+        except Exception:
+            pass
+    raw = sys.stdin.buffer.read().decode("utf-8", "replace")
     return json.loads(raw) if raw.strip() else {}
 
 
@@ -38,12 +45,12 @@ def project_dir(data):
 
 # 개인 경로: 여기만 고치는 작업은 헤더를 요구하지 않고 자동 기록도 하지 않는다.
 # worklog 는 조직 레포에 커밋되므로, 개인 프로젝트·개인 글이 일지에 실려 공유되지 않게 한다(2026-10-17 개인 프로젝트 작업 기록이 원격에 올라간 일).
-# 각자 경로는 WORKLOG_PRIVATE_DIRS(콜론 구분, ~/settings.json env)로 더한다.
+# 각자 경로는 WORKLOG_PRIVATE_DIRS(맥은 콜론, 윈도우는 세미콜론 구분, ~/settings.json env)로 더한다.
 DEFAULT_PRIVATE_DIRS = ["~/personal-tools", "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/Memo"]
 
 
 def private_dirs():
-    extra = [p for p in (os.environ.get("WORKLOG_PRIVATE_DIRS") or "").split(":") if p.strip()]
+    extra = [p for p in (os.environ.get("WORKLOG_PRIVATE_DIRS") or "").split(os.pathsep) if p.strip()]
     return [os.path.realpath(os.path.expanduser(p.strip())) for p in DEFAULT_PRIVATE_DIRS + extra]
 
 
@@ -105,19 +112,21 @@ def append(path, text):
 
 
 def worker_name(proj):
-    """WORKLOG_AUTHOR / HFK_WORKER(각자 ~/.claude/settings.json env) → git user.name → 맥 사용자 전체 이름."""
+    """WORKLOG_AUTHOR / HFK_WORKER(각자 ~/.claude/settings.json env) → git user.name → 맥 사용자 전체 이름
+    → 윈도우 로그인 이름."""
     for key in ("WORKLOG_AUTHOR", "HFK_WORKER"):
         name = (os.environ.get(key) or "").strip()
         if name:
             return name
-    for cmd in (["git", "-C", proj, "config", "user.name"], ["id", "-F"]):
+    cmds = [["git", "-C", proj, "config", "user.name"]] + ([] if os.name == "nt" else [["id", "-F"]])
+    for cmd in cmds:
         try:
-            out = subprocess.run(cmd, capture_output=True, text=True, timeout=3).stdout.strip()
+            out = subprocess.run(cmd, capture_output=True, encoding="utf-8", errors="replace", timeout=3).stdout.strip()
             if out:
                 return out
         except Exception:
             pass
-    return ""
+    return (os.environ.get("USERNAME") or "").strip() if os.name == "nt" else ""
 
 
 def has_header(text, sid):
