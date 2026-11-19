@@ -1,0 +1,841 @@
+{
+  "updated_at": "2026-05-07 22:00",
+  "coupon_code": "ODC2026",
+  "discount_amount": 270000,
+  "team_price_original": 390000,
+  "team_price_with_coupon": 120000,
+  "members": [
+    {
+      "name": "박시연",
+      "phone_last4": "0775",
+      "plan": "지성_60만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2025 가을 - 2026 여름",
+      "period_label": "2025 가을 - 2026 여름",
+      "quota": 1,
+      "used": [],
+      "used_count": 0,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름"
+      ]
+    },
+    {
+      "name": "박양일",
+      "phone_last4": "8407",
+      "plan": "지성_60만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2025 가을 - 2026 여름",
+      "period_label": "2025 가을 - 2026 여름",
+      "quota": 1,
+      "used": [
+        {
+          "season": "25겨울",
+          "season_label": "2025 겨울",
+          "team": "전략가의일"
+        }
+      ],
+      "used_count": 1,
+      "remaining": 0,
+      "available_seasons": [
+        "2026 여름"
+      ]
+    },
+    {
+      "name": "김옥희",
+      "phone_last4": "8266",
+      "plan": "관계_48만원",
+      "plan_short": "관계",
+      "period": "[ODC] 2025 가을 - 2026 여름",
+      "period_label": "2025 가을 - 2026 여름",
+      "quota": 0,
+      "used": [],
+      "used_count": 0,
+      "remaining": 0,
+      "available_seasons": [
+        "2026 여름"
+      ]
+    },
+    {
+      "name": "박상지",
+      "phone_last4": "5675",
+      "plan": "지성_60만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2025 가을 - 2026 여름",
+      "period_label": "2025 가을 - 2026 여름",
+      "quota": 1,
+      "used": [],
+      "used_count": 0,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름"
+      ]
+    },
+    {
+      "name": "허재필",
+      "phone_last4": "3705",
+      "plan": "지성_60만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2025 가을 - 2026 여름",
+      "period_label": "2025 가을 - 2026 여름",
+      "quota": 1,
+      "used": [],
+      "used_count": 0,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름"
+      ]
+    },
+    {
+      "name": "김단희",
+      "phone_last4": "7274",
+      "plan": "지성_60만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2025 가을 - 2026 여름",
+      "period_label": "2025 가을 - 2026 여름",
+      "quota": 1,
+      "used": [
+        {
+          "season": "25가을",
+          "season_label": "2025 가을",
+          "team": "강점차별화"
+        }
+      ],
+      "used_count": 1,
+      "remaining": 0,
+      "available_seasons": [
+        "2026 여름"
+      ]
+    },
+    {
+      "name": "박재희",
+      "phone_last4": "9686",
+      "plan": "성장_84만원",
+      "plan_short": "성장",
+      "period": "[ODC] 2025 겨울 - 2026 가을",
+      "period_label": "2025 겨울 - 2026 가을",
+      "quota": 2,
+      "used": [
+        {
+          "season": "25겨울",
+          "season_label": "2025 겨울",
+          "team": "커리어플랜"
+        },
+        {
+          "season": "26봄",
+          "season_label": "2026 봄",
+          "team": "AI핸즈온"
+        }
+      ],
+      "used_count": 2,
+      "remaining": 0,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을"
+      ]
+    },
+    {
+      "name": "배의열",
+      "phone_last4": "4004",
+      "plan": "지성_60만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2025 겨울 - 2026 가을",
+      "period_label": "2025 겨울 - 2026 가을",
+      "quota": 1,
+      "used": [],
+      "used_count": 0,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을"
+      ]
+    },
+    {
+      "name": "김미정",
+      "phone_last4": "3675",
+      "plan": "관계_48만원",
+      "plan_short": "관계",
+      "period": "[ODC] 2025 겨울 - 2026 가을",
+      "period_label": "2025 겨울 - 2026 가을",
+      "quota": 0,
+      "used": [],
+      "used_count": 0,
+      "remaining": 0,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을"
+      ]
+    },
+    {
+      "name": "황민아",
+      "phone_last4": "6240",
+      "plan": "지성_60만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2025 겨울 - 2026 가을",
+      "period_label": "2025 겨울 - 2026 가을",
+      "quota": 1,
+      "used": [],
+      "used_count": 0,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을"
+      ]
+    },
+    {
+      "name": "최혜정",
+      "phone_last4": "2593",
+      "plan": "지성_60만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2025 겨울 - 2026 가을",
+      "period_label": "2025 겨울 - 2026 가을",
+      "quota": 1,
+      "used": [],
+      "used_count": 0,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을"
+      ]
+    },
+    {
+      "name": "김지현",
+      "phone_last4": "1179",
+      "plan": "지성_66만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 1,
+      "used": [
+        {
+          "season": "26봄",
+          "season_label": "2026 봄",
+          "team": "AI부사수"
+        }
+      ],
+      "used_count": 1,
+      "remaining": 0,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "이지훈",
+      "phone_last4": "8629",
+      "plan": "지성_66만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 1,
+      "used": [],
+      "used_count": 0,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "황선정",
+      "phone_last4": "6282",
+      "plan": "지성_66만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 1,
+      "used": [],
+      "used_count": 0,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "김경아",
+      "phone_last4": "8635",
+      "plan": "성장_90만원",
+      "plan_short": "성장",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 2,
+      "used": [
+        {
+          "season": "26봄",
+          "season_label": "2026 봄",
+          "team": "AI부사수"
+        }
+      ],
+      "used_count": 1,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "정주환",
+      "phone_last4": "4490",
+      "plan": "지성_66만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 1,
+      "used": [],
+      "used_count": 0,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "서지혜",
+      "phone_last4": "4679",
+      "plan": "지성_66만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 1,
+      "used": [],
+      "used_count": 0,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "박여민",
+      "phone_last4": "1709",
+      "plan": "지성_66만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 1,
+      "used": [],
+      "used_count": 0,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "서상희",
+      "phone_last4": "5020",
+      "plan": "관계_48만원",
+      "plan_short": "관계",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 0,
+      "used": [],
+      "used_count": 0,
+      "remaining": 0,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "윤소현",
+      "phone_last4": "2402",
+      "plan": "지성_66만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 1,
+      "used": [],
+      "used_count": 0,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "허재영",
+      "phone_last4": "1956",
+      "plan": "성장_90만원",
+      "plan_short": "성장",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 2,
+      "used": [
+        {
+          "season": "26봄",
+          "season_label": "2026 봄",
+          "team": "AI부사수"
+        }
+      ],
+      "used_count": 1,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "이정준",
+      "phone_last4": "0953",
+      "plan": "지성_66만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 1,
+      "used": [
+        {
+          "season": "26봄",
+          "season_label": "2026 봄",
+          "team": "AI핸즈온"
+        }
+      ],
+      "used_count": 1,
+      "remaining": 0,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "박지원",
+      "phone_last4": "0245",
+      "plan": "성장_90만원",
+      "plan_short": "성장",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 2,
+      "used": [
+        {
+          "season": "26봄",
+          "season_label": "2026 봄",
+          "team": "팀오호츠크"
+        }
+      ],
+      "used_count": 1,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "심수정",
+      "phone_last4": "3511",
+      "plan": "지성_66만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 1,
+      "used": [],
+      "used_count": 0,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "한다희",
+      "phone_last4": "7057",
+      "plan": "지성_66만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 1,
+      "used": [],
+      "used_count": 0,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "임이랑",
+      "phone_last4": "4548",
+      "plan": "지성_66만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 1,
+      "used": [],
+      "used_count": 0,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "이홍진",
+      "phone_last4": "3501",
+      "plan": "성장_90만원",
+      "plan_short": "성장",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 2,
+      "used": [
+        {
+          "season": "26봄",
+          "season_label": "2026 봄",
+          "team": "저스트두잇"
+        }
+      ],
+      "used_count": 1,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "김아영",
+      "phone_last4": "5830",
+      "plan": "관계_48만원",
+      "plan_short": "관계",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 0,
+      "used": [],
+      "used_count": 0,
+      "remaining": 0,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "김보경",
+      "phone_last4": "1577",
+      "plan": "지성_66만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 1,
+      "used": [],
+      "used_count": 0,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "정서연",
+      "phone_last4": "8583",
+      "plan": "성장_90만원",
+      "plan_short": "성장",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 2,
+      "used": [
+        {
+          "season": "26봄",
+          "season_label": "2026 봄",
+          "team": "AI핸즈온"
+        }
+      ],
+      "used_count": 1,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "이태희",
+      "phone_last4": "3947",
+      "plan": "성장_90만원",
+      "plan_short": "성장",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 2,
+      "used": [
+        {
+          "season": "26봄",
+          "season_label": "2026 봄",
+          "team": "마케팅디깅"
+        }
+      ],
+      "used_count": 1,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "이세림",
+      "phone_last4": "5024",
+      "plan": "성장_90만원",
+      "plan_short": "성장",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 2,
+      "used": [
+        {
+          "season": "26봄",
+          "season_label": "2026 봄",
+          "team": "AI부사수"
+        }
+      ],
+      "used_count": 1,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "김화진",
+      "phone_last4": "0182",
+      "plan": "성장_90만원",
+      "plan_short": "성장",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 2,
+      "used": [
+        {
+          "season": "26봄",
+          "season_label": "2026 봄",
+          "team": "AI부사수"
+        }
+      ],
+      "used_count": 1,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "권도현",
+      "phone_last4": "0070",
+      "plan": "지성_66만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 1,
+      "used": [],
+      "used_count": 0,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "김규리",
+      "phone_last4": "5393",
+      "plan": "성장_90만원",
+      "plan_short": "성장",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 2,
+      "used": [
+        {
+          "season": "26봄",
+          "season_label": "2026 봄",
+          "team": "저스트두잇"
+        }
+      ],
+      "used_count": 1,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "이다혜",
+      "phone_last4": "4120",
+      "plan": "지성_66만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 1,
+      "used": [
+        {
+          "season": "26봄",
+          "season_label": "2026 봄",
+          "team": "AI핸즈온"
+        }
+      ],
+      "used_count": 1,
+      "remaining": 0,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "이슬기",
+      "phone_last4": "1829",
+      "plan": "지성_66만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 1,
+      "used": [
+        {
+          "season": "26봄",
+          "season_label": "2026 봄",
+          "team": "AI핸즈온"
+        }
+      ],
+      "used_count": 1,
+      "remaining": 0,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "이유나",
+      "phone_last4": "6300",
+      "plan": "지성_66만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 1,
+      "used": [],
+      "used_count": 0,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "성건우",
+      "phone_last4": "4351",
+      "plan": "지성_66만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 1,
+      "used": [],
+      "used_count": 0,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "서은영",
+      "phone_last4": "1879",
+      "plan": "관계_48만원",
+      "plan_short": "관계",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 0,
+      "used": [],
+      "used_count": 0,
+      "remaining": 0,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "최지혜",
+      "phone_last4": "4997",
+      "plan": "지성_66만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 1,
+      "used": [],
+      "used_count": 0,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "허정은",
+      "phone_last4": "0713",
+      "plan": "성장_90만원",
+      "plan_short": "성장",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 2,
+      "used": [],
+      "used_count": 0,
+      "remaining": 2,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "제정경",
+      "phone_last4": "2273",
+      "plan": "지성_66만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 1,
+      "used": [],
+      "used_count": 0,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    },
+    {
+      "name": "반희정",
+      "phone_last4": "0856",
+      "plan": "지성_66만원",
+      "plan_short": "지성",
+      "period": "[ODC] 2026 봄 - 2026 겨울",
+      "period_label": "2026 봄 - 2026 겨울",
+      "quota": 1,
+      "used": [],
+      "used_count": 0,
+      "remaining": 1,
+      "available_seasons": [
+        "2026 여름",
+        "2026 가을",
+        "2026 겨울"
+      ]
+    }
+  ]
+}

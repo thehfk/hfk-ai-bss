@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{width:1280px;height:720px;display:flex;background:#fff;
+       font-family:'Pretendard',-apple-system,sans-serif;letter-spacing:-0.02em;color:#1d1c1d;overflow:hidden;}
+  .side{width:285px;flex:0 0 285px;border-right:1px solid #e8e8e8;padding:16px 0;overflow:hidden;}
+  .brand{display:flex;align-items:baseline;gap:8px;padding:0 18px 18px;}
+  .brand b{font-size:17px;font-weight:800;}
+  .brand span{font-size:12px;color:#8d8d8d;font-weight:700;}
+  .grp{font-size:12px;font-weight:700;color:#7a7a7a;padding:14px 18px 6px;}
+  .ch{display:flex;align-items:center;gap:9px;padding:6px 18px;font-size:14px;color:#3f3f3f;}
+  .ch .h{color:#9a9a9a;font-weight:600;}
+  .ch .badge{width:20px;height:20px;border-radius:4px;background:#eceaea;color:#3f3f3f;
+             font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .ch.on{background:#1264a3;color:#fff;font-weight:700;margin:0 8px;border-radius:6px;padding:6px 10px;}
+  .ch.on .h{color:#cfe0ef;}
+  .main{flex:1;display:flex;flex-direction:column;}
+  .top{height:52px;border-bottom:1px solid #e8e8e8;display:flex;align-items:center;
+       gap:8px;padding:0 22px;font-size:15px;font-weight:700;}
+  .top .h{color:#9a9a9a;}
+  .thread{padding:34px 40px 0;}
+  .thread-label{font-size:13px;font-weight:700;color:#7a7a7a;margin-bottom:18px;}
+  .row{display:flex;gap:13px;margin-bottom:22px;}
+  .row.reply{margin-left:38px;}
+  .av{width:36px;height:36px;flex:0 0 36px;border-radius:8px;color:#fff;
+      display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;}
+  .av.m1{background:#3f6b4a;}
+  .av.m2{background:#7a5c3e;}
+  .av.hfk{background:#980000;font-family:Georgia,serif;}
+  .who{display:flex;align-items:baseline;gap:8px;margin-bottom:5px;}
+  .who b{font-size:14.5px;font-weight:800;}
+  .who span{font-size:12px;color:#8d8d8d;}
+  .txt{font-size:15px;line-height:1.7;color:#1d1c1d;max-width:640px;}
+  .txt .ok{color:#2f7a3a;font-weight:700;}
+  .txt .wait{color:#980000;font-weight:700;}
+  .divider{border-top:1px solid #ececec;margin:26px 0;}
+</style></head><body>
+<div class="side">
+  <div class="brand"><b>thehfk</b><span>HFK</span></div>
+  <div class="grp">1 · 26가을</div>
+  <div class="ch"><span class="badge">1</span>26가을-멤버</div>
+  <div class="ch"><span class="h">#</span>1--26가을-공지-확인</div>
+  <div class="ch"><span class="h">#</span>1--26가을-어드벤처-신청</div>
+  <div class="ch on"><span class="h">#</span>1--마케팅디깅</div>
+  <div class="ch"><span class="h">#</span>1--리더의서재</div>
+  <div class="ch"><span class="h">#</span>1--강점차별화</div>
+</div>
+<div class="main">
+  <div class="top"><span class="h">#</span>1--마케팅디깅 · 스레드</div>
+  <div class="thread">
+    <div class="thread-label">이번 주 회차 공지에 달린 댓글</div>
+
+    <div class="row">
+      <div class="av m1">이</div>
+      <div>
+        <div class="who"><b>이OO_강점차별화</b><span>오후 6:12</span></div>
+        <div class="txt">마케팅디깅 이번 주 세션 어드벤처 신청합니다! 다른 팀은 회고를 어떻게 하는지 궁금해서요 🙋</div>
+      </div>
+    </div>
+    <div class="row reply">
+      <div class="av hfk">HFK</div>
+      <div>
+        <div class="who"><b>박OO_마케팅디깅</b><span>오후 6:40</span></div>
+        <div class="txt"><span class="ok">✅ 신청 확정입니다!</span> 목요일 19:30, 오아시스 덕수궁에서 뵐게요.</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="row">
+      <div class="av m2">최</div>
+      <div>
+        <div class="who"><b>최OO_리더의서재</b><span>오후 7:03</span></div>
+        <div class="txt">어드벤처 신청합니다 :)</div>
+      </div>
+    </div>
+    <div class="row reply">
+      <div class="av hfk">HFK</div>
+      <div>
+        <div class="who"><b>박OO_마케팅디깅</b><span>오후 7:15</span></div>
+        <div class="txt"><span class="wait">이번 회차는 팀 인원 포함 15명이 다 찼어요 🙏</span> 다음 회차에 우선 안내드릴게요!</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>

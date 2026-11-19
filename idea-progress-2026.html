@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HFK 아이디어 진행 현황 — 2026 봄</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<style>
+  /* ── HFK Brand Colors ── */
+  :root {
+    --burgundy:    #441a15;
+    --red:         #970101;
+    --coral:       #ff6154;
+    --salmon:      #ff9a92;
+    --sand:        #ceb9a4;
+    --light-sand:  #ddcfbf;
+    --cream:       #f0eae2;
+    --cream-light: #e1dac9;
+    --charcoal:    #2d2523;
+    --espresso:    #391200;
+
+    --bg:      #f0eae2;
+    --text:    #2d2523;
+    --muted:   #7a6558;
+    --border:  #ddcfbf;
+
+    --ok:   #4e7a48;
+    --warn: #a06c10;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Pretendard', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--burgundy);
+    padding: 64px 48px 56px;
+  }
+  .header-inner { max-width: 1160px; margin: 0 auto; }
+
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--sand);
+    margin-bottom: 20px;
+  }
+
+  .header h1 {
+    font-family: 'Pretendard', sans-serif;
+    font-size: clamp(26px, 3.5vw, 42px);
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 1.25;
+    margin-bottom: 16px;
+  }
+
+  .header-sub {
+    font-size: 13px;
+    color: var(--sand);
+    margin-bottom: 40px;
+  }
+
+  .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .pill {
+    font-size: 12px;
+    color: var(--cream);
+    background: rgba(206,185,164,.12);
+    border: 1px solid rgba(206,185,164,.28);
+    padding: 7px 16px;
+  }
+  .pill strong { color: var(--coral); }
+
+  /* ── Layout ── */
+  .container {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 56px 48px;
+  }
+
+  .section { margin-bottom: 64px; }
+
+  .sec-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 6px;
+  }
+
+  .sec-title {
+    font-family: 'Pretendard', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--charcoal);
+    padding-bottom: 16px;
+    margin-bottom: 28px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  /* ── Big Numbers ── */
+  .bignums {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+    margin-bottom: 56px;
+  }
+  .bignum {
+    background: var(--cream);
+    padding: 28px 24px;
+    border-right: 1px solid var(--border);
+  }
+  .bignum:last-child { border-right: none; }
+  .bignum .n {
+    display: block;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 40px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 10px;
+    color: var(--red);
+  }
+  .bignum .n.warn { color: var(--warn); }
+  .bignum .n.coral { color: var(--coral); }
+  .bignum .lbl { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+  /* ── Kanban ── */
+  .kanban {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .kcol {
+    border: 1px solid var(--border);
+    background: var(--cream);
+  }
+  .khead {
+    padding: 11px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    border-bottom: 1px solid var(--border);
+  }
+  .khead.done    { background: #edf3eb; color: var(--ok); }
+  .khead.partial { background: #faf3e5; color: var(--warn); }
+  .khead.miss    { background: #faeeed; color: var(--red); }
+  .khead.crisis  { background: #fde8e6; color: var(--coral); }
+
+  .kbody { padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+
+  .kcard {
+    background: #fff;
+    padding: 14px;
+    border-left: 3px solid var(--border);
+  }
+  .kcard.done    { border-color: var(--ok); }
+  .kcard.partial { border-color: var(--warn); }
+  .kcard.miss    { border-color: var(--red); }
+  .kcard.crisis  { border-color: var(--coral); }
+
+  .kcard h4 { font-size: 13px; font-weight: 700; color: var(--charcoal); margin-bottom: 5px; }
+  .kcard p  { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    margin-top: 8px;
+  }
+  .tag.ok   { background: #edf3eb; color: var(--ok); }
+  .tag.miss { background: #faeeed; color: var(--red); }
+  .tag.new  { background: #edf0fb; color: #3a4bb5; }
+  .tag.par  { background: #faf3e5; color: var(--warn); }
+
+  /* ── KPI ── */
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+  }
+  .kpi {
+    background: var(--cream);
+    padding: 24px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .kpi:nth-child(3n) { border-right: none; }
+  .kpi:nth-last-child(-n+3) { border-bottom: none; }
+
+  .kpi-lbl {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .kpi-val {
+    font-family: 'Pretendard', sans-serif;
+    font-size: 30px;
+    font-weight: 900;
+    margin-bottom: 4px;
+  }
+  .kpi-val.good  { color: var(--ok); }
+  .kpi-val.warn  { color: var(--warn); }
+  .kpi-val.bad   { color: var(--red); }
+
+  .kpi-tgt { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+  .kpi-tgt span { color: var(--charcoal); font-weight: 700; }
+
+  .bar { height: 3px; background: var(--border); }
+  .bar-fill { height: 100%; }
+  .bar-fill.good { background: var(--ok); }
+  .bar-fill.warn { background: var(--warn); }
+  .bar-fill.bad  { background: var(--red); }
+
+  /* ── Timeline ── */
+  .tl-item {
+    display: grid;
+    grid-template-columns: 76px 1fr;
+    gap: 0;
+    border-top: 1px solid var(--border);
+  }
+  .tl-item:last-child { border-bottom: 1px solid var(--border); }
+
+  .tl-year {
+    font-family: 'Pretendard', sans-serif;
+    font-size: 14px;
+    font-weight: 900;
+    color: var(--red);
+    padding: 20px 0;
+    white-space: nowrap;
+  }
+  .tl-year.now { color: var(--coral); }
+
+  .tl-events {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-content: flex-start;
+    padding: 16px 0 16px 24px;
+    border-left: 1px solid var(--border);
+  }
+
+  .chip {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--muted);
+  }
+  .chip.ok   { border-color: #9ec89a; color: var(--ok);   background: #f3f8f2; }
+  .chip.miss { border-color: #e0b0ab; color: var(--red);  background: #fdf6f5; }
+  .chip.par  { border-color: #d4b47e; color: var(--warn); background: #fdf8ef; }
+
+  /* ── Missed ── */
+  .missed {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+  }
+  .mc {
+    background: var(--cream);
+    padding: 24px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .mc:nth-child(3n) { border-right: none; }
+  .mc:nth-last-child(-n+3) { border-bottom: none; }
+  .mc h4 { font-size: 13px; font-weight: 700; color: var(--red); margin-bottom: 12px; }
+  .mc ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .mc li {
+    font-size: 12px;
+    color: var(--muted);
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.45;
+  }
+  .mc li::before { content: '—'; position: absolute; left: 0; color: var(--light-sand); }
+
+  /* ── Phases ── */
+  .phases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+  }
+  .phase {
+    background: var(--cream);
+    padding: 28px 24px;
+    border-right: 1px solid var(--border);
+  }
+  .phase:last-child { border-right: none; }
+  .phase:first-child { background: var(--burgundy); }
+
+  .badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 4px 10px;
+    margin-bottom: 16px;
+    color: #fff;
+  }
+  .badge.p1 { background: var(--coral); }
+  .badge.p2 { background: var(--warn); }
+  .badge.p3 { background: var(--ok); }
+
+  .phase h4 {
+    font-family: 'Pretendard', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--charcoal);
+  }
+  .phase:first-child h4 { color: var(--cream); }
+  .phase .period { font-size: 11px; color: var(--muted); margin-bottom: 18px; }
+  .phase:first-child .period { color: var(--sand); }
+  .phase ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .phase li {
+    font-size: 12px;
+    color: var(--muted);
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.45;
+  }
+  .phase:first-child li { color: var(--sand); }
+  .phase li::before { content: '□'; position: absolute; left: 0; font-size: 10px; color: var(--sand); }
+  .phase:first-child li::before { color: var(--coral); }
+
+  /* ── Divider ── */
+  hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    padding: 28px;
+    background: var(--charcoal);
+    font-size: 11px;
+    color: var(--sand);
+    letter-spacing: 1px;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 960px) {
+    .header { padding: 40px 24px; }
+    .container { padding: 40px 24px; }
+    .kanban, .bignums { grid-template-columns: repeat(2, 1fr); }
+    .bignum { border-bottom: 1px solid var(--border); }
+    .kpis { grid-template-columns: repeat(2, 1fr); }
+    .kpi:nth-child(2n) { border-right: none; }
+    .kpi:nth-child(3n) { border-right: 1px solid var(--border); }
+    .phases { grid-template-columns: 1fr; }
+    .phase { border-right: none; border-bottom: 1px solid var(--border); }
+    .missed { grid-template-columns: repeat(2, 1fr); }
+    .mc:nth-child(2n) { border-right: none; }
+    .mc:nth-child(3n) { border-right: 1px solid var(--border); }
+    .tl-item { grid-template-columns: 60px 1fr; }
+  }
+  @media (max-width: 600px) {
+    .kanban { grid-template-columns: 1fr; }
+    .bignums { grid-template-columns: 1fr 1fr; }
+    .kpis, .missed { grid-template-columns: 1fr; }
+    .kpi, .mc { border-right: none !important; }
+    .tl-item { grid-template-columns: 1fr; }
+    .tl-events { border-left: none; padding-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="eyebrow">HFK · Idea Progress Report · 2026.03.21</div>
+    <h1>우리가 이야기해온 것들은<br>지금 어디쯤 와 있는가</h1>
+    <p class="header-sub">데이터: #1-idea-log 876건 · 멤버십 4,129건 · Slack 7년 3,610건</p>
+    <div class="pills">
+      <div class="pill">아이디어 채널 메시지 <strong>876건</strong></div>
+      <div class="pill">1회성 이탈률 <strong>37.4%</strong></div>
+      <div class="pill">미실행 주요 아이디어 <strong>7개+</strong></div>
+      <div class="pill">신규 유입률 <strong>33%</strong> (목표 40%)</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- 숫자 요약 -->
+  <div class="bignums">
+    <div class="bignum">
+      <span class="n">876</span>
+      <div class="lbl">#1-idea-log<br>총 메시지</div>
+    </div>
+    <div class="bignum">
+      <span class="n warn">37.4%</span>
+      <div class="lbl">1회 등록 후<br>이탈 비율</div>
+    </div>
+    <div class="bignum">
+      <span class="n coral">33%</span>
+      <div class="lbl">신규 유입률<br>(목표: 40%+)</div>
+    </div>
+    <div class="bignum">
+      <span class="n coral">2.2%</span>
+      <div class="lbl">전년 대비<br>성장률</div>
+    </div>
+  </div>
+
+  <!-- 아이디어 진행 상태 -->
+  <div class="section">
+    <div class="sec-label">Status Tracker</div>
+    <div class="sec-title">아이디어 진행 상태</div>
+    <div class="kanban">
+
+      <div class="kcol">
+        <div class="khead done">✅ 실행 완료 · 안정화</div>
+        <div class="kbody">
+          <div class="kcard done">
+            <h4>AI부사수</h4>
+            <p>6시즌, 시즌평균 13명. 시장 트렌드와 맞물려 급성장 중.</p>
+            <span class="tag ok">성장 드라이버</span>
+          </div>
+          <div class="kcard done">
+            <h4>강점차별화</h4>
+            <p>14시즌 대표 팀. 최근 8→6명 하락 — 관리 필요.</p>
+            <span class="tag ok">장수팀</span>
+          </div>
+          <div class="kcard done">
+            <h4>전략가의일</h4>
+            <p>4시즌, 시즌평균 17.8명. 전체 팀 중 최고 효율.</p>
+            <span class="tag ok">스타팀</span>
+          </div>
+          <div class="kcard done">
+            <h4>Claude Code 인프라</h4>
+            <p>Growth Bot 12개 스킬, 출석봇, 핸드아웃 자동화, 공지 예약.</p>
+            <span class="tag new">2026 완성</span>
+          </div>
+          <div class="kcard done">
+            <h4>멤버십 데이터 자동화</h4>
+            <p>Sheets 연동, Slack Block Kit, Apple Reminders 동기화.</p>
+            <span class="tag new">2026</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="kcol">
+        <div class="khead partial">🟡 부분 실행 중</div>
+        <div class="kbody">
+          <div class="kcard partial">
+            <h4>Secret Club (레벨 시스템)</h4>
+            <p>2020년 레퓨테이션 설계 → 2026년 4시즌+ 멤버 대상 Secret Club 시작. 전체 랭킹 시스템 미구축.</p>
+            <span class="tag miss">6년 경과</span>
+          </div>
+          <div class="kcard partial">
+            <h4>뉴멤버 온보딩</h4>
+            <p>2019년 첫 언급 → 7년째 개선 중. "뉴멤버 어드벤티지" 논의 중. 구조화 미완성.</p>
+            <span class="tag miss">7년 반복</span>
+          </div>
+          <div class="kcard partial">
+            <h4>해외/지방 확장</h4>
+            <p>2020년 4단계 온라인 로드맵 수립 → 도쿄 필드트립 1회만 실행.</p>
+            <span class="tag par">부분 실행</span>
+          </div>
+          <div class="kcard partial">
+            <h4>콘텐츠 자산화</h4>
+            <p>세션 피드백 714건, 드래프트 562건 축적. 체계적 재활용은 아직.</p>
+            <span class="tag miss">미활용</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="kcol">
+        <div class="khead miss">❌ 7년 미실행</div>
+        <div class="kbody">
+          <div class="kcard miss">
+            <h4>인터뷰 시리즈</h4>
+            <p>24회+ 언급. 2024년 기획안 완성까지 갔으나 실행 0.</p>
+            <span class="tag miss">가장 오래된 미실행</span>
+          </div>
+          <div class="kcard miss">
+            <h4>팟캐스트</h4>
+            <p>2024년 "솔직하고 쓸모있는 직장인 수다" 컨셉까지 완성. 실행 0.</p>
+            <span class="tag miss">6년 미실행</span>
+          </div>
+          <div class="kcard miss">
+            <h4>기업 교육 B2B</h4>
+            <p>2019년 첫 아이디어 → 2021년 구체 기획. 7년째 사업화 안 됨.</p>
+            <span class="tag miss">7년 미실행</span>
+          </div>
+          <div class="kcard miss">
+            <h4>뉴스레터</h4>
+            <p>4회 이상 언급. 세션 피드백 기반 정기 발송. 한 번도 실행 안 함.</p>
+            <span class="tag miss">미실행</span>
+          </div>
+          <div class="kcard miss">
+            <h4>굿즈 (살롱드룰렛 카드)</h4>
+            <p>2020년 기획안 완성 후 6년간 진전 없음.</p>
+            <span class="tag miss">6년 경과</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="kcol">
+        <div class="khead crisis">🔴 현재 위기 신호</div>
+        <div class="kbody">
+          <div class="kcard crisis">
+            <h4>강점차별화 급감</h4>
+            <p>HFK 대표 팀이 17→17→8→6명으로 3시즌 연속 하락.</p>
+          </div>
+          <div class="kcard crisis">
+            <h4>소통의기술 급감</h4>
+            <p>17→8→6명 3시즌 연속 하락. 원인 미파악.</p>
+          </div>
+          <div class="kcard crisis">
+            <h4>신규 유입 고갈</h4>
+            <p>첫등록 33%. 재등록 의존 심화. 자연 이탈 시작 시 급격한 축소 위험.</p>
+          </div>
+          <div class="kcard crisis">
+            <h4>성장 정체</h4>
+            <p>전년 대비 성장률 2.2%. 재등록 비율 55% 돌파.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 핵심 지표 -->
+  <div class="section">
+    <div class="sec-label">Key Metrics</div>
+    <div class="sec-title">핵심 지표 현황</div>
+    <div class="kpis">
+      <div class="kpi">
+        <div class="kpi-lbl">신규 유입률</div>
+        <div class="kpi-val bad">33%</div>
+        <div class="kpi-tgt">목표 <span>40%+</span></div>
+        <div class="bar"><div class="bar-fill bad" style="width:55%"></div></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-lbl">1→2회 재등록 전환율</div>
+        <div class="kpi-val warn">~43%</div>
+        <div class="kpi-tgt">목표 <span>55%+</span></div>
+        <div class="bar"><div class="bar-fill warn" style="width:58%"></div></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-lbl">전년 대비 성장률</div>
+        <div class="kpi-val bad">2.2%</div>
+        <div class="kpi-tgt">목표 <span>15%+</span></div>
+        <div class="bar"><div class="bar-fill bad" style="width:9%"></div></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-lbl">평균 구매 횟수</div>
+        <div class="kpi-val good">3.67회</div>
+        <div class="kpi-tgt">목표 <span>4.0회+</span> · 매년 상승 중 ↑</div>
+        <div class="bar"><div class="bar-fill good" style="width:82%"></div></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-lbl">시즌 리텐션율</div>
+        <div class="kpi-val warn">~52%</div>
+        <div class="kpi-tgt">목표 <span>60%+</span></div>
+        <div class="bar"><div class="bar-fill warn" style="width:65%"></div></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-lbl">3회+ 누적 등록 비율</div>
+        <div class="kpi-val warn">29.4%</div>
+        <div class="kpi-tgt">목표 <span>35%+</span></div>
+        <div class="bar"><div class="bar-fill warn" style="width:60%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 7년 타임라인 -->
+  <div class="section">
+    <div class="sec-label">History</div>
+    <div class="sec-title">7년 아이디어 타임라인</div>
+
+    <div class="tl-item">
+      <div class="tl-year">2019</div>
+      <div class="tl-events">
+        <div class="chip miss">인터뷰 시리즈 첫 언급 ❌</div>
+        <div class="chip miss">뉴멤버 온보딩 논의 시작 🔄</div>
+        <div class="chip miss">기업 B2B 교육 아이디어 ❌</div>
+        <div class="chip ok">채널 체계화 (idea-log 개설) ✅</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2020</div>
+      <div class="tl-events">
+        <div class="chip ok">온라인 전환 성공 ✅</div>
+        <div class="chip miss">팟캐스트 첫 아이디어 ❌</div>
+        <div class="chip miss">굿즈 (살롱드룰렛) 기획 완성 ❌</div>
+        <div class="chip miss">해외 4단계 로드맵 수립 ❌</div>
+        <div class="chip par">레퓨테이션 설계 아이디어 🟡</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2021</div>
+      <div class="tl-events">
+        <div class="chip miss">CRM 도입 논의 — 미실행 ❌</div>
+        <div class="chip miss">B2B 리더십 교육 ❌</div>
+        <div class="chip ok">코로나 최저점 극복, 회복 시작 ✅</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2022</div>
+      <div class="tl-events">
+        <div class="chip ok">브랜드 리디자인 ✅</div>
+        <div class="chip ok">강점차별화·스몰브랜드 신규 팀 성공 ✅</div>
+        <div class="chip ok">SNS 콘텐츠 체계화 ✅</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2023</div>
+      <div class="tl-events">
+        <div class="chip">세션 피드백 역대 최고 471건 — 미활용</div>
+        <div class="chip ok">등록 역대 최고 (686명) ✅</div>
+        <div class="chip">Slack 메시지 역대 최고 772건</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2024</div>
+      <div class="tl-events">
+        <div class="chip miss">팟캐스트 컨셉 완성 → 또 미실행 ❌</div>
+        <div class="chip miss">인터뷰 기획안 완성 → 또 미실행 ❌</div>
+        <div class="chip ok">701명 역대 최고 ✅</div>
+        <div class="chip par">도쿄 필드트립 실행 🟡</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2025</div>
+      <div class="tl-events">
+        <div class="chip ok">자동화·데이터 분석 본격화 ✅</div>
+        <div class="chip">전년 대비 성장률 2.2% — 정체 신호</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year now">2026 ←</div>
+      <div class="tl-events">
+        <div class="chip ok">Claude Code 전면 도입 ✅</div>
+        <div class="chip ok">Growth Bot 12개 스킬 완성 ✅</div>
+        <div class="chip ok">출석·핸드아웃 자동화 ✅</div>
+        <div class="chip par">Secret Club 시작 🟡</div>
+        <div class="chip par">뉴멤버 어드벤티지 논의 중 🟡</div>
+        <div class="chip miss">카카오 알림톡 미완성 ❌</div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 놓친 것들 -->
+  <div class="section">
+    <div class="sec-label">Gaps</div>
+    <div class="sec-title">놓치고 있는 구조적 공백</div>
+    <div class="missed">
+      <div class="mc">
+        <h4>📭 세션 피드백 사이클 부재</h4>
+        <ul>
+          <li>714건 피드백이 쌓여있으나 다음 시즌 기획에 반영 안 됨</li>
+          <li>"피드백 → 개선 → 재측정" 루프 없음</li>
+          <li>2023년 471건이 그냥 슬랙에 묻혀있음</li>
+        </ul>
+      </div>
+      <div class="mc">
+        <h4>📦 562건 미발행 콘텐츠</h4>
+        <ul>
+          <li>콘텐츠 드래프트 562건 — 대부분 재활용 안 됨</li>
+          <li>인터뷰, 후기, 현장스케치 초안 다수 존재</li>
+          <li>2024년 콘텐츠 생산 급감 (연간 32건)</li>
+        </ul>
+      </div>
+      <div class="mc">
+        <h4>👥 OB(동문) 네트워크 전무</h4>
+        <ul>
+          <li>탈퇴·비활성 28명과의 관계 관리 없음</li>
+          <li>"동문회" 아이디어 있으나 실행 안 됨</li>
+          <li>졸업생 네트워크는 미래 신규 유입 채널</li>
+        </ul>
+      </div>
+      <div class="mc">
+        <h4>📋 파트너 육성 프로세스 미문서화</h4>
+        <ul>
+          <li>파트너 150회 언급 — HFK 핵심 자산</li>
+          <li>리크루팅→온보딩→운영→이탈방지 문서 없음</li>
+          <li>운영 노하우가 사람에게만 묶여 있음</li>
+        </ul>
+      </div>
+      <div class="mc">
+        <h4>📲 CRM · 맞춤 커뮤니케이션</h4>
+        <ul>
+          <li>CRM 2021년 논의 이후 5년째 미실행</li>
+          <li>멤버 참여도·피드백·재등록 패턴 분산 관리</li>
+          <li>카카오 알림톡 자동화 논의 중 — 미완성</li>
+        </ul>
+      </div>
+      <div class="mc">
+        <h4>🔊 외부 인지도 채널 부재</h4>
+        <ul>
+          <li>뉴스레터·팟캐스트·유튜브 모두 아이디어에서 멈춤</li>
+          <li>풍부한 내부 콘텐츠가 외부에 노출 안 됨</li>
+          <li>검색(SEO) 유입 120명 — 성장 여지 큼</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 90일 액션 -->
+  <div class="section">
+    <div class="sec-label">Next Steps</div>
+    <div class="sec-title">90일 액션 우선순위</div>
+    <div class="phases">
+      <div class="phase">
+        <div class="badge p1">PHASE 1</div>
+        <h4>긴급 조치</h4>
+        <div class="period">1–2주 이내</div>
+        <ul>
+          <li>강점차별화·소통의기술 이탈 멤버 인터뷰 각 5명</li>
+          <li>미등록 기존 멤버 리마인드 캠페인</li>
+          <li>팀 미정 등록자 10명 팀 배정 안내</li>
+          <li>세션 피드백 714건 테마별 정리 시작</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="badge p2">PHASE 2</div>
+        <h4>구조 설계</h4>
+        <div class="period">2–4주</div>
+        <ul>
+          <li>여름시즌 팀 라인업 조기 확정 및 공개</li>
+          <li>사전등록 시스템 설계</li>
+          <li>인터뷰 시리즈 기획 재가동</li>
+          <li>뉴스레터 구조 설계 (세션 피드백 기반)</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="badge p3">PHASE 3</div>
+        <h4>실행 · 모니터링</h4>
+        <div class="period">4–12주</div>
+        <ul>
+          <li>뉴스레터 첫 호 발행</li>
+          <li>팟캐스트 파일럿 1화 녹음</li>
+          <li>팀 건강도 대시보드 구축</li>
+          <li>팀오호츠크·리더의서재 신규 쿼터제 시범</li>
+          <li>B2B 파일럿 프로그램 설계</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>HFK Idea Progress Report · 2026-03-21 · Seulki.log</footer>
+
+</body>
+</html>

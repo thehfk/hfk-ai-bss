@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HFK 팀 소개 — 성장 트랙 (아임웹용)</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<style>body { background: #fff7ee; padding: 40px 20px; }</style>
+</head>
+<body>
+<!-- ↓↓↓ 아임웹에 붙여넣을 때는 이 아래 <div>부터 마지막 </div>까지만 복사 ↓↓↓ -->
+<div style="font-family:'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color:#333; letter-spacing:-0.01em;">
+
+<!-- ── 메인 타이틀 ── -->
+<div style="margin-bottom:48px;">
+<p style="text-align: left; line-height: 2; color: rgb(0, 0, 0);"><span style="font-size: 36px; color: rgb(0, 0, 0);"><strong><span style="letter-spacing: -1px;">HFK의 성장은<br>잠재력을 실현하는 것입니다</span></strong></span></p>
+<p style="font-size:17px; line-height:1.85; color:#444; letter-spacing:-0.01em; margin:0;">성장은 벡터로, 좌표 위의 화살표입니다. 길이와 방향, 두 가지로 나타낼 수 있습니다.<br>일직선으로 뻗어 올라가는 것만이 성장이 아닙니다.<br>옆으로, 아래로, 때로는 좌표를 옮겨서 완전히 새로운 곳에서 성장을 이어갈 수 있습니다.<br>HFK는 코카콜라의 Multidirectional Career Growth에서 착안하여,<br>성장의 '방향'에 따라 멤버의 성장 트랙을 설계합니다.</p>
+</div>
+
+<!-- ── 5가지 성장 트랙 (앵커 네비게이션) ── -->
+<div id="track-nav" style="margin-bottom:64px;">
+<h2 style="font-size:28px; font-weight:800; color:#8B0000; margin:0 0 8px 0; letter-spacing:-0.02em;">5가지 성장 트랙</h2>
+<p style="font-size:16px; font-weight:500; color:#8B0000; margin:0 0 32px 0;">당신의 성장은 어디를 향하고 있나요?</p>
+
+<div style="display:flex; flex-wrap:wrap; gap:12px;">
+
+<a href="#track-vertical" style="flex:1 1 170px; min-width:160px; background:#441a14; border-radius:12px; padding:28px 20px; text-align:center; text-decoration:none; transition:opacity 0.2s;">
+<div style="width:44px; height:44px; border-radius:50%; background:#ff9184; margin:0 auto 14px; display:flex; align-items:center; justify-content:center;"><span style="font-size:20px; color:#441a14; line-height:1;">&#8593;</span></div>
+<p style="font-size:14px; font-weight:700; color:#ff9184; margin:0 0 4px 0; letter-spacing:0.5px;">Vertical</p>
+<p style="font-size:13px; font-weight:600; color:#f2ece2; margin:0 0 12px 0;">책임 확장</p>
+<p style="font-size:11px; color:#d0b9a4; line-height:1.7; margin:0; font-style:italic;">"더 큰 책임을 맡을<br>준비가 되어 있는가?"</p>
+</a>
+
+<a href="#track-horizontal" style="flex:1 1 170px; min-width:160px; background:#441a14; border-radius:12px; padding:28px 20px; text-align:center; text-decoration:none; transition:opacity 0.2s;">
+<div style="width:44px; height:44px; border-radius:50%; background:#ff9184; margin:0 auto 14px; display:flex; align-items:center; justify-content:center;"><span style="font-size:20px; color:#441a14; line-height:1;">&#8596;</span></div>
+<p style="font-size:14px; font-weight:700; color:#ff9184; margin:0 0 4px 0; letter-spacing:0.5px;">Horizontal</p>
+<p style="font-size:13px; font-weight:600; color:#f2ece2; margin:0 0 12px 0;">새로운 역할</p>
+<p style="font-size:11px; color:#d0b9a4; line-height:1.7; margin:0; font-style:italic;">"내 옆에는<br>어떤 세계가 있는가?"</p>
+</a>
+
+<a href="#track-enrichment" style="flex:1 1 170px; min-width:160px; background:#441a14; border-radius:12px; padding:28px 20px; text-align:center; text-decoration:none; transition:opacity 0.2s;">
+<div style="width:44px; height:44px; border-radius:50%; background:#ff9184; margin:0 auto 14px; display:flex; align-items:center; justify-content:center;"><span style="font-size:20px; color:#441a14; line-height:1;">&#9673;</span></div>
+<p style="font-size:14px; font-weight:700; color:#ff9184; margin:0 0 4px 0; letter-spacing:0.5px;">Enrichment</p>
+<p style="font-size:13px; font-weight:600; color:#f2ece2; margin:0 0 12px 0;">현재 역할 심화</p>
+<p style="font-size:11px; color:#d0b9a4; line-height:1.7; margin:0; font-style:italic;">"지금 하는 일을<br>더 잘하려면?"</p>
+</a>
+
+<a href="#track-realignment" style="flex:1 1 170px; min-width:160px; background:#441a14; border-radius:12px; padding:28px 20px; text-align:center; text-decoration:none; transition:opacity 0.2s;">
+<div style="width:44px; height:44px; border-radius:50%; background:#ff9184; margin:0 auto 14px; display:flex; align-items:center; justify-content:center;"><span style="font-size:20px; color:#441a14; line-height:1;">&#8635;</span></div>
+<p style="font-size:14px; font-weight:700; color:#ff9184; margin:0 0 4px 0; letter-spacing:0.5px;">Realignment</p>
+<p style="font-size:13px; font-weight:600; color:#f2ece2; margin:0 0 12px 0;">커리어 전환</p>
+<p style="font-size:11px; color:#d0b9a4; line-height:1.7; margin:0; font-style:italic;">"완전히 다른 방향은<br>어떤 모습인가?"</p>
+</a>
+
+<a href="#track-newhorizons" style="flex:1 1 170px; min-width:160px; background:#441a14; border-radius:12px; padding:28px 20px; text-align:center; text-decoration:none; transition:opacity 0.2s;">
+<div style="width:44px; height:44px; border-radius:50%; background:#ff9184; margin:0 auto 14px; display:flex; align-items:center; justify-content:center;"><span style="font-size:20px; color:#441a14; line-height:1;">&#9670;</span></div>
+<p style="font-size:14px; font-weight:700; color:#ff9184; margin:0 0 4px 0; letter-spacing:0.5px;">New Horizons</p>
+<p style="font-size:13px; font-weight:600; color:#f2ece2; margin:0 0 12px 0;">외부 성장 기회</p>
+<p style="font-size:11px; color:#d0b9a4; line-height:1.7; margin:0; font-style:italic;">"밖에서 어떤 성장 기회를<br>찾을 수 있는가?"</p>
+</a>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- TRACK 1: Vertical -->
+<!-- ══════════════════════════════════════════════════ -->
+<div id="track-vertical" style="padding-top:32px; margin-bottom:72px;">
+<p style="font-size:13px; font-weight:600; color:#8B0000; letter-spacing:0.3px; margin:0 0 8px 0;">Vertical &mdash; Increasing responsibility</p>
+<h2 style="font-size:28px; font-weight:800; color:#222; margin:0; padding-bottom:20px; border-bottom:2px solid #222; letter-spacing:-0.02em;">책임 확장</h2>
+
+<div style="padding:28px 0; border-bottom:1px solid #e5e0d8;">
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+<p style="font-size:20px; font-weight:700; color:#222; margin:0;">중간리더십</p>
+<span style="font-size:11px; font-weight:600; color:#8B0000; border:1px solid #8B0000; border-radius:2px; padding:3px 8px;">Vertical</span>
+</div>
+<p style="font-size:15px; line-height:1.8; color:#444; margin:0 0 14px 0;">중간관리자로서의 리더십 역량을 확대합니다. 위로는 경영진, 아래로는 팀원 사이에서 자신만의 리더십을 만들어갑니다.</p>
+<div style="background:rgba(139,0,0,0.04); border-radius:6px; padding:16px 20px; margin-bottom:12px;">
+<p style="font-size:11px; font-weight:700; color:#8B0000; margin:0 0 4px 0; letter-spacing:0.3px;">이런 분에게</p>
+<p style="font-size:13px; line-height:1.7; color:#444; margin:0;">팀장 1-3년차. 위로는 경영진, 아래로는 팀원 사이에서 '끼인 리더'로 소진되고 있는 사람</p>
+</div>
+<p style="font-size:12px; color:#999; margin:0;">다음 스텝 &rarr; <strong style="color:#222;">설득의구조</strong> (위아래 설득력) &rarr; <strong style="color:#222;">경영브릿지</strong> (경영진 관점 이해)</p>
+</div>
+
+<div style="padding:28px 0; border-bottom:1px solid #e5e0d8;">
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+<p style="font-size:20px; font-weight:700; color:#222; margin:0;">리더십첫줄</p>
+<span style="font-size:11px; font-weight:600; color:#8B0000; border:1px solid #8B0000; border-radius:2px; padding:3px 8px;">Vertical</span>
+</div>
+<p style="font-size:15px; line-height:1.8; color:#444; margin:0 0 14px 0;">신입 팀장이 리더 역할에 적응하며 성장하는 과정. 리더십 이론, 진단, 코칭을 통해 나만의 리더십 스타일을 발견합니다.</p>
+<div style="background:rgba(139,0,0,0.04); border-radius:6px; padding:16px 20px; margin-bottom:12px;">
+<p style="font-size:11px; font-weight:700; color:#8B0000; margin:0 0 4px 0; letter-spacing:0.3px;">이런 분에게</p>
+<p style="font-size:13px; line-height:1.7; color:#444; margin:0;">팀장 발령 1년 이내. 실수와 깨달음을 반복 중이고, 내 리더십 스타일을 아직 모르는 사람</p>
+</div>
+<p style="font-size:12px; color:#999; margin:0;">다음 스텝 &rarr; <strong style="color:#222;">중간리더십</strong> (다음 단계) &rarr; <strong style="color:#222;">강점차별화</strong> (리더로서의 강점 정의)</p>
+</div>
+
+<div style="padding:28px 0;">
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+<p style="font-size:20px; font-weight:700; color:#222; margin:0;">경영브릿지</p>
+<span style="font-size:11px; font-weight:600; color:#8B0000; border:1px solid #8B0000; border-radius:2px; padding:3px 8px;">Vertical</span>
+</div>
+<p style="font-size:15px; line-height:1.8; color:#444; margin:0 0 14px 0;">자기 부서를 넘어 회사 전체의 경영 흐름을 이해합니다. HBR 아티클을 통해 조직 단위의 의사결정 역량을 확장합니다.</p>
+<div style="background:rgba(139,0,0,0.04); border-radius:6px; padding:16px 20px; margin-bottom:12px;">
+<p style="font-size:11px; font-weight:700; color:#8B0000; margin:0 0 4px 0; letter-spacing:0.3px;">이런 분에게</p>
+<p style="font-size:13px; line-height:1.7; color:#444; margin:0;">팀 성과는 내지만 회사 전체 전략이 어떻게 돌아가는지 감이 없는 중간관리자</p>
+</div>
+<p style="font-size:12px; color:#999; margin:0;">다음 스텝 &rarr; <strong style="color:#222;">넘버앤센스</strong> (데이터로 경영 읽기) &rarr; <strong style="color:#222;">팀오호츠크</strong> (글로벌 경영 시각)</p>
+</div>
+<p style="text-align:right; margin:24px 0 0 0;"><a href="#track-nav" style="font-size:13px; color:#8B0000; text-decoration:none; font-weight:600;">&uarr; 트랙 전체 보기</a></p>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- TRACK 2: Horizontal -->
+<!-- ══════════════════════════════════════════════════ -->
+<div id="track-horizontal" style="padding-top:32px; margin-bottom:72px;">
+<p style="font-size:13px; font-weight:600; color:#8B0000; letter-spacing:0.3px; margin:0 0 8px 0;">Horizontal &mdash; Growing in a new role at the same level</p>
+<h2 style="font-size:28px; font-weight:800; color:#222; margin:0; padding-bottom:20px; border-bottom:2px solid #222; letter-spacing:-0.02em;">새로운 역할의 시각</h2>
+
+<div style="padding:28px 0; border-bottom:1px solid #e5e0d8;">
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+<p style="font-size:20px; font-weight:700; color:#222; margin:0;">넘버앤센스</p>
+<span style="font-size:11px; font-weight:600; color:#8B0000; border:1px solid #8B0000; border-radius:2px; padding:3px 8px;">Horizontal</span>
+</div>
+<p style="font-size:15px; line-height:1.8; color:#444; margin:0 0 14px 0;">숫자 감각과 데이터 분석력으로 비즈니스의 맥락을 파악합니다. 5권의 책과 실전 사례를 통해 데이터 기반 의사결정을 훈련합니다.</p>
+<div style="background:rgba(139,0,0,0.04); border-radius:6px; padding:16px 20px; margin-bottom:12px;">
+<p style="font-size:11px; font-weight:700; color:#8B0000; margin:0 0 4px 0; letter-spacing:0.3px;">이런 분에게</p>
+<p style="font-size:13px; line-height:1.7; color:#444; margin:0;">"숫자 울렁증"이 있는 비데이터 직군. 보고서에 숫자를 넣고 싶은데 어디서부터 시작할지 모르는 사람</p>
+</div>
+<p style="font-size:12px; color:#999; margin:0;">다음 스텝 &rarr; <strong style="color:#222;">AI부사수</strong> (데이터 분석 자동화) &rarr; <strong style="color:#222;">CMO씽킹</strong> (숫자 기반 마케팅 의사결정)</p>
+</div>
+
+<div style="padding:28px 0; border-bottom:1px solid #e5e0d8;">
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+<p style="font-size:20px; font-weight:700; color:#222; margin:0;">CMO씽킹</p>
+<span style="font-size:11px; font-weight:600; color:#8B0000; border:1px solid #8B0000; border-radius:2px; padding:3px 8px;">Horizontal</span>
+</div>
+<p style="font-size:15px; line-height:1.8; color:#444; margin:0 0 14px 0;">마케팅 리더의 사고방식을 습득합니다. 마케터가 아니더라도 마케팅 관점을 자기 직무에 입힐 수 있습니다.</p>
+<div style="background:rgba(139,0,0,0.04); border-radius:6px; padding:16px 20px; margin-bottom:12px;">
+<p style="font-size:11px; font-weight:700; color:#8B0000; margin:0 0 4px 0; letter-spacing:0.3px;">이런 분에게</p>
+<p style="font-size:13px; line-height:1.7; color:#444; margin:0;">마케터가 아닌데 마케팅 의사결정에 관여하게 된 사람. 마케팅 관점을 자기 직무에 입히고 싶은 사람</p>
+</div>
+<p style="font-size:12px; color:#999; margin:0;">다음 스텝 &rarr; <strong style="color:#222;">팔리는경험</strong> (고객 경험 실전) &rarr; <strong style="color:#222;">도쿄의기획</strong> (마케팅 기획 사례)</p>
+</div>
+
+<div style="padding:28px 0; border-bottom:1px solid #e5e0d8;">
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+<p style="font-size:20px; font-weight:700; color:#222; margin:0;">올댓디지털</p>
+<span style="font-size:11px; font-weight:600; color:#8B0000; border:1px solid #8B0000; border-radius:2px; padding:3px 8px;">Horizontal</span>
+</div>
+<p style="font-size:15px; line-height:1.8; color:#444; margin:0 0 14px 0;">디지털 트렌드 전반을 학습하여 기존 역할에 새로운 관점을 추가합니다. 파편적 지식을 전체 그림으로 연결합니다.</p>
+<div style="background:rgba(139,0,0,0.04); border-radius:6px; padding:16px 20px; margin-bottom:12px;">
+<p style="font-size:11px; font-weight:700; color:#8B0000; margin:0 0 4px 0; letter-spacing:0.3px;">이런 분에게</p>
+<p style="font-size:13px; line-height:1.7; color:#444; margin:0;">디지털 트렌드를 따라가야 하는데 파편적으로만 알고 있는 사람. 전체 그림을 잡고 싶은 사람</p>
+</div>
+<p style="font-size:12px; color:#999; margin:0;">다음 스텝 &rarr; <strong style="color:#222;">AI핸즈온</strong> (디지털 도구 실습) &rarr; <strong style="color:#222;">스몰브랜드</strong> (디지털 네이티브 브랜드 사례)</p>
+</div>
+
+<div style="padding:28px 0; border-bottom:1px solid #e5e0d8;">
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+<p style="font-size:20px; font-weight:700; color:#222; margin:0;">도쿄의기획</p>
+<span style="font-size:11px; font-weight:600; color:#8B0000; border:1px solid #8B0000; border-radius:2px; padding:3px 8px;">Horizontal</span>
+</div>
+<p style="font-size:15px; line-height:1.8; color:#444; margin:0 0 14px 0;">도시 사례를 통해 전략, 상품, 마케팅, CX, 도시기획 5가지 관점을 한번에 학습합니다. 나만의 기획서를 만들어갑니다.</p>
+<div style="background:rgba(139,0,0,0.04); border-radius:6px; padding:16px 20px; margin-bottom:12px;">
+<p style="font-size:11px; font-weight:700; color:#8B0000; margin:0 0 4px 0; letter-spacing:0.3px;">이런 분에게</p>
+<p style="font-size:13px; line-height:1.7; color:#444; margin:0;">기획서는 쓰는데 '감'이 없다고 느끼는 사람. 전략·상품·CX를 도시라는 입체적 사례로 한번에 배우고 싶은 사람</p>
+</div>
+<p style="font-size:12px; color:#999; margin:0;">다음 스텝 &rarr; <strong style="color:#222;">감각적기획</strong> (기획 방법론 실습) &rarr; <strong style="color:#222;">팔리는경험</strong> (기획에서 세일즈 연결)</p>
+</div>
+
+<div style="padding:28px 0;">
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+<p style="font-size:20px; font-weight:700; color:#222; margin:0;">감각적기획</p>
+<span style="font-size:11px; font-weight:600; color:#8B0000; border:1px solid #8B0000; border-radius:2px; padding:3px 8px;">Horizontal</span>
+</div>
+<p style="font-size:15px; line-height:1.8; color:#444; margin:0 0 14px 0;">디자인씽킹과 UX리서치라는 새로운 문제해결 방법론을 현업에 적용합니다. 관찰, 인터뷰, 프로토타이핑까지 실습합니다.</p>
+<div style="background:rgba(139,0,0,0.04); border-radius:6px; padding:16px 20px; margin-bottom:12px;">
+<p style="font-size:11px; font-weight:700; color:#8B0000; margin:0 0 4px 0; letter-spacing:0.3px;">이런 분에게</p>
+<p style="font-size:13px; line-height:1.7; color:#444; margin:0;">사용자를 관찰하고 문제를 정의하는 과정이 낯선 사람. 디자인씽킹·UX리서치를 현업에 적용해보고 싶은 사람</p>
+</div>
+<p style="font-size:12px; color:#999; margin:0;">다음 스텝 &rarr; <strong style="color:#222;">설득의구조</strong> (리서치 결과를 설득력 있게 전달) &rarr; <strong style="color:#222;">AI핸즈온</strong> (AI로 프로토타이핑)</p>
+</div>
+<p style="text-align:right; margin:24px 0 0 0;"><a href="#track-nav" style="font-size:13px; color:#8B0000; text-decoration:none; font-weight:600;">&uarr; 트랙 전체 보기</a></p>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- TRACK 3: Enrichment -->
+<!-- ══════════════════════════════════════════════════ -->
+<div id="track-enrichment" style="padding-top:32px; margin-bottom:72px;">
+<p style="font-size:13px; font-weight:600; color:#8B0000; letter-spacing:0.3px; margin:0 0 8px 0;">Enrichment &mdash; Growing within your current role</p>
+<h2 style="font-size:28px; font-weight:800; color:#222; margin:0; padding-bottom:20px; border-bottom:2px solid #222; letter-spacing:-0.02em;">현재 역할 심화</h2>
+
+<div style="padding:28px 0; border-bottom:1px solid #e5e0d8;">
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+<p style="font-size:20px; font-weight:700; color:#222; margin:0;">AI부사수</p>
+<span style="font-size:11px; font-weight:600; color:#8B0000; border:1px solid #8B0000; border-radius:2px; padding:3px 8px;">Enrichment</span>
+</div>
+<p style="font-size:15px; line-height:1.8; color:#444; margin:0 0 14px 0;">AI를 이미 써본 사람이 실무 생산성을 한 단계 끌어올립니다. 프롬프트 엔지니어링부터 자동화, Claude Code까지 실전 활용법을 다룹니다.</p>
+<div style="background:rgba(139,0,0,0.04); border-radius:6px; padding:16px 20px; margin-bottom:12px;">
+<p style="font-size:11px; font-weight:700; color:#8B0000; margin:0 0 4px 0; letter-spacing:0.3px;">이런 분에게</p>
+<p style="font-size:13px; line-height:1.7; color:#444; margin:0;">AI를 써봤지만 "챗봇 수준"에 머물러 있는 사람. 프롬프트부터 자동화까지 실무에 깊이 적용하고 싶은 사람</p>
+</div>
+<p style="font-size:12px; color:#999; margin:0;">다음 스텝 &rarr; <strong style="color:#222;">AI핸즈온</strong> (병행 수강, 기초 보완) &rarr; <strong style="color:#222;">넘버앤센스</strong> (AI+데이터 시너지)</p>
+</div>
+
+<div style="padding:28px 0; border-bottom:1px solid #e5e0d8;">
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+<p style="font-size:20px; font-weight:700; color:#222; margin:0;">AI핸즈온</p>
+<span style="font-size:11px; font-weight:600; color:#8B0000; border:1px solid #8B0000; border-radius:2px; padding:3px 8px;">Enrichment</span>
+</div>
+<p style="font-size:15px; line-height:1.8; color:#444; margin:0 0 14px 0;">AI 기초부터 나만의 워크스페이스 구축까지. 프롬프트 작성법, AI 도구 선택, 자동화 시스템 구축을 실습합니다.</p>
+<div style="background:rgba(139,0,0,0.04); border-radius:6px; padding:16px 20px; margin-bottom:12px;">
+<p style="font-size:11px; font-weight:700; color:#8B0000; margin:0 0 4px 0; letter-spacing:0.3px;">이런 분에게</p>
+<p style="font-size:13px; line-height:1.7; color:#444; margin:0;">AI를 제대로 시작하고 싶은 사람. ChatGPT 가입은 했는데 뭘 해야 할지 모르는 사람</p>
+</div>
+<p style="font-size:12px; color:#999; margin:0;">다음 스텝 &rarr; <strong style="color:#222;">AI부사수</strong> (다음 단계, 실전 활용) &rarr; <strong style="color:#222;">커리어기록</strong> (AI로 콘텐츠 제작)</p>
+</div>
+
+<div style="padding:28px 0; border-bottom:1px solid #e5e0d8;">
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+<p style="font-size:20px; font-weight:700; color:#222; margin:0;">설득의구조</p>
+<span style="font-size:11px; font-weight:600; color:#8B0000; border:1px solid #8B0000; border-radius:2px; padding:3px 8px;">Enrichment</span>
+</div>
+<p style="font-size:15px; line-height:1.8; color:#444; margin:0 0 14px 0;">설득이 왜 실패하고 성공하는지 구조를 분석합니다. 3권의 책과 실제 경험을 바탕으로 나만의 설득 프레임워크를 만듭니다.</p>
+<div style="background:rgba(139,0,0,0.04); border-radius:6px; padding:16px 20px; margin-bottom:12px;">
+<p style="font-size:11px; font-weight:700; color:#8B0000; margin:0 0 4px 0; letter-spacing:0.3px;">이런 분에게</p>
+<p style="font-size:13px; line-height:1.7; color:#444; margin:0;">논리적으로 말하는데 상대가 안 움직이는 사람. 설득의 '구조'를 알고 싶은 사람</p>
+</div>
+<p style="font-size:12px; color:#999; margin:0;">다음 스텝 &rarr; <strong style="color:#222;">고급진영어</strong> (영어로도 설득) &rarr; <strong style="color:#222;">리더십첫줄</strong> (리더로서 설득)</p>
+</div>
+
+<div style="padding:28px 0; border-bottom:1px solid #e5e0d8;">
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+<p style="font-size:20px; font-weight:700; color:#222; margin:0;">고급진영어</p>
+<span style="font-size:11px; font-weight:600; color:#8B0000; border:1px solid #8B0000; border-radius:2px; padding:3px 8px;">Enrichment</span>
+</div>
+<p style="font-size:15px; line-height:1.8; color:#444; margin:0 0 14px 0;">HBR 원문 독해와 비즈니스 롤플레이로 업무 영어의 깊이를 높입니다. 유창함이 아닌 깊이에 집중합니다.</p>
+<div style="background:rgba(139,0,0,0.04); border-radius:6px; padding:16px 20px; margin-bottom:12px;">
+<p style="font-size:11px; font-weight:700; color:#8B0000; margin:0 0 4px 0; letter-spacing:0.3px;">이런 분에게</p>
+<p style="font-size:13px; line-height:1.7; color:#444; margin:0;">영어 회의에서 듣기는 되는데 발언이 얕은 사람. 비즈니스 영어의 깊이를 높이고 싶은 사람</p>
+</div>
+<p style="font-size:12px; color:#999; margin:0;">다음 스텝 &rarr; <strong style="color:#222;">설득의구조</strong> (한국어 설득력도 함께) &rarr; <strong style="color:#222;">경영브릿지</strong> (HBR 원문 활용)</p>
+</div>
+
+<div style="padding:28px 0; border-bottom:1px solid #e5e0d8;">
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+<p style="font-size:20px; font-weight:700; color:#222; margin:0;">강점차별화</p>
+<span style="font-size:11px; font-weight:600; color:#8B0000; border:1px solid #8B0000; border-radius:2px; padding:3px 8px;">Enrichment</span>
+</div>
+<p style="font-size:15px; line-height:1.8; color:#444; margin:0 0 14px 0;">직무 강점을 프레임워크로 분석하고 지치지 않는 성장 방향을 설계합니다. AI 시대, 가장 필요한 것은 나에 대한 체계적인 이해입니다.</p>
+<div style="background:rgba(139,0,0,0.04); border-radius:6px; padding:16px 20px; margin-bottom:12px;">
+<p style="font-size:11px; font-weight:700; color:#8B0000; margin:0 0 4px 0; letter-spacing:0.3px;">이런 분에게</p>
+<p style="font-size:13px; line-height:1.7; color:#444; margin:0;">열심히 하는데 방향이 맞는지 모르겠는 사람. 번아웃 직전이거나, 지치지 않는 성장법을 찾고 싶은 사람</p>
+</div>
+<p style="font-size:12px; color:#999; margin:0;">다음 스텝 &rarr; <strong style="color:#222;">커리어기록</strong> (강점을 콘텐츠로) &rarr; <strong style="color:#222;">커리어캠프</strong> (방향 재설정이 필요하다면)</p>
+</div>
+
+<div style="padding:28px 0;">
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+<p style="font-size:20px; font-weight:700; color:#222; margin:0;">팔리는경험</p>
+<span style="font-size:11px; font-weight:600; color:#8B0000; border:1px solid #8B0000; border-radius:2px; padding:3px 8px;">Enrichment</span>
+</div>
+<p style="font-size:15px; line-height:1.8; color:#444; margin:0 0 14px 0;">고객이 사는 이유를 구조적으로 이해합니다. 좋은 제품·서비스가 왜 안 팔리는지, 세일즈와 고객 경험의 전문성을 강화합니다.</p>
+<div style="background:rgba(139,0,0,0.04); border-radius:6px; padding:16px 20px; margin-bottom:12px;">
+<p style="font-size:11px; font-weight:700; color:#8B0000; margin:0 0 4px 0; letter-spacing:0.3px;">이런 분에게</p>
+<p style="font-size:13px; line-height:1.7; color:#444; margin:0;">좋은 제품·서비스인데 왜 안 팔리는지 고민인 사람. 고객이 사는 이유를 구조적으로 이해하고 싶은 사람</p>
+</div>
+<p style="font-size:12px; color:#999; margin:0;">다음 스텝 &rarr; <strong style="color:#222;">감각적기획</strong> (고객 리서치 방법론) &rarr; <strong style="color:#222;">CMO씽킹</strong> (마케팅 전략 확장)</p>
+</div>
+<p style="text-align:right; margin:24px 0 0 0;"><a href="#track-nav" style="font-size:13px; color:#8B0000; text-decoration:none; font-weight:600;">&uarr; 트랙 전체 보기</a></p>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- TRACK 4: Realignment -->
+<!-- ══════════════════════════════════════════════════ -->
+<div id="track-realignment" style="padding-top:32px; margin-bottom:72px;">
+<p style="font-size:13px; font-weight:600; color:#8B0000; letter-spacing:0.3px; margin:0 0 8px 0;">Realignment &mdash; Shifting focus to take on a new career experience</p>
+<h2 style="font-size:28px; font-weight:800; color:#222; margin:0; padding-bottom:20px; border-bottom:2px solid #222; letter-spacing:-0.02em;">커리어 전환</h2>
+
+<div style="padding:28px 0; border-bottom:1px solid #e5e0d8;">
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+<p style="font-size:20px; font-weight:700; color:#222; margin:0;">커리어캠프</p>
+<span style="font-size:11px; font-weight:600; color:#8B0000; border:1px solid #8B0000; border-radius:2px; padding:3px 8px;">Realignment</span>
+</div>
+<p style="font-size:15px; line-height:1.8; color:#444; margin:0 0 14px 0;">커리어 방향을 새로 설정하고 전환을 탐색합니다. 막연한 "이직해야 하나"를 구체적인 다음 단계로 전환합니다.</p>
+<div style="background:rgba(139,0,0,0.04); border-radius:6px; padding:16px 20px; margin-bottom:12px;">
+<p style="font-size:11px; font-weight:700; color:#8B0000; margin:0 0 4px 0; letter-spacing:0.3px;">이런 분에게</p>
+<p style="font-size:13px; line-height:1.7; color:#444; margin:0;">"이 일을 계속 해야 하나" 진지하게 고민 중인 사람. 전환은 하고 싶은데 뭘로 갈지 모르는 사람</p>
+</div>
+<p style="font-size:12px; color:#999; margin:0;">다음 스텝 &rarr; <strong style="color:#222;">강점차별화</strong> (내 강점 먼저 정의) &rarr; <strong style="color:#222;">커리어기록</strong> (전환 스토리 정리)</p>
+</div>
+
+<div style="padding:28px 0;">
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+<p style="font-size:20px; font-weight:700; color:#222; margin:0;">커리어기록</p>
+<span style="font-size:11px; font-weight:600; color:#8B0000; border:1px solid #8B0000; border-radius:2px; padding:3px 8px;">Realignment</span>
+</div>
+<p style="font-size:15px; line-height:1.8; color:#444; margin:0 0 14px 0;">흩어진 경험을 글로 정리하며 자기 전문성을 재정의합니다. 3,000자 글 완성과 콘텐츠 시리즈 기획까지 이어갑니다.</p>
+<div style="background:rgba(139,0,0,0.04); border-radius:6px; padding:16px 20px; margin-bottom:12px;">
+<p style="font-size:11px; font-weight:700; color:#8B0000; margin:0 0 4px 0; letter-spacing:0.3px;">이런 분에게</p>
+<p style="font-size:13px; line-height:1.7; color:#444; margin:0;">이직 준비 중이거나, 자기 경험을 콘텐츠로 만들고 싶은 사람. 흩어진 커리어를 글로 정리하고 싶은 사람</p>
+</div>
+<p style="font-size:12px; color:#999; margin:0;">다음 스텝 &rarr; <strong style="color:#222;">커리어캠프</strong> (방향 점검) &rarr; <strong style="color:#222;">고급진영어</strong> (글로벌 커리어 확장)</p>
+</div>
+<p style="text-align:right; margin:24px 0 0 0;"><a href="#track-nav" style="font-size:13px; color:#8B0000; text-decoration:none; font-weight:600;">&uarr; 트랙 전체 보기</a></p>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- TRACK 5: New Horizons -->
+<!-- ══════════════════════════════════════════════════ -->
+<div id="track-newhorizons" style="padding-top:32px; margin-bottom:72px;">
+<p style="font-size:13px; font-weight:600; color:#8B0000; letter-spacing:0.3px; margin:0 0 8px 0;">New Horizons &mdash; Explore an external growth opportunity</p>
+<h2 style="font-size:28px; font-weight:800; color:#222; margin:0; padding-bottom:20px; border-bottom:2px solid #222; letter-spacing:-0.02em;">외부 성장 기회 탐색</h2>
+
+<div style="padding:28px 0; border-bottom:1px solid #e5e0d8;">
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+<p style="font-size:20px; font-weight:700; color:#222; margin:0;">팀오호츠크</p>
+<span style="font-size:11px; font-weight:600; color:#8B0000; border:1px solid #8B0000; border-radius:2px; padding:3px 8px;">New Horizons</span>
+</div>
+<p style="font-size:15px; line-height:1.8; color:#444; margin:0 0 14px 0;">글로벌 뉴스를 읽고 투자 관점에서 외부 성장 기회를 포착합니다. 변화의 틈을 발견하는 감각을 키웁니다.</p>
+<div style="background:rgba(139,0,0,0.04); border-radius:6px; padding:16px 20px; margin-bottom:12px;">
+<p style="font-size:11px; font-weight:700; color:#8B0000; margin:0 0 4px 0; letter-spacing:0.3px;">이런 분에게</p>
+<p style="font-size:13px; line-height:1.7; color:#444; margin:0;">뉴스는 보는데 투자·비즈니스 관점으로 해석하지 못하는 사람. 글로벌 변화에서 기회를 포착하고 싶은 사람</p>
+</div>
+<p style="font-size:12px; color:#999; margin:0;">다음 스텝 &rarr; <strong style="color:#222;">경영브릿지</strong> (경영 전략 연결) &rarr; <strong style="color:#222;">시니어탐구</strong> (특정 시장 딥다이브)</p>
+</div>
+
+<div style="padding:28px 0; border-bottom:1px solid #e5e0d8;">
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+<p style="font-size:20px; font-weight:700; color:#222; margin:0;">시니어탐구</p>
+<span style="font-size:11px; font-weight:600; color:#8B0000; border:1px solid #8B0000; border-radius:2px; padding:3px 8px;">New Horizons</span>
+</div>
+<p style="font-size:15px; line-height:1.8; color:#444; margin:0 0 14px 0;">시니어 시장이라는 외부 영역에서 새로운 비즈니스 기회를 발견하고 기획합니다. 고령화를 기회로 전환합니다.</p>
+<div style="background:rgba(139,0,0,0.04); border-radius:6px; padding:16px 20px; margin-bottom:12px;">
+<p style="font-size:11px; font-weight:700; color:#8B0000; margin:0 0 4px 0; letter-spacing:0.3px;">이런 분에게</p>
+<p style="font-size:13px; line-height:1.7; color:#444; margin:0;">시니어 시장에 관심 있는 기획자·사업개발자. 고령화를 기회로 보고 구체적 비즈니스 아이디어를 만들고 싶은 사람</p>
+</div>
+<p style="font-size:12px; color:#999; margin:0;">다음 스텝 &rarr; <strong style="color:#222;">감각적기획</strong> (시니어 UX 리서치) &rarr; <strong style="color:#222;">스몰브랜드</strong> (시니어 타겟 브랜드 사례)</p>
+</div>
+
+<div style="padding:28px 0; border-bottom:1px solid #e5e0d8;">
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+<p style="font-size:20px; font-weight:700; color:#222; margin:0;">경영의전설</p>
+<span style="font-size:11px; font-weight:600; color:#8B0000; border:1px solid #8B0000; border-radius:2px; padding:3px 8px;">New Horizons</span>
+</div>
+<p style="font-size:15px; line-height:1.8; color:#444; margin:0 0 14px 0;">기업 실패와 턴어라운드 사례를 통해 경영 철학과 새로운 기준을 수립합니다. 3권의 책으로 나만의 경영 기준을 만듭니다.</p>
+<div style="background:rgba(139,0,0,0.04); border-radius:6px; padding:16px 20px; margin-bottom:12px;">
+<p style="font-size:11px; font-weight:700; color:#8B0000; margin:0 0 4px 0; letter-spacing:0.3px;">이런 분에게</p>
+<p style="font-size:13px; line-height:1.7; color:#444; margin:0;">조직에서 의사결정의 무게를 느끼기 시작한 사람. 실패와 턴어라운드 사례에서 자기만의 경영 기준을 세우고 싶은 사람</p>
+</div>
+<p style="font-size:12px; color:#999; margin:0;">다음 스텝 &rarr; <strong style="color:#222;">경영브릿지</strong> (현업 경영에 적용) &rarr; <strong style="color:#222;">영화로운일</strong> (리더십 질문 확장)</p>
+</div>
+
+<div style="padding:28px 0; border-bottom:1px solid #e5e0d8;">
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+<p style="font-size:20px; font-weight:700; color:#222; margin:0;">영화로운일</p>
+<span style="font-size:11px; font-weight:600; color:#8B0000; border:1px solid #8B0000; border-radius:2px; padding:3px 8px;">New Horizons</span>
+</div>
+<p style="font-size:15px; line-height:1.8; color:#444; margin:0 0 14px 0;">영화가 던지는 일과 삶의 질문을 통해 현업 밖의 관점을 탐색합니다. 6편의 영화로 리더십, 조직, 삶의 의미를 되묻습니다.</p>
+<div style="background:rgba(139,0,0,0.04); border-radius:6px; padding:16px 20px; margin-bottom:12px;">
+<p style="font-size:11px; font-weight:700; color:#8B0000; margin:0 0 4px 0; letter-spacing:0.3px;">이런 분에게</p>
+<p style="font-size:13px; line-height:1.7; color:#444; margin:0;">일에 치여 '왜 이 일을 하는가'를 잊어버린 사람. 영화를 통해 일과 삶의 의미를 다시 생각하고 싶은 사람</p>
+</div>
+<p style="font-size:12px; color:#999; margin:0;">다음 스텝 &rarr; <strong style="color:#222;">직장인문학</strong> (더 깊은 자기 탐색) &rarr; <strong style="color:#222;">강점차별화</strong> (방향 재설정)</p>
+</div>
+
+<div style="padding:28px 0; border-bottom:1px solid #e5e0d8;">
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+<p style="font-size:20px; font-weight:700; color:#222; margin:0;">직장인문학</p>
+<span style="font-size:11px; font-weight:600; color:#8B0000; border:1px solid #8B0000; border-radius:2px; padding:3px 8px;">New Horizons</span>
+</div>
+<p style="font-size:15px; line-height:1.8; color:#444; margin:0 0 14px 0;">인문학이라는 외부 영역에서 자기이해와 성장의 실마리를 탐색합니다. 직무 스킬 너머의 깊이를 더합니다.</p>
+<div style="background:rgba(139,0,0,0.04); border-radius:6px; padding:16px 20px; margin-bottom:12px;">
+<p style="font-size:11px; font-weight:700; color:#8B0000; margin:0 0 4px 0; letter-spacing:0.3px;">이런 분에게</p>
+<p style="font-size:13px; line-height:1.7; color:#444; margin:0;">자기계발서에 지친 사람. 인문학적 관점에서 일과 삶을 다시 바라보고 싶은 사람</p>
+</div>
+<p style="font-size:12px; color:#999; margin:0;">다음 스텝 &rarr; <strong style="color:#222;">영화로운일</strong> (다른 매체로 확장) &rarr; <strong style="color:#222;">커리어캠프</strong> (탐색 후 방향 전환이 필요하다면)</p>
+</div>
+
+<div style="padding:28px 0;">
+<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+<p style="font-size:20px; font-weight:700; color:#222; margin:0;">스몰브랜드</p>
+<span style="font-size:11px; font-weight:600; color:#8B0000; border:1px solid #8B0000; border-radius:2px; padding:3px 8px;">New Horizons</span>
+</div>
+<p style="font-size:15px; line-height:1.8; color:#444; margin:0 0 14px 0;">외부 브랜드 사례를 통해 새로운 사업적 가능성을 탐색합니다. 작지만 뾰족한 브랜드에서 사업 감각을 배웁니다.</p>
+<div style="background:rgba(139,0,0,0.04); border-radius:6px; padding:16px 20px; margin-bottom:12px;">
+<p style="font-size:11px; font-weight:700; color:#8B0000; margin:0 0 4px 0; letter-spacing:0.3px;">이런 분에게</p>
+<p style="font-size:13px; line-height:1.7; color:#444; margin:0;">사이드 프로젝트나 1인 브랜드에 관심 있는 사람. 작지만 뾰족한 브랜드에서 사업 감각을 배우고 싶은 사람</p>
+</div>
+<p style="font-size:12px; color:#999; margin:0;">다음 스텝 &rarr; <strong style="color:#222;">도쿄의기획</strong> (브랜드 기획 사례 확장) &rarr; <strong style="color:#222;">팔리는경험</strong> (브랜드에서 세일즈 연결)</p>
+</div>
+<p style="text-align:right; margin:24px 0 0 0;"><a href="#track-nav" style="font-size:13px; color:#8B0000; text-decoration:none; font-weight:600;">&uarr; 트랙 전체 보기</a></p>
+</div>
+
+<!-- ── 팀 운영 방식 ── -->
+<div style="margin-bottom:64px;">
+<h2 style="font-size:28px; font-weight:800; color:#8B0000; margin:0 0 28px 0; letter-spacing:-0.02em;">팀 운영 방식</h2>
+<div style="border-top:2px solid #222; border-bottom:2px solid #222;">
+<div style="padding:24px 0; border-bottom:1px solid #ddd;">
+<p style="font-size:15px; line-height:1.9; color:#444; margin:0;">
+<span style="display:inline-block; width:24px; height:24px; background:#8B0000; color:#fff; border-radius:50%; text-align:center; line-height:24px; font-size:13px; font-weight:600; margin-right:12px;">1</span>
+<strong>3개월</strong> 한 시즌, <strong>격주 6회</strong> 세션으로 운영됩니다.</p>
+</div>
+<div style="padding:24px 0; border-bottom:1px solid #ddd;">
+<p style="font-size:15px; line-height:1.9; color:#444; margin:0;">
+<span style="display:inline-block; width:24px; height:24px; background:#8B0000; color:#fff; border-radius:50%; text-align:center; line-height:24px; font-size:13px; font-weight:600; margin-right:12px;">2</span>
+세션당 <strong>2시간 30분</strong>, 팀당 <strong>최대 15명</strong> 소규모 그룹으로 진행됩니다.</p>
+</div>
+<div style="padding:24px 0; border-bottom:1px solid #ddd;">
+<p style="font-size:15px; line-height:1.9; color:#444; margin:0;">
+<span style="display:inline-block; width:24px; height:24px; background:#8B0000; color:#fff; border-radius:50%; text-align:center; line-height:24px; font-size:13px; font-weight:600; margin-right:12px;">3</span>
+(주중) 월, 목, 금 19:30~22:00 / (주말) 토, 일 10:30~13:00 또는 14:30~17:00</p>
+</div>
+<div style="padding:24px 0;">
+<p style="font-size:15px; line-height:1.9; color:#444; margin:0;">
+<span style="display:inline-block; width:24px; height:24px; background:#8B0000; color:#fff; border-radius:50%; text-align:center; line-height:24px; font-size:13px; font-weight:600; margin-right:12px;">4</span>
+매회 <strong>4L</strong>(Liked, Learned, Lacked, Long for) 관점으로 회고하고 마칩니다.</p>
+</div>
+</div>
+</div>
+
+<!-- ── CTA ── -->
+<div style="background:#F5EBE0; border-radius:12px; padding:48px 36px; text-align:center;">
+<h2 style="font-size:28px; font-weight:800; color:#8B0000; margin:0 0 14px 0; letter-spacing:-0.02em;">당신의 성장은 어디를 향하고 있나요?</h2>
+</div>
+
+</div>
+<!-- ↑↑↑ 아임웹에 붙여넣을 때는 여기까지 복사 ↑↑↑ -->
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ODC 멤버 조회 — HFK</title>
+<meta name="description" content="ODC 멤버십이 무엇인지, 본인의 잔여 팀 등록 가능 횟수가 몇 회인지, 추가 등록 시 쿠폰 사용 방법을 한 페이지에서 확인하세요.">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #f0eae2;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #2d2523;
+    letter-spacing: -0.01em;
+    line-height: 1.7;
+  }
+  .container { max-width: 760px; margin: 0 auto; padding: 64px 20px 100px; }
+  h1 { font-size: 36px; font-weight: 800; color: #2d2523; line-height: 1.3; margin: 0 0 16px; letter-spacing: -0.02em; }
+  h2 { font-size: 22px; font-weight: 800; color: #980000; padding-bottom: 10px; border-bottom: 2px solid #2d2523; margin: 0 0 24px; letter-spacing: -0.02em; }
+  h3 { font-size: 17px; font-weight: 700; color: #2d2523; margin: 0 0 8px; }
+  .tag { font-size: 12px; font-weight: 700; color: #980000; letter-spacing: 1px; margin: 0 0 10px; text-transform: uppercase; }
+  .lead { font-size: 16px; line-height: 1.85; color: #2d2523; margin: 0 0 12px; }
+  section { margin-top: 64px; }
+
+  /* ODC 소개 */
+  .intro { padding: 28px 26px; border: 1px solid #ddcfbf; border-radius: 8px; background: #ffffff; }
+  .intro p { margin: 0 0 12px; font-size: 15px; line-height: 1.8; }
+  .intro p:last-child { margin: 0; }
+  .plan-mini { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 18px; }
+  .plan-mini-item { padding: 16px 14px; border: 1px solid #ddcfbf; border-radius: 6px; text-align: center; }
+  .plan-mini-item .pn { font-size: 15px; font-weight: 700; color: #980000; margin: 0 0 4px; }
+  .plan-mini-item .pl { font-size: 12px; color: #2d2523; opacity: 0.8; margin: 0 0 6px; }
+  .plan-mini-item .pq { font-size: 13px; font-weight: 600; color: #2d2523; margin: 0; }
+
+  /* 검색 박스 */
+  .search-box { margin-top: 24px; padding: 28px 26px; border: 1px solid #980000; border-radius: 8px; background: #ffffff; }
+  .search-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .search-row input {
+    flex: 1 1 200px; min-width: 200px;
+    padding: 14px 16px;
+    font-size: 16px;
+    border: 1px solid #ddcfbf;
+    border-radius: 6px;
+    font-family: inherit;
+    color: #2d2523;
+    background: #f0eae2;
+  }
+  .search-row input:focus { outline: none; border-color: #980000; }
+  .search-row button {
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: 700;
+    border: 1px solid #2d2523;
+    border-radius: 6px;
+    background: #2d2523;
+    color: #f0eae2;
+    cursor: pointer;
+    font-family: inherit;
+    transition: opacity 0.15s;
+  }
+  .search-row button:hover { opacity: 0.85; }
+  .search-hint { font-size: 13px; color: #2d2523; opacity: 0.7; margin: 12px 0 0; line-height: 1.6; }
+
+  /* 결과 카드 */
+  #result { margin-top: 24px; }
+  .result-card { padding: 28px 26px; border: 1px solid #2d2523; border-radius: 8px; background: #ffffff; }
+  .rc-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid #ddcfbf; flex-wrap: wrap; }
+  .rc-name { font-size: 22px; font-weight: 800; color: #2d2523; margin: 0; }
+  .rc-plan { padding: 4px 10px; border: 1px solid #980000; border-radius: 4px; font-size: 12px; font-weight: 700; color: #980000; }
+  .rc-period { font-size: 13px; color: #2d2523; opacity: 0.75; }
+  .rc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 18px; }
+  .rc-stat { padding: 16px 14px; border: 1px solid #ddcfbf; border-radius: 6px; text-align: center; }
+  .rc-stat .v { font-size: 30px; font-weight: 800; color: #980000; line-height: 1.1; margin: 0 0 4px; }
+  .rc-stat.zero .v { color: #2d2523; opacity: 0.5; }
+  .rc-stat .k { font-size: 12px; color: #2d2523; opacity: 0.75; margin: 0; }
+  .rc-used { padding: 16px 18px; border: 1px solid #ddcfbf; border-radius: 6px; margin-bottom: 18px; background: #f0eae2; }
+  .rc-used h3 { font-size: 13px; color: #2d2523; opacity: 0.8; margin: 0 0 8px; font-weight: 700; }
+  .rc-used ul { margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.7; }
+  .rc-used .empty { font-size: 14px; color: #2d2523; opacity: 0.6; margin: 0; }
+  .rc-msg { padding: 18px 20px; border-radius: 6px; font-size: 14px; line-height: 1.75; }
+  .rc-msg.go { border: 1px solid #980000; background: #ffffff; color: #2d2523; }
+  .rc-msg.go strong { color: #980000; }
+  .rc-msg.stop { border: 1px solid #ddcfbf; background: #f0eae2; color: #2d2523; }
+  .rc-coupon { display: inline-block; padding: 8px 14px; background: #980000; color: #ffffff; font-size: 14px; font-weight: 700; letter-spacing: 1px; border-radius: 4px; margin: 4px 0; font-family: 'SF Mono', Menlo, Consolas, monospace; }
+
+  /* 쿠폰 사용 방법 */
+  .howto { padding: 24px 26px; border: 1px solid #ddcfbf; border-radius: 8px; background: #ffffff; }
+  .howto ol { padding-left: 22px; margin: 0; font-size: 15px; line-height: 1.85; }
+  .howto li { margin-bottom: 10px; }
+  .howto li:last-child { margin-bottom: 0; }
+  .howto strong { color: #980000; }
+
+  /* 미일치 메시지 */
+  .nomatch { padding: 18px 20px; border: 1px solid #ddcfbf; border-radius: 6px; background: #f0eae2; font-size: 14px; line-height: 1.7; color: #2d2523; }
+
+  /* footer */
+  .footer-note { margin-top: 64px; padding-top: 24px; border-top: 1px solid #ddcfbf; font-size: 12px; color: #2d2523; opacity: 0.7; line-height: 1.7; }
+
+  @media (max-width: 640px) {
+    .container { padding: 48px 16px 80px; }
+    h1 { font-size: 28px; }
+    .plan-mini, .rc-grid { grid-template-columns: 1fr; }
+    .rc-stat { display: flex; align-items: baseline; justify-content: space-between; text-align: left; }
+    .rc-stat .v { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <p class="tag">ODC 멤버 전용 조회</p>
+  <h1>내 ODC 멤버십,<br>팀 몇 개 더 등록할 수 있을까?</h1>
+  <p class="lead">본인 이름으로 조회하면 멤버십 정보, 잔여 팀 등록 가능 횟수, 추가 등록 시 쿠폰 사용 방법을 한 번에 확인하실 수 있어요.</p>
+</header>
+
+<!-- ODC 소개 -->
+<section>
+  <h2>ODC가 뭐였더라?</h2>
+  <div class="intro">
+    <p>ODC는 HFK를 한 시즌 이상 경험한 멤버들만 신청하는 <strong>1년 멤버십</strong>입니다. 시즌 단위가 아닌 연 단위로 HFK에 참여하실 수 있어요.</p>
+    <p>바쁜 시즌엔 이벤트와 클럽으로 가볍게, 여유로운 시즌엔 팀 멤버로 깊이 있게: 자기 페이스에 맞게 1년을 설계할 수 있는 멤버십이에요.</p>
+    <div class="plan-mini">
+      <div class="plan-mini-item">
+        <p class="pn">관계</p>
+        <p class="pl">팀 없이, 이벤트와 클럽만</p>
+        <p class="pq">시즌 팀 0개</p>
+      </div>
+      <div class="plan-mini-item">
+        <p class="pn">지성</p>
+        <p class="pl">한 시즌은 의미 있게</p>
+        <p class="pq">시즌 팀 1개</p>
+      </div>
+      <div class="plan-mini-item">
+        <p class="pn">성장</p>
+        <p class="pl">두 시즌을 깊이 있게</p>
+        <p class="pq">시즌 팀 2개</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 검색 -->
+<section>
+  <h2>내 정보 조회</h2>
+  <div class="search-box">
+    <div class="search-row">
+      <input id="q" type="text" placeholder="이름을 입력하세요 (예: 이슬기)" autocomplete="off">
+      <button id="searchBtn" type="button">조회</button>
+    </div>
+    <p class="search-hint">동명이인이 있는 경우 전화번호 끝 4자리도 함께 입력하시면 정확하게 찾을 수 있어요. (예: 이슬기 1829)</p>
+  </div>
+  <div id="result"></div>
+</section>
+
+<!-- 쿠폰 사용 방법 -->
+<section>
+  <h2>팀 추가 등록 시 쿠폰 사용 방법</h2>
+  <div class="howto">
+    <ol>
+      <li><a href="https://www.thehfk.com" target="_blank" rel="noopener" style="color:#980000;">HFK 사이트</a>에서 등록하고 싶은 시즌 팀 상품을 장바구니에 담거나 바로 결제 단계로 이동합니다.</li>
+      <li>결제 정보 입력 화면 하단의 <strong>쿠폰 코드 입력란</strong>에 <span class="rc-coupon" style="background:#2d2523;">ODC2026</span> 을 입력하고 <strong>적용</strong>을 클릭합니다.</li>
+      <li>총 결제 금액에서 <strong>270,000원이 할인</strong>되어 <strong>120,000원</strong>으로 표시되는지 확인합니다.</li>
+      <li>나머지 결제 정보를 채우고 결제를 완료합니다.</li>
+      <li>결제가 완료되면 ODC 슬랙 채널 운영자에게 어떤 시즌·팀에 등록했는지 알려주세요. 운영진이 잔여 횟수를 갱신합니다.</li>
+    </ol>
+  </div>
+  <p style="font-size:13px; color:#2d2523; opacity:0.7; margin-top:14px; line-height:1.7;">* 쿠폰은 시즌 팀 상품에만 적용됩니다 (이벤트·클럽·다른 ODC 멤버십 상품 적용 불가).<br>* 쿠폰 사용 가능 횟수는 본인 플랜의 잔여 팀 수까지입니다. 한도를 초과해 사용할 경우 운영진이 환불 또는 차액을 청구할 수 있어요.</p>
+</section>
+
+<div class="footer-note" id="footerNote">
+  데이터 갱신 시점: <span id="updatedAt">로딩 중</span> · 운영팀에 문의: HFK 슬랙 ODC 채널
+</div>
+
+</div>
+
+<script>
+let DATA = null;
+
+async function loadData() {
+  try {
+    const res = await fetch('odc-data.json?t=' + Date.now());
+    DATA = await res.json();
+    document.getElementById('updatedAt').textContent = DATA.updated_at;
+  } catch (e) {
+    document.getElementById('updatedAt').textContent = '로드 실패';
+    console.error(e);
+  }
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
+}
+
+function search() {
+  const q = document.getElementById('q').value.trim();
+  if (!q) {
+    document.getElementById('result').innerHTML = '';
+    return;
+  }
+  if (!DATA) {
+    document.getElementById('result').innerHTML = '<div class="nomatch">데이터를 아직 불러오는 중입니다. 잠시 후 다시 시도해주세요.</div>';
+    return;
+  }
+
+  const parts = q.split(/\s+/);
+  const namePart = parts[0];
+  const last4Part = parts.length > 1 ? parts.slice(1).join('').replace(/\D/g, '').slice(-4) : null;
+
+  let candidates = DATA.members.filter(m => m.name.includes(namePart) || namePart.includes(m.name));
+  if (last4Part) {
+    candidates = candidates.filter(m => m.phone_last4 === last4Part);
+  }
+
+  if (candidates.length === 0) {
+    document.getElementById('result').innerHTML =
+      '<div class="nomatch">해당 이름으로 등록된 ODC 멤버를 찾지 못했어요. 이름을 다시 확인하시거나, 운영진에게 문의해주세요.</div>';
+    return;
+  }
+
+  if (candidates.length > 1) {
+    const list = candidates.map(c => `${escapeHtml(c.name)} (전화번호 끝 ${escapeHtml(c.phone_last4)})`).join(', ');
+    document.getElementById('result').innerHTML =
+      `<div class="nomatch">동명이인이 ${candidates.length}명 발견되었어요: ${list}<br>이름 뒤에 본인의 전화번호 끝 4자리를 함께 입력해주세요. (예: ${escapeHtml(candidates[0].name)} ${escapeHtml(candidates[0].phone_last4)})</div>`;
+    return;
+  }
+
+  renderMember(candidates[0]);
+}
+
+function renderMember(m) {
+  const isRelation = m.plan_short === '관계';
+  const usedHtml = m.used.length > 0
+    ? '<ul>' + m.used.map(u => `<li><strong>${escapeHtml(u.season_label)}</strong> — ${escapeHtml(u.team)}</li>`).join('') + '</ul>'
+    : '<p class="empty">아직 사용한 시즌 팀이 없어요.</p>';
+
+  let msgHtml = '';
+  if (isRelation) {
+    msgHtml = `
+      <div class="rc-msg stop">
+        <strong>관계 멤버십</strong>은 시즌 팀 등록이 포함되지 않은 플랜이에요.<br>
+        4개 시즌 이벤트·클럽·어드벤처를 자유롭게 이용하실 수 있습니다. 시즌 팀에 참여하고 싶으시면 정가(39만원)로 따로 등록 가능해요.
+      </div>`;
+  } else if (m.remaining === 0) {
+    msgHtml = `
+      <div class="rc-msg stop">
+        <strong>플랜 한도(${m.quota}팀)를 모두 사용</strong>하셨어요. 추가 시즌 팀 등록은 정가(39만원)로 진행됩니다.<br>
+        ODC 기간 중 이벤트·클럽·어드벤처는 계속 자유롭게 이용하실 수 있어요.
+      </div>`;
+  } else {
+    const seasonsHtml = m.available_seasons.length > 0
+      ? m.available_seasons.map(s => `<strong>${escapeHtml(s)}</strong>`).join(', ')
+      : '<strong>(남은 시즌 없음)</strong>';
+    msgHtml = `
+      <div class="rc-msg go">
+        <strong>${m.remaining}팀</strong> 추가 등록이 가능합니다. 등록 가능한 시즌: ${seasonsHtml}<br><br>
+        쿠폰 코드 <span class="rc-coupon">${escapeHtml(DATA.coupon_code)}</span> 를 결제 시 입력하시면 <strong>27만원 할인</strong>되어 시즌 팀을 <strong>12만원</strong>에 등록하실 수 있어요. 사용 방법은 아래 안내를 참고하세요.
+      </div>`;
+  }
+
+  document.getElementById('result').innerHTML = `
+    <div class="result-card">
+      <div class="rc-header">
+        <p class="rc-name">${escapeHtml(m.name)} 님</p>
+        <span class="rc-plan">ODC ${escapeHtml(m.plan_short)}</span>
+        <span class="rc-period">${escapeHtml(m.period_label)}</span>
+      </div>
+      <div class="rc-grid">
+        <div class="rc-stat">
+          <p class="v">${m.quota}</p>
+          <p class="k">시즌 팀 한도</p>
+        </div>
+        <div class="rc-stat ${m.used_count === 0 ? 'zero' : ''}">
+          <p class="v">${m.used_count}</p>
+          <p class="k">사용한 팀</p>
+        </div>
+        <div class="rc-stat ${m.remaining === 0 ? 'zero' : ''}">
+          <p class="v">${m.remaining}</p>
+          <p class="k">잔여 가능 팀</p>
+        </div>
+      </div>
+      <div class="rc-used">
+        <h3>사용 내역</h3>
+        ${usedHtml}
+      </div>
+      ${msgHtml}
+    </div>`;
+}
+
+document.getElementById('searchBtn').addEventListener('click', search);
+document.getElementById('q').addEventListener('keydown', e => {
+  if (e.key === 'Enter') search();
+});
+
+loadData();
+</script>
+
+<script>
+// ?embed=1 (아임웹 iframe) 이면 바깥 여백·폭 제한을 빼고 높이를 부모에게 알린다.
+(function () {
+  if (!/[?&]embed=1/.test(location.search)) return;
+  document.documentElement.classList.add('hfk-embed');
+  var css = document.createElement('style');
+  css.textContent = 'html.hfk-embed body{padding-left:0!important;padding-right:0!important;' +
+    'padding-top:0!important}html.hfk-embed .wrap,html.hfk-embed .container{max-width:none!important}';
+  document.head.appendChild(css);
+  var last = 0;
+  function tell() {
+    var r = document.body.getBoundingClientRect(), cs = getComputedStyle(document.body);
+    var h = Math.ceil(r.height + (parseFloat(cs.marginTop) || 0) + (parseFloat(cs.marginBottom) || 0));
+    if (h && Math.abs(h - last) > 1) { last = h; parent.postMessage({ hfkEmbedHeight: h }, '*'); }
+  }
+  new ResizeObserver(tell).observe(document.body);
+  addEventListener('load', tell); addEventListener('resize', tell);
+  setInterval(tell, 1000); tell();
+})();
+</script>
+</body>
+</html>
