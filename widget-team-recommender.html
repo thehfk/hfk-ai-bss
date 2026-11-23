@@ -122,7 +122,7 @@
   <div class="hfk-head">
     <p class="hfk-eyebrow">Find Your Team</p>
     <h2 class="hfk-title">나에게 맞는 HFK 팀 찾기</h2>
-    <p class="hfk-lede">직무와 연차를 입력하면, 비슷한 멤버들이 그동안 가장 많이 등록한 팀 top 3를 알려드립니다.</p>
+    <p class="hfk-lede">직무와 연차를 입력하면, 비슷한 멤버들이 그동안 가장 많이 등록한 팀 Top 3를 알려드립니다.</p>
   </div>
 
   <!-- 1단계: 직무·연차 입력 -->
@@ -441,7 +441,7 @@
 
   function renderProfileResults() {
     var top = currentProfile.top.map(function(name){ return TEAMS_BY_NAME[name]; }).filter(Boolean);
-    var html = '<div class="hfk-results-header">비슷한 멤버들이 가장 많이 등록한 팀 top ' + top.length + '</div>';
+    var html = '<div class="hfk-results-header">비슷한 멤버들이 가장 많이 등록한 팀 Top ' + top.length + '</div>';
     for (var i = 0; i < top.length; i++) {
       html += renderCard(top[i], { rank: i + 1 });
     }
@@ -501,7 +501,7 @@
 
     var html = '';
     if (anyMatch) {
-      html += '<div class="hfk-results-header">고민과 직무·연차를 함께 반영한 추천 top 3</div>';
+      html += '<div class="hfk-results-header">고민과 직무·연차를 함께 반영한 추천 Top 3</div>';
     } else {
       html += '<div class="hfk-notice">입력하신 고민과 직접 맞는 키워드는 없지만, 비슷한 멤버들이 가장 많이 등록한 팀을 보여드립니다.</div>';
     }
