@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-11-25 06:20",
+ "updated_at": "2026-11-26 06:20",
  "coupon_in_quota": "welcomebackodc",
  "coupon_addon": "welcomebackodc27",
  "discount_amount": 270000,
@@ -747,10 +747,14 @@
     {
      "season_label": "2026 가을",
      "team": "AI부사수(TUE)"
+    },
+    {
+     "season_label": "2026 겨울",
+     "team": "서비스빌더"
     }
    ],
-   "used_count": 1,
-   "remaining": 1,
+   "used_count": 2,
+   "remaining": 0,
    "available_seasons": [
     "2026 겨울"
    ]
@@ -876,6 +880,22 @@
     "2026 겨울",
     "2027 봄",
     "2027 여름"
+   ]
+  },
+  {
+   "k": "5ee0b46135d8f7e7b1c57f7f8796781f7713addd28017288424df0fcebff9221",
+   "k4": "7519dd1dd96e7a6209340f9c48802820453140b452ed67d2c5c814f776d815ac",
+   "plan_short": "관계",
+   "period_label": "2026 겨울 - 2027 가을",
+   "quota": 0,
+   "used": [],
+   "used_count": 0,
+   "remaining": 0,
+   "available_seasons": [
+    "2026 겨울",
+    "2027 봄",
+    "2027 여름",
+    "2027 가을"
    ]
   }
  ]
