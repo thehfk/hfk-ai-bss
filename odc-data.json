@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-11-27 06:20",
+ "updated_at": "2026-11-27 19:11",
  "coupon_in_quota": "welcomebackodc",
  "coupon_addon": "welcomebackodc27",
  "discount_amount": 270000,
@@ -498,22 +498,19 @@
    "k": "899546a648fe5a54579db42dabc24d01f0ed6d6a6c5f584586db5785d760b7c0",
    "k4": "241dd410a9d1e28a68d204a45fef0a385ad23e96be317037a5fde68375448928",
    "plan_short": "성장",
-   "period_label": "2026 봄 - 2026 겨울",
+   "period_label": "2026 봄 - 2027 봄",
    "quota": 2,
    "used": [
     {
      "season_label": "2026 봄",
      "team": "AI핸즈온"
-    },
-    {
-     "season_label": "2026 겨울",
-     "team": "관찰과발견"
     }
    ],
-   "used_count": 2,
-   "remaining": 0,
+   "used_count": 1,
+   "remaining": 1,
    "available_seasons": [
-    "2026 겨울"
+    "2026 겨울",
+    "2027 봄"
    ]
   },
   {
@@ -803,14 +800,9 @@
    "plan_short": "지성",
    "period_label": "2026 가을 - 2027 여름",
    "quota": 1,
-   "used": [
-    {
-     "season_label": "2026 겨울",
-     "team": "이월(27봄)"
-    }
-   ],
-   "used_count": 1,
-   "remaining": 0,
+   "used": [],
+   "used_count": 0,
+   "remaining": 1,
    "available_seasons": [
     "2026 겨울",
     "2027 봄",
