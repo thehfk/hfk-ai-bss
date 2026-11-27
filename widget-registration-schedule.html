@@ -178,7 +178,7 @@ html.hfk-embed, html.hfk-embed body { background:transparent !important; }
     <li class="item" data-phase="4">
       <span class="num" style="color:#ceb9a4 !important;">&#10105;</span>
       <span class="name" style="color:#f0eae2 !important;">일반 등록</span>
-      <span class="when" style="color:#ceb9a4 !important;">11월 12일 (목) 13:00 ~ 11월 24일 (화)</span>
+      <span class="when" style="color:#ceb9a4 !important;">11월 12일 (목) 13:00 ~ 11월 29일 (일)</span>
       <span class="stat" style="color:#ceb9a4 !important;"></span>
     </li>
     <li class="item" data-phase="5">
@@ -244,11 +244,11 @@ html.hfk-embed, html.hfk-embed body { background:transparent !important; }
     { s:D('2026-11-06T21:00'), e:D('2026-11-12T00:00') },
     { s:D('2026-11-07T21:00'), e:D('2026-11-12T00:00') },
     { s:D('2026-11-08T21:00'), e:D('2026-11-12T00:00') },
-    { s:D('2026-11-12T13:00'), e:D('2026-11-24T23:59') },
+    { s:D('2026-11-12T13:00'), e:D('2026-11-29T23:59') },
     { s:D('2026-11-27T00:00'), e:D('2026-11-27T23:59'), point:true },
     { s:D('2026-11-29T00:00'), e:D('2026-11-29T23:59'), point:true }
   ];
-  var CUTOVER = D('2026-11-25T00:00');
+  var CUTOVER = D('2026-11-30T00:00');   // 11/25 → 11/30: 등록 11/29 자정까지 연장(슬기 2026-11-27)
   function applyMode(){
     var root = document.querySelector('.hfk-26f'); if (!root) return false;
     var live = root.querySelector('.live'), ended = root.querySelector('.ended');
